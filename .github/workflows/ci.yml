@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    name: Test Suite
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust (stable)
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: Cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target/
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-cargo-
+
+      - name: cargo test --all
+        run: cargo test --all
+
+      - name: cargo clippy
+        run: cargo clippy --all-targets -- -D warnings
+
+      - name: No unsafe code
+        run: |
+          if grep -r "unsafe" src/; then
+            echo "FAIL: unsafe code found"
+            exit 1
+          fi
+          echo "OK: no unsafe code"
+
+      - name: Self-test (anchor constants)
+        run: |
+          cargo build --release --bin dhad-cli
+          ./self_test.sh ./target/release/dhad-cli
+
+      - name: Conformance report
+        run: python3 generate_conformance.py
