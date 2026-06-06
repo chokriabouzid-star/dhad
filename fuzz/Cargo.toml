@@ -1,0 +1,35 @@
+[package]
+name = "dhad-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+
+[dependencies.dhad]
+path = ".."
+
+[[bin]]
+name = "fuzz_mode_a"
+path = "fuzz_targets/fuzz_mode_a.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_mode_b"
+path = "fuzz_targets/fuzz_mode_b.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "fuzz_determinism"
+path = "fuzz_targets/fuzz_determinism.rs"
+test = false
+doc = false
+bench = false

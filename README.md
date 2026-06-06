@@ -120,6 +120,37 @@ thiserror = "1.0.61"   # Error derive
 
 No unsafe code. No nightly features. Stable Rust ≥ 1.75.0.
 
+## Fuzzing
+
+Dhad includes `cargo-fuzz` / libFuzzer targets for robustness testing.
+
+The library itself remains stable-Rust compatible.
+However, fuzzing requires a nightly toolchain because sanitizer-based fuzzing in Rust depends on nightly instrumentation.
+
+### Fuzz targets
+
+- `fuzz_mode_a`: feeds arbitrary bytes into `process_mode_a`
+- `fuzz_mode_b`: feeds arbitrary bytes into `parse_frame`
+- `fuzz_determinism`: checks that the same input always produces the same result class and hashes
+
+### Run locally
+
+```bash
+rustup toolchain install nightly --profile minimal
+cargo +nightly fuzz run fuzz_mode_a -- -max_total_time=30 -max_len=4096
+cargo +nightly fuzz run fuzz_mode_b -- -max_total_time=30 -max_len=4096
+cargo +nightly fuzz run fuzz_determinism -- -max_total_time=30 -max_len=4096
+```
+
+### Notes
+
+- The fuzz harnesses are intentionally kept separate from the stable library build.
+- Generated corpora, artifacts, and logs are ignored from git.
+- Initial baseline fuzzing completed without crashes across all three targets.
+
 ## License
 
-MIT
+MIT — free for all uses including commercial.
+
+For enterprise support or custom licensing, 
+contact: CHOKRIABOUZID@GMAIL.COM

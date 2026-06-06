@@ -5,3 +5,14 @@
 __pycache__/
 *.pyc
 /CONFORMANCE.md
+
+# Coverage artifacts
+/cobertura.xml
+
+# cargo-fuzz generated data
+/fuzz/artifacts/
+/fuzz/corpus/
+/fuzz/coverage/
+/fuzz/target/
+
+/fuzz_logs/
