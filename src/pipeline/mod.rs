@@ -1,0 +1,12 @@
+pub mod stage10_crf;
+pub mod stage11_serialize;
+pub mod stage12_hash;
+pub mod stage1_utf8;
+pub mod stage2_bom;
+pub mod stage3_faps;
+pub mod stage4_noise;
+pub mod stage5_classify;
+pub mod stage6_atoms;
+pub mod stage7_flags;
+pub mod stage8_digits;
+pub mod stage9_prosody;
