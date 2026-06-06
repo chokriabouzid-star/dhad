@@ -1,10 +1,10 @@
 [package]
 name        = "dhad"
-version     = "1.0.0"
+version     = "1.0.1"
 edition     = "2021"
 license     = "MIT"
 description = "Deterministic Arabic text canonicalization with cryptographic hashing"
-repository  = "https://github.com/dhad-lang/dhad"
+repository  = "https://github.com/chokriabouzid-star/dhad"
 keywords    = ["arabic", "nlp", "unicode", "canonicalization", "quran"]
 categories  = ["text-processing", "encoding"]
 readme      = "README.md"
