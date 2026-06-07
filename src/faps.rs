@@ -89,3 +89,44 @@ pub fn faps_decompose(cp: u32) -> FapsResult {
         _ => FapsResult::PassThrough,
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn covers_harakat_forms_fe70_to_fe7f() {
+        assert!(matches!(faps_decompose(0xFE70), FapsResult::One(0x064B)));
+        assert!(matches!(faps_decompose(0xFE71), FapsResult::Two(0x0640, 0x064B)));
+        assert!(matches!(faps_decompose(0xFE72), FapsResult::One(0x064C)));
+        assert!(matches!(faps_decompose(0xFE73), FapsResult::Unmapped));
+        assert!(matches!(faps_decompose(0xFE74), FapsResult::One(0x064D)));
+        assert!(matches!(faps_decompose(0xFE75), FapsResult::Unmapped));
+        assert!(matches!(faps_decompose(0xFE76), FapsResult::One(0x064E)));
+        assert!(matches!(faps_decompose(0xFE77), FapsResult::Two(0x0640, 0x064E)));
+        assert!(matches!(faps_decompose(0xFE78), FapsResult::One(0x064F)));
+        assert!(matches!(faps_decompose(0xFE79), FapsResult::Two(0x0640, 0x064F)));
+        assert!(matches!(faps_decompose(0xFE7A), FapsResult::One(0x0650)));
+        assert!(matches!(faps_decompose(0xFE7B), FapsResult::Two(0x0640, 0x0650)));
+        assert!(matches!(faps_decompose(0xFE7C), FapsResult::One(0x0651)));
+        assert!(matches!(faps_decompose(0xFE7D), FapsResult::Two(0x0640, 0x0651)));
+        assert!(matches!(faps_decompose(0xFE7E), FapsResult::One(0x0652)));
+        assert!(matches!(faps_decompose(0xFE7F), FapsResult::Two(0x0640, 0x0652)));
+    }
+
+    #[test]
+    fn covers_forms_a_and_edge_unmapped_ranges() {
+        assert!(matches!(faps_decompose(0xFEFD), FapsResult::Unmapped));
+        assert!(matches!(faps_decompose(0xFEFE), FapsResult::Unmapped));
+
+        assert!(matches!(faps_decompose(0xFB50), FapsResult::One(0x0671)));
+        assert!(matches!(faps_decompose(0xFB51), FapsResult::One(0x0671)));
+        assert!(matches!(faps_decompose(0xFB52), FapsResult::Unmapped));
+        assert!(matches!(faps_decompose(0xFDFF), FapsResult::Unmapped));
+    }
+
+    #[test]
+    fn covers_passthrough_branch() {
+        assert!(matches!(faps_decompose(0x0628), FapsResult::PassThrough));
+    }
+}
