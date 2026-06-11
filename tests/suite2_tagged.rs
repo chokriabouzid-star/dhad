@@ -303,6 +303,21 @@ fn frame_err_n_atoms_overflow() {
     );
 }
 
+#[test]
+fn frame_err_n_atoms_usize_overflow_like_value() {
+    // قيمة كبيرة جداً في n_atoms (0xFFFF_FFFF) يجب أن تُرفض بلا panic
+    let mut frame = vec![
+        0x44, 0x48, 0x41, 0x44, // DHAD
+        0x01, 0x42, // version, mode
+        0xFF, 0xFF, 0xFF, 0xFF, // n_atoms = u32::MAX
+    ];
+    frame.extend_from_slice(&[0x00, 0x00, 0x00, 0x00]); // fake CRC
+    assert!(
+        process_mode_b(&frame).is_err(),
+        "huge n_atoms must be rejected deterministically without panic"
+    );
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // CR-07: reserved field non-zero
 // ═══════════════════════════════════════════════════════════════════

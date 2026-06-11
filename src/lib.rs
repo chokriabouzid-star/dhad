@@ -1,11 +1,11 @@
 //! # Dhad (ضاد) — Arabic Text Canonicalization Library
 //!
-//! Dhad implements a deterministic 12-stage pipeline that converts
-//! Arabic Unicode text into a canonical [`AtomStream`] of [`DhadAtom`]s,
-//! then computes two independent hashes:
+//! Dhad implements a deterministic pipeline that converts Arabic Unicode
+//! text into a canonical [`AtomStream`] of [`DhadAtom`]s and produces two
+//! independent cryptographic hashes.
 //!
-//! - **[`hash::core_hash`]**: orthographic identity (base + marks + flags)
-//! - **[`hash::phonetic_hash`]**: prosodic identity (CoreHash + prosody layer)
+//! - **[`hash::core_hash`]** — orthographic identity (base + marks + flags)
+//! - **[`hash::phonetic_hash`]** — prosodic identity (CoreHash + prosody)
 //!
 //! ## Quick Start
 //!
@@ -23,37 +23,34 @@
 //! | Axiom | Description |
 //! |-------|-------------|
 //! | A1 | Determinism — same input → identical output |
-//! | A2 | No Silent Correction — invalid input → error |
-//! | A3 | Separation of Concerns — CoreHash ⊥ PhoneticHash |
-//! | A6 | Mark Order Independence — diacritic order is irrelevant |
-//! | A7 | Source Digit Independence — ASCII/Arabic-Indic/Extended are identical |
-//! | A8 | Semantic Integrity — contradictory prosody is rejected |
+//! | A2 | No Silent Correction — invalid input → typed error |
+//! | A3 | Hash Separation — CoreHash is independent of prosody |
+//! | A5 | Glyph Independence — positional forms carry no information |
+//! | A6 | Mark Order Independence — diacritic ordering is ignored |
+//! | A7 | Digit Source Independence — ASCII/Arabic/Extended digits are equal |
 //!
-//! ## Pipeline Stages
+//! ## Important Limitations (v1.x)
 //!
-//! ```text
-//! Input bytes
-//!   │ Pre-stage: MAX_INPUT_BYTES check (4 MiB)
-//!   │ Stage 1:  UTF-8 decode
-//!   │ Stage 2:  BOM removal
-//!   │ Stage 3:  FAPS decomposition (presentation forms)
-//!   │ Stage 4:  Noise filtering (tatweel, ZWJ, BiDi controls…)
-//!   │ Stage 5:  Codepoint classification
-//!   │ Stage 6:  Base atom construction + diacritic attachment
-//!   │ Stage 7:  Flag resolution (hamza/madda)
-//!   │ Stage 8:  Digit normalization
-//!   │ Stage 9:  Prosody resolution (tanween, superscript alef)
-//!   │ Stage 10: CRF validation (23 invariants)
-//!   │ Stage 11: Serialization (n × 8 bytes, little-endian)
-//!   └ Stage 12: CoreHash + PhoneticHash (SHA-256)
-//! ```
+//! - **Input must be NFC-precomposed**. Decomposed forms such as
+//!   `U+0627 U+0653` are not mapped in v1.x and will return
+//!   `UnmappedCodepoint`.
+//! - **Quranic annotation marks** such as `U+06D6`–`U+06ED` are out of scope
+//!   for strict Mode A processing in v1.x.
+//! - Some specification stages are **identity stages** in v1.x because
+//!   normalization already occurs earlier in the pipeline.
+//! - Mode B structural errors are currently reported as `MalformedUtf8`
+//!   for API compatibility in v1.x.
 //!
-//! ## Specification
+//! ## Specification Status
 //!
-//! This implementation conforms to **Dhad Implementation Specification v1.0**
-//! with corrections CR-01 through CR-07 applied.
+//! Dhad v1.x is the reference implementation of the Dhad Implementation
+//! Specification v1.0. Repository vectors are self-consistency regression
+//! data; independent cross-implementation conformance is planned.
+//!
+//! See **Known Limitations** in `README.md` for full details.
 
 pub(crate) mod base_map;
+pub mod constants;
 pub(crate) mod faps;
 pub mod hash;
 pub mod invariants;

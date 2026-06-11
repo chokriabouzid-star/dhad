@@ -2,10 +2,9 @@
 //! Reads UTF-8 from stdin, writes atom stream to stdout
 //! Enforces MAX_INPUT_BYTES before allocation (A2, CR-04)
 
+use dhad::constants::MAX_INPUT_BYTES;
 use dhad::modes::process_mode_a;
 use std::io::{Read, Write};
-
-const MAX_INPUT_BYTES: usize = 4_194_304;
 
 fn main() {
     // حماية الذاكرة: لا نقرأ أكثر من MAX_INPUT_BYTES + 1

@@ -14,7 +14,6 @@ fn mode_a(input: &str) -> dhad::model::DhadResult {
     process_mode_a(bytes).expect("should succeed")
 }
 
-
 /// FE70 = isolated fathatan → canonical 064B
 #[test]
 fn faps_fe70_fathatan_isolated() {

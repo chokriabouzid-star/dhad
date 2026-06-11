@@ -1,3 +1,4 @@
+use crate::constants::MAX_INPUT_BYTES;
 use crate::model::{AtomStream, DhadResult, ErrorKind};
 use crate::pipeline::*;
 use crate::{hash, invariants, mode_b};
@@ -122,8 +123,6 @@ pub fn process_mode_b(frame: &[u8]) -> Result<DhadResult, ErrorKind> {
         phonetic_hash: ph,
     })
 }
-
-const MAX_INPUT_BYTES: usize = 4_194_304;
 
 fn pre_stage_size_check(input: &[u8]) -> Result<(), ErrorKind> {
     if input.len() > MAX_INPUT_BYTES {

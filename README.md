@@ -105,10 +105,50 @@ PhoneticHash: c5f62e920f5b06c74a02f25341f63499f1132da19084eb38e7b806c4a60a03f7
 | `InvalidProsody` | 9, 10 | Prosody violation |
 | `ReservedFieldNonZero` | 10 | reserved != 0 (Mode B) |
 
+## Known Limitations
+
+### Input normalization profile (NFC)
+
+Dhad v1.x expects Arabic text in a **precomposed, NFC-oriented profile**.
+The following decomposed combining marks are **not mapped** and will return
+`UnmappedCodepoint`:
+
+- U+0653 ARABIC MADDAH ABOVE
+- U+0654 ARABIC HAMZA ABOVE
+- U+0655 ARABIC HAMZA BELOW
+
+NFC and NFD forms are **not** treated as equivalent in v1.x. If your source
+may contain decomposed text, normalize it to NFC before calling `process_mode_a`.
+
+### Quranic annotation marks
+
+Extended Quranic recitation and pause marks (for example U+06D6–U+06ED and
+related ranges) are **out of scope** for strict Mode A processing in v1.x and
+will return `UnmappedCodepoint`.
+
+### Mode B frame errors
+
+In v1.x, malformed Mode B binary frames are reported as
+`MalformedUtf8 { byte_offset }` for API compatibility. In this context,
+`byte_offset` refers to the frame byte position, not UTF-8 text.
+A dedicated `MalformedFrame` error is planned for a future major version.
+
+### Identity pipeline stages
+
+The pipeline is documented as 12 stages to match the specification.
+In v1.x, some stages are identity stages because the relevant normalization
+already happens earlier in the pipeline.
+
 ## Specification Conformance
 
-Implements **Dhad Implementation Specification v1.0** with corrections
-CR-01 through CR-07. See [CONFORMANCE.md](CONFORMANCE.md).
+Dhad v1.x is the **reference implementation** of the Dhad Implementation
+Specification v1.0 (with corrections CR-01 through CR-07).
+
+The vectors in this repository serve as a **self-consistency regression suite**.
+An independent second implementation is planned to provide true
+cross-implementation conformance.
+
+See [CONFORMANCE.md](CONFORMANCE.md).
 
 ## Dependencies
 
