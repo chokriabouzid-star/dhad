@@ -22,6 +22,14 @@ pub fn apply_prosody(
         });
     }
 
+    if atom.prosody & prosody_bit != 0 {
+        return Err(ErrorKind::InvalidProsody {
+            prosody: atom.prosody | prosody_bit,
+            atom_index,
+            reason: "duplicate prosody mark on same atom",
+        });
+    }
+
     atom.prosody |= prosody_bit;
     Ok(())
 }

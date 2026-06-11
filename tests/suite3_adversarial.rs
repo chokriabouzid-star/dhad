@@ -356,6 +356,26 @@ must_fail!(
     ErrorKind::InvalidProsody { .. }
 );
 
+#[test]
+fn at_new_duplicate_tanween_fath_same_atom() {
+    let input = &[0xD9, 0x86, 0xD9, 0x8B, 0xD9, 0x8B]; // NOON + TW_FATH + TW_FATH
+    let result = process_mode_a(input);
+    assert!(
+        matches!(result, Err(ErrorKind::InvalidProsody { .. })),
+        "duplicate TANWEEN_FATH on same atom must be rejected"
+    );
+}
+
+#[test]
+fn at_new_duplicate_superscript_alef_same_atom() {
+    let input = &[0xD8, 0xA7, 0xD9, 0xB0, 0xD9, 0xB0]; // ALEF + SUPERSCRIPT_ALEF + SUPERSCRIPT_ALEF
+    let result = process_mode_a(input);
+    assert!(
+        matches!(result, Err(ErrorKind::InvalidProsody { .. })),
+        "duplicate SUPERSCRIPT_ALEF on same atom must be rejected"
+    );
+}
+
 // ═══════════════════════════════════════════════════════════════════
 // CR-06: AT-041 — U+0670 بعد ذرة PROSODY_INERT
 // هذا الاختبار إلزامي بشكل خاص (CR-06 fix)

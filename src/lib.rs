@@ -54,6 +54,7 @@
 //! with corrections CR-01 through CR-07 applied.
 
 pub(crate) mod base_map;
+pub mod constants;
 pub(crate) mod faps;
 pub mod hash;
 pub mod invariants;

@@ -9,6 +9,7 @@
 //!   atoms   : n_atoms × 8 bytes
 //!   checksum: 4 bytes = CRC-32 of all preceding bytes
 
+use crate::constants::MAX_INPUT_BYTES;
 use crate::model::{DhadAtom, ErrorKind};
 
 const MAGIC: &[u8; 4] = b"DHAD";
@@ -17,7 +18,6 @@ const MODE_B: u8 = 0x42;
 const HEADER_SIZE: usize = 10; // magic(4) + version(1) + mode(1) + n_atoms(4)
 const CHECKSUM_SIZE: usize = 4;
 const ATOM_SIZE: usize = 8;
-const MAX_INPUT_BYTES: usize = 4_194_304;
 
 /// Parse a Mode B binary frame into a `Vec<DhadAtom>`.
 /// Validates: magic, version, mode, size, CRC-32, reserved fields.
@@ -31,8 +31,6 @@ pub fn parse_frame(frame: &[u8]) -> Result<Vec<DhadAtom>, ErrorKind> {
     // Minimum frame: header(10) + zero atoms + checksum(4) = 14 bytes
     if frame.len() < HEADER_SIZE + CHECKSUM_SIZE {
         return Err(ErrorKind::MalformedUtf8 { byte_offset: 0 });
-        // Note: reusing MalformedUtf8 is incorrect — see below.
-        // Correct error used in implementation: see FRAME_ERROR below.
     }
 
     // Magic
@@ -60,7 +58,14 @@ pub fn parse_frame(frame: &[u8]) -> Result<Vec<DhadAtom>, ErrorKind> {
     let n_atoms = u32::from_le_bytes(frame[6..10].try_into().unwrap()) as usize;
 
     // Total expected size: header(10) + n_atoms*8 + checksum(4)
-    let expected_len = HEADER_SIZE + n_atoms * ATOM_SIZE + CHECKSUM_SIZE;
+    let atoms_size = n_atoms
+        .checked_mul(ATOM_SIZE)
+        .ok_or_else(|| make_frame_error(6, "n_atoms * ATOM_SIZE overflow"))?;
+    let expected_len = HEADER_SIZE
+        .checked_add(atoms_size)
+        .and_then(|v| v.checked_add(CHECKSUM_SIZE))
+        .ok_or_else(|| make_frame_error(6, "frame length overflow"))?;
+
     if frame.len() != expected_len {
         return Err(make_frame_error(6, "frame length does not match n_atoms"));
     }
@@ -118,13 +123,14 @@ fn parse_atom(chunk: &[u8], byte_offset: usize) -> Result<DhadAtom, ErrorKind> {
 }
 
 /// Build a Mode B frame error.
-/// Mode B frame errors use MalformedUtf8 as the closest semantic match
-/// for "binary stream structural error". The byte_offset points to the
+///
+/// In Dhad v1.x, malformed binary frame structure is reported as
+/// `MalformedUtf8 { byte_offset }` for API compatibility, even though
+/// the input is not UTF-8 text. The `byte_offset` points to the
 /// offending field within the frame.
 ///
-/// Design note: The Spec does not define a separate ERR_MALFORMED_FRAME
-/// error kind. MalformedUtf8 { byte_offset } is the correct mapping
-/// per §2.6 ErrorKind — it covers "structural decode failure".
+/// A dedicated `MalformedFrame` error kind is a candidate for a future
+/// major version once `ErrorKind` can be evolved without breaking users.
 fn make_frame_error(byte_offset: usize, _reason: &'static str) -> ErrorKind {
     ErrorKind::MalformedUtf8 { byte_offset }
 }

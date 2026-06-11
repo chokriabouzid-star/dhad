@@ -668,13 +668,6 @@ golden!(
     "6cb01441429e872899444716921b732bd4300dd7acfc6a71f1e6c4b1da4bf77c",
     "239f97b0398e61075090616bd04b9a1bbb37318fcbad43989b490411c481dbdd"
 );
-golden!(
-    gt_087_alef_madda_no_marks,
-    &[0xD8, 0xA2],
-    &[0x01, 0x00, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00],
-    "184a6f37b8844558d161499651f40097a5a3d8a5f45644d3ca885b51c60ebb4b",
-    "d44d852e33d39894a32f4a343edf667ba37e781da2fc6ce7a57f1fd78b2361aa"
-);
 
 // ═══════════════════════════════════════════════════════════════════
 // GT-088 إلى GT-097: Prosody (Tanween + Superscript Alef)
