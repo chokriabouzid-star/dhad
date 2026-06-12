@@ -1,6 +1,6 @@
 [package]
 name        = "dhad"
-version     = "1.1.0"
+version     = "1.1.1"
 edition     = "2021"
 license     = "MIT"
 description = "Deterministic Arabic text canonicalization with cryptographic hashing"
@@ -11,7 +11,6 @@ readme      = "README.md"
 exclude     = [
     "generate_conformance.py",
     "self_test.sh",
-    "CONFORMANCE.md",
 ]
 
 [dependencies]
