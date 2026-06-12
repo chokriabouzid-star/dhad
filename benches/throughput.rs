@@ -25,24 +25,32 @@ const AL_FATIHA: &[u8] = concat!(
 )
 .as_bytes();
 
-fn arabic_1kb() -> Vec<u8> {
-    let mut v = Vec::with_capacity(1024);
-    while v.len() < 1024 {
-        v.extend_from_slice(BISMILLAH);
-        v.push(b' ');
+/// Build a valid UTF-8 Arabic buffer of at least `target` bytes.
+/// Always cuts on a codepoint boundary so the result is always valid UTF-8.
+fn arabic_buffer(target: usize) -> Vec<u8> {
+    let mut s = String::with_capacity(target + 64);
+    let unit = std::str::from_utf8(BISMILLAH).expect("BISMILLAH must be valid UTF-8");
+    while s.len() < target {
+        s.push_str(unit);
+        s.push(' ');
     }
-    v.truncate(1024);
-    v
+
+    // Truncate safely on a UTF-8 boundary (never inside a codepoint).
+    let mut end = target.min(s.len());
+    while end > 0 && !s.is_char_boundary(end) {
+        end -= 1;
+    }
+    s.truncate(end);
+
+    s.into_bytes()
+}
+
+fn arabic_1kb() -> Vec<u8> {
+    arabic_buffer(1024)
 }
 
 fn arabic_64kb() -> Vec<u8> {
-    let mut v = Vec::with_capacity(65536);
-    while v.len() < 65536 {
-        v.extend_from_slice(BISMILLAH);
-        v.push(b' ');
-    }
-    v.truncate(65536);
-    v
+    arabic_buffer(65536)
 }
 
 // ─── Mode A Benchmarks ─────────────────────────────────────────────
