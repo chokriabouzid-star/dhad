@@ -232,7 +232,7 @@ dependencies = [
 
 [[package]]
 name = "dhad"
-version = "1.1.0"
+version = "1.1.1"
 dependencies = [
  "crc32fast",
  "criterion",
