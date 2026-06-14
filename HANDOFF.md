@@ -93,7 +93,37 @@ Repository invariants currently maintained:
 
 ---
 
-## 4) What is NOT yet done
+## 4) Anchor conformance — first independent verification
+
+At the end of the v1.1.2 session, an independent Python reference was
+executed against the Rust implementation for a small **anchor set**.
+The Python code (`tools/anchor_verify.py`) reimplements `CoreHash` and
+`PhoneticHash` directly from the Dhad Specification v1.0 (+ CR-01..CR-07),
+without using the Rust crate.
+
+Result:
+
+| Anchor       | Description     | CoreHash | PhoneticHash |
+|--------------|-----------------|----------|--------------|
+| ANCHOR-001   | empty stream    | OK       | OK           |
+| ANCHOR-002   | ALEF bare       | OK       | OK           |
+| ANCHOR-003   | BEH bare        | OK       | OK           |
+| ANCHOR-004   | BEH + FATHA     | OK       | OK           |
+
+Significance:
+
+- The Rust output is no longer only self-consistent.
+- A spec-only Python reimplementation reproduces the same hashes.
+- This is the project's first true cross-implementation conformance
+  evidence, even before the full `dhad-conformance-suite` is built.
+
+This anchor set will be the unshakeable seed of every future vector
+file in the conformance suite: every new vector must remain consistent
+with these four anchors.
+
+---
+
+## 5) What is NOT yet done
 
 ### From the original v1.1.x plan
 - Nothing remains. v1.1.x is now fully closed.
@@ -124,7 +154,7 @@ Repository invariants currently maintained:
 
 ---
 
-## 5) Open GitHub Issues (authoritative roadmap)
+## 6) Open GitHub Issues (authoritative roadmap)
 
 1. Support decomposed `U+0653/U+0654/U+0655` or formalize strict NFC input profile
 2. Introduce dedicated `MalformedFrame` error in v2.0
@@ -135,7 +165,7 @@ Repository invariants currently maintained:
 
 ---
 
-## 6) Known limitations (still valid in v1.1.2)
+## 7) Known limitations (still valid in v1.1.2)
 
 These are documented, intentional, and now enforced by tests:
 
@@ -154,7 +184,7 @@ These should not be treated as bugs in v1.x.
 
 ---
 
-## 7) Agreed plan for the next session
+## 8) Agreed plan for the next session
 
 The next session begins **v1.2.0**.
 Do not skip steps.
@@ -216,7 +246,7 @@ That is the first real *conformance* milestone of the project.
 
 ---
 
-## 8) Engineering principles to preserve
+## 9) Engineering principles to preserve
 
 - One branch per intent.
 - Bug fixes, documentation, and formatting are never mixed.
@@ -229,7 +259,7 @@ That is the first real *conformance* milestone of the project.
 
 ---
 
-## 9) How to resume in the next chat session
+## 10) How to resume in the next chat session
 
 Open a new chat and paste this opening message:
 
@@ -244,7 +274,7 @@ Then paste this entire handoff document immediately after.
 
 ---
 
-## 10) Final note
+## 11) Final note
 
 After v1.1.2 the v1.x line is **fully closed and consistent**:
 
