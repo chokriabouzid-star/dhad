@@ -120,6 +120,10 @@ The following decomposed combining marks are **not mapped** and will return
 NFC and NFD forms are **not** treated as equivalent in v1.x. If your source
 may contain decomposed text, normalize it to NFC before calling `process_mode_a`.
 
+This contract is enforced by `tests/suite6_nfc_rejection.rs`, which asserts
+that bare and decomposed forms of these marks are rejected deterministically
+with `ErrorKind::UnmappedCodepoint`.
+
 ### Quranic annotation marks
 
 Extended Quranic recitation and pause marks (for example U+06D6–U+06ED and

@@ -1,5 +1,5 @@
 # Dhad Conformance Report
-**Generated:** 2026-06-05T23:41:37Z
+**Generated:** 2026-06-13T23:29:17Z
 **Specification:** Dhad Implementation Specification v1.0
 **Status:** ✅ CONFORMANT
 
@@ -9,11 +9,15 @@
 
 | Suite | Tests | Result |
 |-------|-------|--------|
-| suite1_golden (Mode A) | 122 | ✅ |
-| suite2_tagged (Mode B) | 24  | ✅ |
-| suite3_adversarial     | 50  | ✅ |
-| suite4_properties      | 50  | ✅ |
-| **Total** | **216** | ✅ **216 passed, 0 failed** |
+| suite1_golden (Mode A)         | 121 | ✅ |
+| suite2_tagged (Mode B)         | 25  | ✅ |
+| suite3_adversarial             | 52  | ✅ |
+| suite4_properties              | 17  | ✅ |
+| suite5_coverage (behavioral)   | 49  | ✅ |
+| suite6_nfc_rejection (new)     | 11  | ✅ |
+| unit tests (lib)               |  6  | ✅ |
+| doc tests                      |  3  | ✅ |
+| **Total**                      | **284** | ✅ **284 passed, 0 failed** |
 
 ---
 
