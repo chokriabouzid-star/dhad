@@ -46,8 +46,10 @@ Design axioms: A1, A2, A3, A5, A6, A7.
 - `cargo fmt --check` clean
 - `cargo clippy --all-targets` clean
 - `cargo test` — 284 tests, all green
-- `cargo run --example export_vectors` — 185 vectors generated
-- `python3 tools/verify_vectors.py` — ALL VECTOR FILES VERIFIED
+- `cargo run --example export_vectors` — 185 vectors generated into `../dhad-conformance-suite/vectors/`
+- `python3 ../dhad-conformance-suite/tools/verify_vectors.py` — ALL VECTOR FILES VERIFIED
+- `python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py` — 30/30
+- `python3 ../dhad-conformance-suite/python_ref/verify_golden_ref.py` — 155/155
 - No `unsafe`
 - Stable Rust; nightly only for `cargo-fuzz`
 
@@ -89,16 +91,16 @@ Design axioms: A1, A2, A3, A5, A6, A7.
 - Error object field validation per `ErrorKind`
 - **First cross-language hash verification in the project**
 
-#### Step 4B: Python reference implementation 🔲
-- Full independent reimplementation from raw input bytes
-- Not started yet
-- Will be the next branch: `feature/v1.2-python-ref`
+#### Step 4B: Python reference implementation ✅
+- Implemented in `dhad-conformance-suite/python_ref/`
+- Mode B: 30/30 exact parity
+- Mode A: 155/155 exact parity
+- Full corpus parity: **185/185**
+- Python 3.10+ stdlib only, no Rust dependency
 
-#### Documentation ✅ (this session)
-- `dhad-conformance-suite/schema/vector-schema-1.0.md` — canonical normative schema reference
-- `CONFORMANCE.md` — updated to reflect 185 vectors and Python verifier
-- `README.md` — updated conformance section
-- `HANDOFF.md` — this document
+#### Documentation ✅
+- Schema published in `dhad-conformance-suite/schema/vector-schema-1.0.md`
+- CONFORMANCE.md, README.md, HANDOFF.md updated for release
 
 ---
 
@@ -137,12 +139,8 @@ Schema: `dhad-conformance-suite/schema/vector-schema-1.0.md`
 ## 7. What is NOT yet done
 
 ### v1.2.0 remaining
-- Python reference implementation:
-  - Mode B parser + invariant enforcement
-  - Mode A: UTF-8 decode, codepoint mapping, mark attachment, prosody rules
-  - Compare against all 185 vectors
-- `dhad-conformance-suite` repository (separate from `dhad`)
-- Release v1.2.0 on crates.io
+- Release `v1.2.0` on crates.io
+- Tag the release in both repositories
 
 ### v1.3.0 — not started
 - `process_mode_a_with_profile(input, profile)`
@@ -161,8 +159,8 @@ Schema: `dhad-conformance-suite/schema/vector-schema-1.0.md`
 
 1. Decomposed U+0653/U+0654/U+0655 — documented as known limitation
 2. Dedicated `MalformedFrame` error — planned v2.0
-3. Independent conformance suite repository — v1.2.0 milestone
-4. Python reference implementation — v1.2.0 milestone
+3. Second non-Python implementation
+4. Future corpus expansion beyond the current 185 vectors
 
 ---
 
@@ -192,12 +190,9 @@ Schema: `dhad-conformance-suite/schema/vector-schema-1.0.md`
 Open a new chat and paste:
 
 > I am continuing work on **Dhad** (https://crates.io/crates/dhad).
-> Latest published: **1.1.2**. Active development: **v1.2.0**.
 > Repository: https://github.com/chokriabouzid-star/dhad
-> I will paste the project handoff document below.
-> We are on branch `feature/v1.2-python-ref`.
-> The docs branch `docs/v1.2-schema-and-conformance` needs to be merged first.
-> Then we begin Step 4B: Python reference implementation, starting with Mode B.
+> Conformance suite: https://github.com/chokriabouzid-star/dhad-conformance-suite
+> Python reference implementation now matches **185/185** published vectors.
 
 Then paste this document.
 

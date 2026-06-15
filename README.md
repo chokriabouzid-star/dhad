@@ -85,23 +85,45 @@ golden.json	A	116
 adversarial.json	A	39
 tagged.json	B	30
 Total		185
-Vector schema defined in VECTOR-SCHEMA.md.
+Vector schema is published in the conformance suite:
+
+- https://github.com/chokriabouzid-star/dhad-conformance-suite
+- `schema/vector-schema-1.0.md`
 
 Generating vectors
 Bash
 
 cargo run --example export_vectors
 # writes to ../dhad-conformance-suite/vectors/
+```
+
+Note: `export_vectors` is repository-maintenance tooling.
+It expects a sibling checkout of `dhad-conformance-suite`.
+
+### Verifying vectors
+
+```bash
+cargo run --example export_vectors
+python3 ../dhad-conformance-suite/tools/verify_vectors.py
+python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py
+python3 ../dhad-conformance-suite/python_ref/verify_golden_ref.py
 Verifying vectors (Python, no dependencies)
 Bash
 
 cargo run --example export_vectors
 python3 tools/verify_vectors.py
 # ALL VECTOR FILES VERIFIED
-The Python verifier independently recomputes CoreHash and PhoneticHash
-from stream_hex for all 128 success vectors, without using the Rust crate.
+The published conformance suite now includes:
 
-This is the first cross-language hash verification of Dhad.
+- a dependency-free Python verifier for the corpus
+- a full independent Python reference implementation
+
+The Python reference matches all **185/185** published vectors:
+
+- Mode A: **155/155**
+- Mode B: **30/30**
+
+This is Dhad's first **full cross-implementation conformance milestone**.
 
 Cross-implementation status
 Milestone	Status
@@ -153,11 +175,16 @@ Specification Conformance
 Dhad v1.x is the reference implementation of the Dhad Implementation
 Specification v1.0 (with corrections CR-01 through CR-07).
 
-The published vectors in dhad-conformance-suite serve as a
-cross-language conformance corpus.
-An independent full second implementation is the next planned milestone.
+The published vectors in
+[`dhad-conformance-suite`](https://github.com/chokriabouzid-star/dhad-conformance-suite)
+serve as the **cross-language conformance corpus**.
 
-See CONFORMANCE.md and VECTOR-SCHEMA.md.
+The conformance suite now also carries a full independent Python reference
+implementation that matches all 185 published vectors.
+
+A second non-Python implementation remains a future milestone.
+
+See `CONFORMANCE.md` and the published schema in `dhad-conformance-suite`.
 
 Dependencies
 toml

@@ -8,8 +8,8 @@
 
 | Component | Version |
 |-----------|---------|
-| Library (`dhad`) | 1.1.2 |
-| Conformance tooling | v1.2.0-dev |
+| Library (`dhad`) | 1.2.0 |
+| Conformance tooling | v1.2.0 |
 | Vector schema | 1.0 |
 | Dhad spec | v1.0 + CR-01..CR-07 |
 
@@ -56,8 +56,15 @@ Vector schema defined in the published conformance suite:
 - asserting all four mandatory anchors are present
 - validating error object fields per `ErrorKind`
 
-This is the project's first **cross-language hash verification**:
-Python independently reproduces the same hashes as Rust on all 128 ok-vectors.
+This corpus is now backed by a full independent Python reference
+implementation.
+
+Python reproduces Rust exactly on all **185/185** published vectors:
+
+- Mode A: 155/155
+- Mode B: 30/30
+
+This is Dhad's first **full cross-implementation conformance milestone**.
 
 ---
 
@@ -141,7 +148,7 @@ All four mandatory anchors verified by `tools/verify_vectors.py`.
 | Rust self-consistency (284 tests) | ✅ complete |
 | Python anchor verification (4 anchors) | ✅ complete |
 | Python schema + hash verification (185 vectors) | ✅ complete |
-| Python independent protocol reimplementation | 🔲 in progress (v1.2.0) |
+| Python independent protocol reimplementation (185/185 vectors) | ✅ complete |
 | Second full implementation (non-Python) | 🔲 planned |
 
 ---
