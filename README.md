@@ -91,7 +91,7 @@ Generating vectors
 Bash
 
 cargo run --example export_vectors
-# writes to target/dhad-conformance-vectors/
+# writes to ../dhad-conformance-suite/vectors/
 Verifying vectors (Python, no dependencies)
 Bash
 
@@ -153,7 +153,7 @@ Specification Conformance
 Dhad v1.x is the reference implementation of the Dhad Implementation
 Specification v1.0 (with corrections CR-01 through CR-07).
 
-The vectors in target/dhad-conformance-vectors/ serve as a
+The published vectors in dhad-conformance-suite serve as a
 cross-language conformance corpus.
 An independent full second implementation is the next planned milestone.
 

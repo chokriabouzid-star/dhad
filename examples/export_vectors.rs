@@ -394,7 +394,7 @@ fn main() {
         "adversarial manifest count changed"
     );
 
-    let out_dir = Path::new("target/dhad-conformance-vectors");
+    let out_dir = Path::new("../dhad-conformance-suite/vectors");
     fs::create_dir_all(out_dir).expect("create output directory");
 
     let golden = export_golden();
@@ -426,8 +426,8 @@ fn main() {
         tagged,
     );
 
-    println!("wrote target/dhad-conformance-vectors/golden.json       (116 vectors)");
-    println!("wrote target/dhad-conformance-vectors/adversarial.json  (39 vectors)");
-    println!("wrote target/dhad-conformance-vectors/tagged.json       (30 vectors)");
+    println!("wrote ../dhad-conformance-suite/vectors/golden.json       (116 vectors)");
+    println!("wrote ../dhad-conformance-suite/vectors/adversarial.json  (39 vectors)");
+    println!("wrote ../dhad-conformance-suite/vectors/tagged.json       (30 vectors)");
     println!("total vectors: 185");
 }

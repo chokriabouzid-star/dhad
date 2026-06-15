@@ -43,7 +43,8 @@ and verified by `tools/verify_vectors.py`.
 | `tagged.json` | tagged | B | 30 | 9 | 21 |
 | **Total** | | | **185** | **128** | **57** |
 
-Vector schema defined in `VECTOR-SCHEMA.md`.
+Vector schema defined in the published conformance suite:
+`dhad-conformance-suite/schema/vector-schema-1.0.md`.
 
 ### Python Verifier
 
