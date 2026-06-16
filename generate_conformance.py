@@ -3,7 +3,7 @@
 Generate CONFORMANCE.md from live cargo test results.
 Run from the dhad/ directory.
 """
-import subprocess, datetime, sys, re
+import subprocess, datetime, sys, re, os
 
 def run(cmd):
     r = subprocess.run(cmd, shell=True, capture_output=True, text=True)
@@ -20,27 +20,30 @@ def get_test_counts(output):
             total_fail += int(m.group(3))
     return total_pass, total_fail
 
+# Get the directory where the script is located
+script_dir = os.path.dirname(os.path.abspath(__file__))
+
 print('Running cargo test --all ...')
-test_out, test_rc = run('. ~/.cargo/env && cd ~/dhad && cargo test --all --color never 2>&1')
+test_out, test_rc = run(f'cd {script_dir} && cargo test --all --color never 2>&1')
 total_pass, total_fail = get_test_counts(test_out)
 
 print('Checking for unsafe ...')
-unsafe_out, unsafe_rc = run('grep -r unsafe ~/dhad/src/ 2>/dev/null')
+unsafe_out, unsafe_rc = run(f'grep -r unsafe {script_dir}/src/ 2>/dev/null')
 has_unsafe = bool(unsafe_out.strip())
 
 print('Running clippy ...')
 clippy_out, clippy_rc = run(
-    '. ~/.cargo/env && cd ~/dhad && cargo clippy --all-targets -- -D warnings 2>&1'
+    f'cd {script_dir} && cargo clippy --all-targets -- -D warnings 2>&1'
 )
 
 print('Checking CLI builds ...')
 cli_out, cli_rc = run(
-    '. ~/.cargo/env && cd ~/dhad && cargo build --bin dhad-cli 2>&1'
+    f'cd {script_dir} && cargo build --bin dhad-cli 2>&1'
 )
 
 print('Checking bench compiles ...')
 bench_out, bench_rc = run(
-    '. ~/.cargo/env && cd ~/dhad && cargo bench --no-run 2>&1'
+    f'cd {script_dir} && cargo bench --no-run 2>&1'
 )
 
 def check(condition):
@@ -169,8 +172,6 @@ Verified by: `gt_117_empty` (suite1), `gt_t_empty_frame` (suite2)
 *Do not edit manually — re-run the script to update.*
 """
 
-import os
-script_dir = os.path.dirname(os.path.abspath(__file__))
 output_path = os.path.join(script_dir, 'CONFORMANCE.md')
 with open(output_path, 'w') as f:
     f.write(report)
