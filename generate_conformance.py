@@ -169,7 +169,10 @@ Verified by: `gt_117_empty` (suite1), `gt_t_empty_frame` (suite2)
 *Do not edit manually — re-run the script to update.*
 """
 
-with open('/home/chokribouzid/dhad/CONFORMANCE.md', 'w') as f:
+import os
+script_dir = os.path.dirname(os.path.abspath(__file__))
+output_path = os.path.join(script_dir, 'CONFORMANCE.md')
+with open(output_path, 'w') as f:
     f.write(report)
 
 print(f'\nConformance Report written to CONFORMANCE.md')
