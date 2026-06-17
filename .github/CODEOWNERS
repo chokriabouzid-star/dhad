@@ -1,0 +1,15 @@
+# Critical implementation files — require manual review
+/src/invariants.rs       @chokriabouzid-star
+/src/modes.rs            @chokriabouzid-star
+/src/model.rs            @chokriabouzid-star
+/src/mode_b.rs           @chokriabouzid-star
+/src/hash.rs             @chokriabouzid-star
+/src/registry/           @chokriabouzid-star
+
+# Test data and conformance vectors
+/tests/cases/            @chokriabouzid-star
+
+# Specification and proofs
+/CONFORMANCE.md          @chokriabouzid-star
+/HANDOFF.md              @chokriabouzid-star
+/PROOFS.md               @chokriabouzid-star
