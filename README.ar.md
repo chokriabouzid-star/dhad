@@ -3,13 +3,18 @@
 [![Crates.io](https://img.shields.io/crates/v/dhad.svg)](https://crates.io/crates/dhad)
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-284%20passing-brightgreen.svg)](#التوافق)
+[![Tests](https://img.shields.io/badge/tests-284%20verified-blue.svg)](#التوافق)
 [![Conformance](https://img.shields.io/badge/conformance-185%2F185-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
 **طبقة الهوية الرقمية للنص العربي.**
 
 > [Read in English](./README.md)
+---
+
+> **ملاحظة:** هذه نسخة مُختصرة تُركّز على المفهوم وحالات الاستخدام.
+> للحصول على **التفاصيل التقنية الكاملة** (أمثلة Rust موسّعة، مواصفة الـ wire format،
+> معالجة الأخطاء، Fuzzing، التحقق من التوافق المحلي)، راجع [README.md (الإنجليزي)](./README.md).
 
 ---
 

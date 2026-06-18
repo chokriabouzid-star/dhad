@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/dhad.svg)](https://crates.io/crates/dhad)
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-284%20passing-brightgreen.svg)](#conformance)
+[![Tests](https://img.shields.io/badge/tests-284%20verified-blue.svg)](#conformance)
 [![Conformance](https://img.shields.io/badge/conformance-185%2F185-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
@@ -375,7 +375,7 @@ Dhad v1.x is honest about what it does **not** do yet.
 ### CoreHash Includes Diacritics
 
 The same Arabic word vocalized and unvocalized produces **different**
-CoreHashes. This is by design (per spec §6.1):
+CoreHashes. This is by design (per spec §7.1):
 
 ```rust
 let unvocalized = process_mode_a("محمد".as_bytes())?;
@@ -481,6 +481,7 @@ Minimal, audited dependencies:
 sha2      = "0.10"   # SHA-256
 crc32fast = "1.4"    # CRC-32 for Mode B frames
 thiserror = "1.0"    # Error derive macros
+hex       = "0.4"    # Hex encoding (re-exported for examples)
 ```
 
 **No unsafe code. No nightly features. Stable Rust ≥ 1.75.0.**
