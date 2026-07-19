@@ -169,7 +169,7 @@ fn gt_t08_json_gt095_alef_maqsura_madd_normal() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// A3: CoreHash/PhoneticHash Separation — Mode B specific
+// A4: CoreHash/PhoneticHash Separation — Mode B specific
 // MADD must not affect CoreHash
 // ═══════════════════════════════════════════════════════════════════
 #[test]
@@ -184,19 +184,19 @@ fn gt_t_a3_madd_does_not_affect_core_hash() {
 
     assert_eq!(
         mode_a.core_hash, madd_n.core_hash,
-        "MADD_NORMAL must not affect CoreHash (A3)"
+        "MADD_NORMAL must not affect CoreHash (A4)"
     );
     assert_eq!(
         mode_a.core_hash, madd_x.core_hash,
-        "MADD_EXTENDED must not affect CoreHash (A3)"
+        "MADD_EXTENDED must not affect CoreHash (A4)"
     );
     assert_ne!(
         mode_a.phonetic_hash, madd_n.phonetic_hash,
-        "MADD_NORMAL must affect PhoneticHash (A3)"
+        "MADD_NORMAL must affect PhoneticHash (A4)"
     );
     assert_ne!(
         mode_a.phonetic_hash, madd_x.phonetic_hash,
-        "MADD_EXTENDED must affect PhoneticHash (A3)"
+        "MADD_EXTENDED must affect PhoneticHash (A4)"
     );
     assert_ne!(
         madd_n.phonetic_hash, madd_x.phonetic_hash,
@@ -319,7 +319,7 @@ fn frame_err_n_atoms_usize_overflow_like_value() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// CR-07: reserved field non-zero
+// I22 (§8): reserved field non-zero
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn frame_err_reserved_nonzero() {
@@ -335,7 +335,7 @@ fn frame_err_reserved_nonzero() {
         0x00, 0x00, // marks = 0
         0x00, // flags = 0
         0x00, // prosody = 0
-        0x01, 0x00, // reserved = 0x0001 ← CR-07 violation
+        0x01, 0x00, // reserved = 0x0001 ← I22 violation
     ]);
     // CRC صحيح
     let crc = crc32fast::hash(&frame);
@@ -349,7 +349,7 @@ fn frame_err_reserved_nonzero() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// CR-01: Reserved Base IDs في Mode B
+// I01/I02 (§8): Reserved Base IDs في Mode B
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn frame_err_reserved_base_001d() {
@@ -366,7 +366,7 @@ fn frame_err_reserved_base_001d() {
             process_mode_b(&frame),
             Err(ErrorKind::UnmappedCodepoint { .. })
         ),
-        "base 0x001D must be rejected (CR-01)"
+        "base 0x001D must be rejected (I02, §8)"
     );
 }
 
@@ -403,7 +403,7 @@ fn frame_err_reserved_base_001f() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// CR-02: MADD bits مقبولة فقط على LONG_VOWEL_CLASS
+// I15 (§8): MADD bits مقبولة فقط على LONG_VOWEL_CLASS
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn frame_err_madd_on_beh() {
@@ -446,14 +446,14 @@ fn frame_err_madd_normal_and_extended() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// CR-04: MAX_INPUT_BYTES يُطبَّق على Mode B
+// §5 pre-stage: MAX_INPUT_BYTES يُطبَّق على Mode B
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn frame_err_oversized() {
     let big = vec![0u8; 4_194_305];
     assert!(
         matches!(process_mode_b(&big), Err(ErrorKind::InputTooLarge(_))),
-        "Mode B must enforce MAX_INPUT_BYTES (CR-04)"
+        "Mode B must enforce MAX_INPUT_BYTES (§5 pre-stage)"
     );
 }
 

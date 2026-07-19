@@ -82,7 +82,7 @@ pub fn process_mode_a(input: &[u8]) -> Result<DhadResult, ErrorKind> {
 ///
 /// | Error | Cause |
 /// |-------|-------|
-/// | [`ErrorKind::ReservedFieldNonZero`] | atom.reserved != 0 (CR-07) |
+/// | [`ErrorKind::ReservedFieldNonZero`] | atom.reserved != 0 (I22, §8) |
 ///
 /// # Examples
 ///

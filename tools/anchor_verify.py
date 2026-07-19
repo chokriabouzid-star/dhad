@@ -4,7 +4,7 @@ Dhad — Anchor Conformance Verifier
 ----------------------------------
 Independent re-implementation of Dhad's CoreHash and PhoneticHash
 following only the published specification (Dhad Implementation
-Specification v1.0 + corrections CR-01..CR-07).
+Specification v1.0).
 
 This file does NOT depend on the Rust crate. It is intentionally
 written from the spec alone, so that a successful run constitutes

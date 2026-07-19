@@ -102,11 +102,11 @@ Seven verified guarantees, each backed by an empirical proof:
 | Guarantee | Description | Proof |
 |-----------|-------------|-------|
 | **Determinism** (A1) | Same input produces identical output, forever | All proofs |
-| **No silent correction** (A2) | Invalid input returns a typed error, never a guess | Proof 9 (CR-07) |
-| **Hash separation** (A3) | `CoreHash` and `PhoneticHash` capture independent layers | Proof 6 |
+| **No silent correction** (A2) | Invalid input returns a typed error, never a guess | Proof 9 (§8 I22) |
+| **Hash separation** (A4) | `CoreHash` and `PhoneticHash` capture independent layers | Proof 6 |
 | **Glyph independence** (A5) | Positional forms (isolated/initial/medial/final) carry zero info | Proofs 1, 2 |
-| **Mark order independence** (A6) | Diacritic ordering does not affect the atom | Proof 5 |
-| **Digit source independence** (A7) | ASCII `1` = Arabic-Indic `١` = Extended `۱` | Proofs 3, 4 |
+| **Mark order independence** (A7) | Diacritic ordering does not affect the atom | Proof 5 |
+| **Digit source independence** (A8) | ASCII `1` = Arabic-Indic `١` = Extended `۱` | Proofs 3, 4 |
 | **Noise filtering** | BOM, ZWJ, Tatweel silently removed | Proof 8 |
 
 Every claim is reproducible from [`PROOFS.md`](./PROOFS.md).
@@ -180,7 +180,7 @@ assert_eq!(canonical.core_hash, presentation.core_hash);
 
 Different byte sequences (8 vs 12 bytes), same canonical identity.
 
-### Example 2: Digit Source Independence (A7)
+### Example 2: Digit Source Independence (A8)
 
 Year "2025" in three Unicode digit systems:
 
@@ -481,7 +481,8 @@ Minimal, audited dependencies:
 sha2      = "0.10"   # SHA-256
 crc32fast = "1.4"    # CRC-32 for Mode B frames
 thiserror = "1.0"    # Error derive macros
-hex       = "0.4"    # Hex encoding (re-exported for examples)
+hex       = "0.4"    # Hex encoding, used by dhad-cli; not re-exported
+                       # — library consumers must add it separately
 ```
 
 **No unsafe code. No nightly features. Stable Rust ≥ 1.75.0.**

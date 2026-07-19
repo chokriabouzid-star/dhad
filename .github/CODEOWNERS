@@ -4,7 +4,7 @@
 /src/model.rs            @chokriabouzid-star
 /src/mode_b.rs           @chokriabouzid-star
 /src/hash.rs             @chokriabouzid-star
-/src/registry/           @chokriabouzid-star
+/src/registry.rs         @chokriabouzid-star
 
 # Test data and conformance vectors
 /tests/cases/            @chokriabouzid-star

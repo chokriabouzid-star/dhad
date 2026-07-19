@@ -728,7 +728,7 @@ golden!(
     "358f2811e2bc73e4c8456140e3e0e382650656f941bc6fceb69fae0c0e0ff1bd",
     "56dd2236e94a385f925b49085953aacc7c5e8455c275dd536353463462cf29e3"
 );
-// CR-NOTE: Spec GT-S02 stream shows LAM+SUKUN but input has no U+0652.
+// NOTE: Spec GT-S02 stream shows LAM+SUKUN but input has no U+0652.
 // Correct stream uses LAM bare. Hashes recomputed from correct stream.
 golden!(
     gt_099_allah,
@@ -948,7 +948,7 @@ golden!(
     "25cd4d351e4aa48997e849365b94350eb9f824ba4484e46c5a668430d205a6d6"
 );
 
-// GT-125 و GT-126: Mark Order Independence (A6)
+// GT-125 و GT-126: Mark Order Independence (A7)
 // كلاهما يجب أن ينتج نفس النتيجة تماماً
 golden!(
     gt_125_mark_order_a,
@@ -967,7 +967,7 @@ golden!(
 
 // ═══════════════════════════════════════════════════════════════════
 // اختبارات تقاطعية صريحة (Cross-cutting property tests)
-// تُثبت الخصائص A3, A6, A7 مباشرةً
+// تُثبت الخصائص A4, A7, A8 مباشرةً
 // ═══════════════════════════════════════════════════════════════════
 
 /// P6: CoreHash/PhoneticHash Separation — NOON bare vs NOON+tanween
@@ -1000,7 +1000,7 @@ fn cross_p6_tanween_only_affects_phonetic() {
     assert_ne!(tw_d.phonetic_hash, tw_k.phonetic_hash);
 }
 
-/// A7: Digit Source Independence لكل الأرقام 0-9
+/// A8: Digit Source Independence لكل الأرقام 0-9
 #[test]
 fn cross_a7_digit_source_independence_all() {
     for d in 0u8..=9u8 {
@@ -1037,7 +1037,7 @@ fn cross_a7_digit_source_independence_all() {
     }
 }
 
-/// A6: Mark Order Independence لكل التركيبات الصالحة
+/// A7: Mark Order Independence لكل التركيبات الصالحة
 #[test]
 fn cross_a6_mark_order_all_combos() {
     // BEH كقاعدة + كل التركيبات الصالحة من §2.2
@@ -1064,11 +1064,11 @@ fn cross_a6_mark_order_all_combos() {
         assert_eq!(
             ra.stream.to_bytes(),
             rb.stream.to_bytes(),
-            "A6 violation: mark order affects stream"
+            "A7 violation: mark order affects stream"
         );
         assert_eq!(
             ra.core_hash, rb.core_hash,
-            "A6 violation: mark order affects CoreHash"
+            "A7 violation: mark order affects CoreHash"
         );
     }
 }

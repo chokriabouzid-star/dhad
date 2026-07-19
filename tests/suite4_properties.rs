@@ -1,6 +1,6 @@
 //! Suite 4 — Property Tests (P1–P10)
 //! Source of truth: Dhad-Spec-v1.0 §10
-//! Covers all 10 properties with correct NOISE_SET (34 codepoints)
+//! Covers all 10 properties with correct NOISE_SET (32 codepoints)
 
 use dhad::mode_b::build_frame;
 use dhad::model::DhadAtom;
@@ -9,7 +9,7 @@ use dhad::registry::base;
 use proptest::prelude::*;
 
 // ═══════════════════════════════════════════════════════════════════
-// NOISE_SET كامل — 34 codepoint كما تُعرّفها الـ Spec §4 Stage 4
+// NOISE_SET كامل — 32 codepoint كما تُعرّفها الـ Spec §4 Stage 4
 // ═══════════════════════════════════════════════════════════════════
 fn all_noise_codepoints() -> Vec<u32> {
     let mut v = vec![
@@ -145,11 +145,11 @@ fn p2_hash_stream_consistency_phonetic_requires_prosody() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// P3: Noise Filter Completeness — NOISE_SET كامل (34 codepoints)
+// P3: Noise Filter Completeness — NOISE_SET كامل (32 codepoints)
 // ∀ c ∈ NOISE_SET: Dhad([c]) == Dhad([])
 // ═══════════════════════════════════════════════════════════════════
 #[test]
-fn p3_noise_filter_completeness_all_34() {
+fn p3_noise_filter_completeness_all_32() {
     let empty_result = process_mode_a(b"").unwrap();
     let noise_set = all_noise_codepoints();
 
@@ -194,7 +194,7 @@ proptest! {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// P4: Digit Source Independence (Axiom A7) — كل الأرقام 0–9
+// P4: Digit Source Independence (Axiom A8) — كل الأرقام 0–9
 // ═══════════════════════════════════════════════════════════════════
 proptest! {
     #[test]
@@ -264,7 +264,7 @@ fn p5_lam_alef_equals_sequence() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// P6: CoreHash/PhoneticHash Separation (Axiom A3)
+// P6: CoreHash/PhoneticHash Separation (Axiom A4)
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn p6_separation_tanween_vs_bare() {
@@ -323,7 +323,7 @@ fn p6_separation_madd_mode_b() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// P7: Mark Order Independence (Axiom A6) — كاملة
+// P7: Mark Order Independence (Axiom A7) — كاملة
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn p7_mark_order_all_compatible_pairs() {

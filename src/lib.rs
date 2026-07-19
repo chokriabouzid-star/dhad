@@ -24,10 +24,10 @@
 //! |-------|-------------|
 //! | A1 | Determinism — same input → identical output |
 //! | A2 | No Silent Correction — invalid input → typed error |
-//! | A3 | Hash Separation — CoreHash is independent of prosody |
+//! | A4 | Hash Separation — CoreHash is independent of prosody |
 //! | A5 | Glyph Independence — positional forms carry no information |
-//! | A6 | Mark Order Independence — diacritic ordering is ignored |
-//! | A7 | Digit Source Independence — ASCII/Arabic/Extended digits are equal |
+//! | A7 | Mark Order Independence — diacritic ordering is ignored |
+//! | A8 | Digit Source Independence — ASCII/Arabic/Extended digits are equal |
 //!
 //! ## Important Limitations (v1.x)
 //!

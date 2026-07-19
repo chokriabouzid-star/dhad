@@ -71,7 +71,7 @@ This is the exact scenario faced by:
 
 ---
 
-## Proof 3: A7 — Digit Source Independence (Single Digit)
+## Proof 3: A8 — Digit Source Independence (Single Digit)
 
 **Claim:** ASCII, Arabic-Indic, and Extended Arabic-Indic representations
 of the same digit produce identical CoreHash.
@@ -91,11 +91,11 @@ All three inputs produce identical CoreHash:
 
 Matches normative test vector `GT-D01` from the specification.
 
-**Verified:** ✅ A7 holds for single digits.
+**Verified:** ✅ A8 holds for single digits.
 
 ---
 
-## Proof 4: A7 — Digit Independence (Multi-Digit Year "2025")
+## Proof 4: A8 — Digit Independence (Multi-Digit Year "2025")
 
 **Claim:** A multi-digit number written in three different Unicode digit
 systems produces identical CoreHash.
@@ -121,11 +121,11 @@ Real-world impact: dates, financial figures, and statistics aggregated
 from mixed Arab-region sources will deduplicate correctly without manual
 normalization.
 
-**Verified:** ✅ A7 holds at multi-digit scale.
+**Verified:** ✅ A8 holds at multi-digit scale.
 
 ---
 
-## Proof 5: A6 — Mark Order Independence
+## Proof 5: A7 — Mark Order Independence
 
 **Claim:** When multiple diacritics are applied to the same letter, the
 order in which they appear in the byte stream does not affect the CoreHash.
@@ -150,14 +150,14 @@ Matches normative test vector `GT-M06`.
 **Significance:**
 
 Real-world impact: different keyboards, text editors, and operating
-systems may emit diacritics in different orders. Without A6, visually
+systems may emit diacritics in different orders. Without A7, visually
 identical text would produce different fingerprints across platforms.
 
-**Verified:** ✅ A6 holds.
+**Verified:** ✅ A7 holds.
 
 ---
 
-## Proof 6: A3 — Hash Separation (Prosody Independence)
+## Proof 6: A4 — Hash Separation (Prosody Independence)
 
 **Claim:** Tanween (prosodic annotation) affects PhoneticHash but NOT CoreHash.
 This demonstrates that the two hashes capture genuinely different layers
@@ -190,7 +190,7 @@ distinction in a computable, verifiable way:
 
 No other Arabic text library provides this layered identity model.
 
-**Verified:** ✅ A3 holds. Hash separation works as designed.
+**Verified:** ✅ A4 holds. Hash separation works as designed.
 
 ---
 
@@ -294,10 +294,10 @@ With Dhad, they correctly resolve to one identity.
 |---|-------|-------|--------|
 | 1 | Single letter BEH — 5 glyph forms equal | A5 | ✅ |
 | 2 | Full word محمد — canonical vs presentation | A5 | ✅ |
-| 3 | Single digit — 3 source systems equal | A7 | ✅ |
-| 4 | Multi-digit year 2025 — 3 systems equal | A7 | ✅ |
-| 5 | Mark order — shadda+fatha = fatha+shadda | A6 | ✅ |
-| 6 | Hash separation — tanween affects only PhoneticHash | A3 | ✅ |
+| 3 | Single digit — 3 source systems equal | A8 | ✅ |
+| 4 | Multi-digit year 2025 — 3 systems equal | A8 | ✅ |
+| 5 | Mark order — shadda+fatha = fatha+shadda | A7 | ✅ |
+| 6 | Hash separation — tanween affects only PhoneticHash | A4 | ✅ |
 | 7 | Boundary documented — diacritics affect CoreHash | (spec) | ✅ |
 | 8 | Invisible filtering — BOM, ZWJ, Tatweel removed | (Stage 4) | ✅ |
 
@@ -308,7 +308,7 @@ With Dhad, they correctly resolve to one identity.
 ## Proof 9: Mode B — Round-trip and Validation
 
 **Claim:** Mode B (`build_frame` / `process_mode_b` / `parse_frame`) works
-correctly and enforces all documented invariants including CR-07.
+correctly and enforces all documented invariants including I22 (§8).
 
 ### 9.1: Round-trip with build_frame + process_mode_b
 
@@ -330,7 +330,7 @@ Matches GT-T01 exactly. **Verified:** ✅
 `parse_frame(build_frame([atom]))` returns the original atom unchanged.
 **Verified:** ✅
 
-### 9.3: CR-07 Enforcement (Reserved Field Non-Zero)
+### 9.3: I22 Enforcement (Reserved Field Non-Zero)
 
 **Method:** Hand-crafted frame with `reserved = 0x0001` in atom bytes,
 valid CRC-32 computed over the complete frame.
@@ -369,7 +369,7 @@ The two-layer design is intentional and elegant:
 
 - `process_mode_b` is a **strict validator** — it accepts arbitrary bytes
   from any source (network, file, hostile input) and validates every
-  invariant including CR-07.
+  invariant including I22 (§8).
 
 This separation means:
 - Internal Rust code uses `build_frame` safely
@@ -423,12 +423,15 @@ let r_b = process_mode_b(&frame)?;
 
 assert_eq!(r_a.core_hash, r_b.core_hash);
 assert_eq!(r_a.phonetic_hash, r_b.phonetic_hash);
-Result:
+```
 
-Hash	Mode A	Mode B	Equal?
-CoreHash	0fb2277838219bbb...	0fb2277838219bbb...	✅
-PhoneticHash	12a5a9738a06de8b...	12a5a9738a06de8b...	✅
-Atom count	3	3	✅
+**Result:**
+
+| Hash | Mode A | Mode B | Equal? |
+|------|--------|--------|--------|
+| CoreHash | `0fb2277838219bbb...` | `0fb2277838219bbb...` | ✅ |
+| PhoneticHash | `12a5a9738a06de8b...` | `12a5a9738a06de8b...` | ✅ |
+| Atom count | 3 | 3 | ✅ |
 Significance:
 
 This proves that the two processing modes are semantically equivalent
@@ -448,13 +451,13 @@ Final Summary: 10 Verified Proofs
 #	Proof	Category	Status
 1	Single letter (BEH × 5 forms)	A5 — Glyph Independence	✅
 2	Full word (محمد × 2 forms)	A5 — Glyph Independence	✅
-3	Single digit (1/١/۱)	A7 — Digit Independence	✅
-4	Multi-digit year (2025)	A7 — Digit Independence	✅
-5	Mark order (shadda+fatha)	A6 — Order Independence	✅
-6	Tanween affects PhoneticHash only	A3 — Hash Separation	✅
+3	Single digit (1/١/۱)	A8 — Digit Independence	✅
+4	Multi-digit year (2025)	A8 — Digit Independence	✅
+5	Mark order (shadda+fatha)	A7 — Order Independence	✅
+6	Tanween affects PhoneticHash only	A4 — Hash Separation	✅
 7	Diacritics affect CoreHash	Design Boundary	✅
 8	BOM/ZWJ/Tatweel filtering	Stage 4 — Noise Filter	✅
-9	Mode B round-trip + CR-07	Mode B Integrity	✅
+9	Mode B round-trip + I22	Mode B Integrity	✅
 10	Mode A ↔ Mode B equivalence	Wire Format	✅
 All proofs reproducible from ~/test_dhad/ using dhad v1.2.0.
 

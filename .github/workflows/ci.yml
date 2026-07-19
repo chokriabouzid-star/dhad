@@ -18,7 +18,7 @@ jobs:
       - name: Install Rust (stable)
         uses: dtolnay/rust-toolchain@stable
         with:
-          components: clippy
+          components: clippy, rustfmt
 
       - name: Cache
         uses: actions/cache@v4
@@ -36,6 +36,9 @@ jobs:
       - name: cargo clippy
         run: cargo clippy --all-targets -- -D warnings
 
+      - name: Format check
+        run: cargo fmt --check
+
       - name: No unsafe code
         run: |
           if grep -r "unsafe" src/; then
@@ -49,5 +52,46 @@ jobs:
           cargo build --release --bin dhad-cli
           ./self_test.sh ./target/release/dhad-cli
 
+      - name: Verify golden_cases.rs is not stale
+        run: |
+          cp tests/cases/golden_cases.rs /tmp/golden_cases.rs.before
+          python3 tools/bootstrap_golden_cases.py
+          diff -u /tmp/golden_cases.rs.before tests/cases/golden_cases.rs
+
+      - name: Security audit
+        run: |
+          cargo install cargo-audit --locked
+          cargo audit
+
       - name: Conformance report
         run: python3 generate_conformance.py
+
+  msrv:
+    name: MSRV Check (1.75.0)
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: 1.75.0
+
+      - name: Regenerate lockfile at MSRV-compatible format
+        run: rm -f Cargo.lock && cargo generate-lockfile
+
+      - name: Pin dev-dependencies confirmed necessary in every environment tested
+        run: |
+          cargo update -p serde_json --precise 1.0.117
+          cargo update -p proptest   --precise 1.4.0
+          cargo update -p tempfile   --precise 3.10.1
+          cargo update -p rand       --precise 0.8.5
+          cargo update -p clap       --precise 4.4.18
+          cargo update -p half       --precise 2.4.1
+
+      - name: Pin rayon chain (only present in some resolutions — non-fatal if absent)
+        run: |
+          cargo update -p rayon      --precise 1.7.0  || true
+          cargo update -p rayon-core --precise 1.12.1 || true
+
+      - run: cargo test --all

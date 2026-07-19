@@ -41,7 +41,7 @@ pub fn core_hash(atoms: &[DhadAtom]) -> [u8; 32] {
 /// Compute the PhoneticHash for an atom slice.
 ///
 /// PhoneticHash captures **prosodic identity**: it commits to both the
-/// CoreHash and the prosody layer. This design (A3) ensures:
+/// CoreHash and the prosody layer. This design (A4) ensures:
 ///
 /// - `CoreHash(a) == CoreHash(b)` does NOT imply `PhoneticHash(a) == PhoneticHash(b)`
 /// - `PhoneticHash(a) == PhoneticHash(b)` IMPLIES `CoreHash(a) == CoreHash(b)`

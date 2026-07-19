@@ -64,9 +64,9 @@ check "ALEF CoreHash" \
     "$(echo "$OUT" | grep 'core:' | awk '{print $2}')" \
     "68d32b955388e186a3ad963008c4aed8f9d957d9fe72ad0e29ad5012d57e140d"
 
-# ─── Test 5: Digit '5' ASCII → CoreHash (A7) ──────────────────────────
+# ─── Test 5: Digit '5' ASCII → CoreHash (A8) ──────────────────────────
 OUT=$(printf '5' | "$BINARY" 2>&1 >/dev/null || true)
-check "Digit 5 ASCII CoreHash (A7)" \
+check "Digit 5 ASCII CoreHash (A8)" \
     "$(echo "$OUT" | grep 'core:' | awk '{print $2}')" \
     "de0abdb12eda178b594dddca3646466589a24f95799e4fe839b154a9c0a407d5"
 

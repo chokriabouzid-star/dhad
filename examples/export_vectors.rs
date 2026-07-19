@@ -363,7 +363,7 @@ fn write_suite(
 ) {
     let root = json!({
         "schema_version": "1.0",
-        "dhad_spec": "v1.0+CR-01..CR-07",
+        "dhad_spec": "v1.0",
         "generated_by": format!("dhad-rust-{}", env!("CARGO_PKG_VERSION")),
         "suite": suite_name,
         "mode": mode,

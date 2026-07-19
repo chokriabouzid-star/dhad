@@ -3,23 +3,23 @@
 /// Each `DhadAtom` represents a single grapheme after full canonicalization.
 /// Size is exactly 8 bytes in wire format (see [`DhadAtom::to_bytes`]).
 ///
-/// All fields satisfy invariants I01–I23 after Stage 10 validation.
+/// All fields satisfy invariants I01–I24 after Stage 10 validation.
 ///
 /// # Field Layout (wire format, little-endian)
 ///
 /// ```text
-/// Bytes 0–1: base     (u16 LE) — Base ID from registry §3
-/// Bytes 2–3: marks    (u16 LE) — diacritic bitmask §2.2
-/// Byte  4:   flags    (u8)     — structural modifier §2.3
-/// Byte  5:   prosody  (u8)     — prosodic annotation §2.4
+/// Bytes 0–1: base     (u16 LE) — Base ID from registry §4
+/// Bytes 2–3: marks    (u16 LE) — diacritic bitmask §3.2
+/// Byte  4:   flags    (u8)     — structural modifier §3.3
+/// Byte  5:   prosody  (u8)     — prosodic annotation §3.4
 /// Bytes 6–7: reserved (u16 LE) — MUST be 0x0000
 /// ```
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Hash)]
 pub struct DhadAtom {
-    pub base: u16,     // little-endian, Base ID registry §3
-    pub marks: u16,    // little-endian, diacritic bitmask §2.2
-    pub flags: u8,     // structural modifier bitmask §2.3
-    pub prosody: u8,   // prosodic annotation bitmask §2.4
+    pub base: u16,     // little-endian, Base ID registry §4
+    pub marks: u16,    // little-endian, diacritic bitmask §3.2
+    pub flags: u8,     // structural modifier bitmask §3.3
+    pub prosody: u8,   // prosodic annotation bitmask §3.4
     pub reserved: u16, // MUST be 0x0000 — enforced by I22
 }
 

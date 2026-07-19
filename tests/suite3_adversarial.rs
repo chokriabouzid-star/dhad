@@ -309,10 +309,11 @@ must_fail!(
     ErrorKind::InvalidProsody { .. }
 );
 
-// at_037 REMOVED: SUKUN+TANWEEN not prohibited by I01-I23.
-// Spec Stage 9 only prohibits TANWEEN+corresponding_vowel (FATHA/DAMMA/KASRA).
-// SUKUN is not a vowel mark. Candidate for CR-08 in future Spec revision.
-// Equivalent valid test: at_036 covers TANWEEN+FATHA conflict.
+must_fail!(
+    at_037_sukun_plus_tanween,
+    &[0xD9, 0x86, 0xD9, 0x92, 0xD9, 0x8B],
+    ErrorKind::InvalidProsody { .. }
+);
 
 #[test]
 fn at_038_madd_normal_and_extended_synthesised() {
@@ -377,8 +378,8 @@ fn at_new_duplicate_superscript_alef_same_atom() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// CR-06: AT-041 — U+0670 بعد ذرة PROSODY_INERT
-// هذا الاختبار إلزامي بشكل خاص (CR-06 fix)
+// I16 (§8): AT-041 — U+0670 بعد ذرة PROSODY_INERT
+// هذا الاختبار إلزامي بشكل خاص (I16, §8)
 // ═══════════════════════════════════════════════════════════════════
 must_fail!(
     at_041_superscript_alef_after_space,
@@ -464,7 +465,7 @@ fn at_046_bidi_rlo_attack() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
-// اختبارات Reserved Base IDs (CR-01) — synthesised atoms
+// اختبارات Reserved Base IDs (I01/I02, §8) — synthesised atoms
 // ═══════════════════════════════════════════════════════════════════
 #[test]
 fn at_reserved_base_001d() {
@@ -480,7 +481,7 @@ fn at_reserved_base_001d() {
             invariants::validate_atom(&atom, 0),
             Err(ErrorKind::UnmappedCodepoint { .. })
         ),
-        "base 0x001D must be explicitly rejected (CR-01)"
+        "base 0x001D must be explicitly rejected (I02, §8)"
     );
 }
 
@@ -529,7 +530,7 @@ fn at_reserved_field_nonzero() {
             invariants::validate_atom(&atom, 0),
             Err(ErrorKind::ReservedFieldNonZero { .. })
         ),
-        "reserved != 0 must be rejected (I22/CR-07)"
+        "reserved != 0 must be rejected (I22, §8)"
     );
 }
 

@@ -1,5 +1,5 @@
 //! Mode B: Tagged Binary Frame Parser
-//! Spec §5.2 — CR-02, CR-07
+//! Spec §6.2
 //!
 //! Frame format:
 //!   magic   : 4 bytes = b"DHAD"
@@ -23,7 +23,7 @@ const ATOM_SIZE: usize = 8;
 /// Validates: magic, version, mode, size, CRC-32, reserved fields.
 /// Does NOT validate atom invariants — caller must run validate_atom.
 pub fn parse_frame(frame: &[u8]) -> Result<Vec<DhadAtom>, ErrorKind> {
-    // Pre-stage: size check (CR-04 applies to Mode B too)
+    // Pre-stage: size check — MAX_INPUT_BYTES enforced per §5 (pre-stage)
     if frame.len() > MAX_INPUT_BYTES {
         return Err(ErrorKind::InputTooLarge(frame.len()));
     }
@@ -94,7 +94,7 @@ pub fn parse_frame(frame: &[u8]) -> Result<Vec<DhadAtom>, ErrorKind> {
 }
 
 /// Parse 8 bytes into a DhadAtom.
-/// Rejects reserved != 0x0000 immediately (CR-07).
+/// Rejects reserved != 0x0000 immediately (I22, §8).
 fn parse_atom(chunk: &[u8], byte_offset: usize) -> Result<DhadAtom, ErrorKind> {
     debug_assert_eq!(chunk.len(), 8);
 
@@ -104,7 +104,7 @@ fn parse_atom(chunk: &[u8], byte_offset: usize) -> Result<DhadAtom, ErrorKind> {
     let prosody = chunk[5];
     let reserved = u16::from_le_bytes([chunk[6], chunk[7]]);
 
-    // CR-07: reserved field must be exactly 0x0000
+    // I22 (§8): reserved field must be exactly 0x0000
     if reserved != 0x0000 {
         let atom_index = (byte_offset - HEADER_SIZE) / ATOM_SIZE;
         return Err(ErrorKind::ReservedFieldNonZero {

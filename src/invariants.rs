@@ -1,7 +1,7 @@
 use crate::model::{flags, marks, prosody, DhadAtom, ErrorKind};
 use crate::registry::base;
 
-/// Check all 23 invariants on a single atom.
+/// Check all 24 invariants on a single atom.
 /// Returns Ok(()) if all pass, Err(ErrorKind) on first violation.
 /// atom_index is the 0-based position in the stream (for error messages).
 pub fn validate_atom(atom: &DhadAtom, atom_index: usize) -> Result<(), ErrorKind> {
@@ -28,6 +28,7 @@ pub fn validate_atom(atom: &DhadAtom, atom_index: usize) -> Result<(), ErrorKind
     i21_superscript_not_tanween(atom, atom_index)?;
     i22_reserved_zero(atom, atom_index)?;
     i23_marks_reserved_bits(atom, atom_index)?;
+    i24_no_sukun_with_tanween(atom, atom_index)?;
     Ok(())
 }
 
@@ -294,6 +295,20 @@ fn i23_marks_reserved_bits(a: &DhadAtom, idx: usize) -> Result<(), ErrorKind> {
         Err(ErrorKind::InvalidMarkCombo {
             marks: a.marks,
             atom_index: idx,
+        })
+    } else {
+        Ok(())
+    }
+}
+
+fn i24_no_sukun_with_tanween(a: &DhadAtom, idx: usize) -> Result<(), ErrorKind> {
+    let has_tanween =
+        a.prosody & (prosody::TANWEEN_FATH | prosody::TANWEEN_DAMM | prosody::TANWEEN_KASR) != 0;
+    if a.marks & marks::SUKUN != 0 && has_tanween {
+        Err(ErrorKind::InvalidProsody {
+            prosody: a.prosody,
+            atom_index: idx,
+            reason: "SUKUN and TANWEEN are mutually exclusive on the same atom",
         })
     } else {
         Ok(())

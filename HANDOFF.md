@@ -24,7 +24,7 @@ Two modes:
 - **Mode A** — UTF-8 Arabic text input
 - **Mode B** — tagged binary frame (for pre-annotated MADD-style content)
 
-Design axioms: A1, A2, A3, A5, A6, A7.
+Design axioms: A1, A2, A4, A5, A7, A8.
 
 ---
 

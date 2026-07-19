@@ -1,6 +1,6 @@
 //! Dhad CLI — Mode A processor
 //! Reads UTF-8 from stdin, writes atom stream to stdout
-//! Enforces MAX_INPUT_BYTES before allocation (A2, CR-04)
+//! Enforces MAX_INPUT_BYTES before allocation (A2, §5 pre-stage)
 
 use dhad::constants::MAX_INPUT_BYTES;
 use dhad::modes::process_mode_a;
