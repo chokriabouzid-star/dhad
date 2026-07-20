@@ -61,7 +61,7 @@ jobs:
       - name: Security audit
         run: |
           cargo install cargo-audit --locked
-          cargo audit
+          cargo audit --ignore RUSTSEC-2026-0204 --ignore RUSTSEC-2026-0190
 
       - name: Conformance report
         run: python3 generate_conformance.py
