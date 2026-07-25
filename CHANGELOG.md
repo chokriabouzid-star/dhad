@@ -26,6 +26,14 @@ content. This closes the class of drift that produced this correction.
 
 ## Unreleased
 
+- Corrected `specification.md` §5/§9.1: the 14 FAPS two-codepoint
+  mappings are not all Lam-Alef ligatures; verified breakdown is 8
+  Lam-Alef ligatures + 6 medial-form diacritics paired with a tatweel
+  carrier. Total mapped count remains 141. Also corrected Stage 10
+  wording to refer to the full active invariant set after I24 activation,
+  and updated the `src/faps.rs` `FapsResult::Two` comment to match the
+  verified behavior.
+
 - Retired the historical `CR-01`..`CR-07` correction labels from live
   source comments and reporting. The rules themselves remain in force;
   only the citation style changed.

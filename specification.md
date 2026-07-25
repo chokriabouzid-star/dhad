@@ -228,14 +228,14 @@ Twelve stages, executed in order.
 | Pre | Size check | Reject input over 4,194,304 bytes |
 | 1 | UTF-8 decode | Strict RFC 3629; reject overlong sequences, surrogates, codepoints above U+10FFFF |
 | 2 | BOM removal | Strip a leading U+FEFF |
-| 3 | FAPS decomposition | Map 141 presentation-form codepoints (127 single-codepoint mappings + 14 Lam-Alef two-codepoint mappings, across U+FB50–FDFF and U+FE70–FEFF) to canonical codepoints |
+| 3 | FAPS decomposition | Map 141 presentation-form codepoints (127 single-codepoint mappings + 14 two-codepoint mappings — 8 Lam-Alef ligatures and 6 medial-form diacritics presented on a tatweel carrier — across U+FB50–FDFF and U+FE70–FEFF) to canonical codepoints |
 | 4 | Noise filtering | Silently remove 32 invisible/control codepoints (§5.1) |
 | 5 | Classification | Sort codepoints into base, diacritic, prosodic, digit, or structural |
 | 6 | Atom construction | Build atoms; attach diacritics; reject orphans and duplicates |
 | 7 | Flag resolution | Identity stage — flags are already resolved in Stage 6 |
 | 8 | Digit normalization | Identity stage — digits are already resolved in Stage 5 |
 | 9 | Prosody resolution | Attach tanween and superscript-alef bits; reject contradictions |
-| 10 | Validation | Check all 23 invariants (§8); first failure halts processing |
+| 10 | Validation | Check the full active invariant set (§8); first failure halts processing |
 | 11 | Serialization | Write validated atoms as 8-byte records |
 | 12 | Hashing | Compute CoreHash and PhoneticHash (§7) |
 
@@ -467,12 +467,27 @@ at the time it was written and was carried forward from an early
 descriptive estimate rather than a direct count of the shipped table.
 Direct enumeration of every match arm in `src/faps.rs` gives **141**:
 127 codepoints that decompose to a single canonical codepoint, plus 14
-Lam-Alef ligature codepoints that decompose to two canonical codepoints
-each. This has been corrected throughout this document. No code change
-was required — the implementation was correct; only the prose count was
-wrong.
+that decompose to two. No code change was required for the total —
+the implementation was correct; only the prose count was wrong.
 
----
+**Second correction, to the composition of that same "14":** an earlier
+revision of this note described all 14 two-codepoint mappings as
+"Lam-Alef ligatures." Direct enumeration of every codepoint producing a
+two-codepoint result shows this was incomplete: only **8** are Lam-Alef
+ligatures (`U+FEF5`–`U+FEFC`, decomposing to LAM plus one of the four
+ALEF variants). The remaining **6** (`U+FE71`, `U+FE77`, `U+FE79`,
+`U+FE7B`, `U+FE7D`, `U+FE7F`) are medial-form presentation codepoints
+for FATHATAN, FATHA, DAMMA, KASRA, SHADDA, and SUKUN respectively, each
+decomposing to `(TATWEEL, <the bare diacritic>)` — the conventional
+typographic seat for a diacritic with no adjacent letter to attach to
+directly. Because U+0640 (tatweel) is itself in the noise set (§5.1),
+the tatweel half of each such pair is removed at Stage 4 immediately
+after being introduced at Stage 3, leaving only the bare diacritic to
+attach to the true preceding base atom — consistent with Axiom A5, the
+tatweel carrier contributes no information of its own. The total of 141
+is unaffected; only this note's breakdown of the 14 two-codepoint
+mappings has been corrected.
+
 
 ## 10. Compatibility Policy
 
