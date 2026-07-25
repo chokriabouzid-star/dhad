@@ -3,7 +3,7 @@ pub enum FapsResult {
     /// Single output codepoint
     One(u32),
     /// Two output codepoints (Lam-Alef ligatures, or a medial diacritic
-/// paired with its tatweel carrier — see specification.md §9.1)
+    /// paired with its tatweel carrier — see specification.md §9.1)
     Two(u32, u32),
     /// Not in presentation forms range — pass through
     PassThrough,
