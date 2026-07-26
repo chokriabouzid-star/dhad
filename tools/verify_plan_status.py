@@ -433,7 +433,37 @@ def check_04_test_suite_shape() -> CheckResult:
     runtime_block_count = len(running_blocks) + len(doctest_blocks)
     result_block_count = len(result_blocks)
 
+    if runtime_block_count != result_block_count:
+        diag = "\n".join(
+            f"  L{i:03d}: {line!r}"
+            for i, line in enumerate(output.splitlines()[:40], start=1)
+        )
+        return CheckResult(
+            4,
+            "Test suite shape",
+            "FAIL",
+            f"عدد blocks التشغيل ({runtime_block_count}) لا يساوي عدد blocks النتائج ({result_block_count}).\n"
+            f"Running blocks matched: {len(running_blocks)}, Doc-tests blocks matched: {len(doctest_blocks)}, result blocks matched: {len(result_blocks)}.\n"
+            f"First 40 raw output lines (merged stdout+stderr) for diagnosis:\n{diag}",
+        )
+
     integration_files = sorted(p.name for p in (ROOT / "tests").glob("*.rs"))
+    integration_runtime = sorted(
+        m.group(1)
+        for block in running_blocks
+        if (m := re.match(r"tests/([^ ]+\.rs)\s", block))
+    )
+
+    if integration_runtime != integration_files:
+        return CheckResult(
+            4,
+            "Test suite shape",
+            "FAIL",
+            "ملفات suites تحت tests/ لا تطابق ما شغّله cargo test فعليًا.\n"
+            f"on disk: {integration_files}\n"
+            f"runtime: {integration_runtime}",
+        )
+
     total_passed = sum(int(x[1]) for x in result_blocks)
     total_failed = sum(int(x[2]) for x in result_blocks)
 
@@ -445,35 +475,11 @@ def check_04_test_suite_shape() -> CheckResult:
             f"cargo test اكتشف {total_failed} اختبارات فاشلة.",
         )
 
-    # Cargo prints "Running" blocks only during uncached compilation.
-    # In cached CI environments (or after a warm local build), those lines
-    # are absent, but every test binary still prints a "test result:" block.
-    # Use result blocks as the primary source of truth; verify running blocks
-    # only when Cargo actually emitted them.
-    if running_blocks:
-        integration_runtime = sorted(
-            m.group(1)
-            for block in running_blocks
-            if (m := re.match(r"tests/([^ ]+\.rs)\s", block))
-        )
-        if integration_runtime != integration_files:
-            return CheckResult(
-                4,
-                "Test suite shape",
-                "FAIL",
-                "ملفات suites تحت tests/ لا تطابق ما شغّله cargo test فعليًا.\n"
-                f"on disk: {integration_files}\n"
-                f"runtime: {integration_runtime}",
-            )
-        cache_note = ""
-    else:
-        cache_note = " (cached build: Cargo لم يطبع 'Running' blocks، اعتُمد فقط على test result blocks)"
-
     return CheckResult(
         4,
         "Test suite shape",
         "PASS",
-        f"integration suites={len(integration_files)}, result blocks={result_block_count}, total passed={total_passed}{cache_note}.",
+        f"integration suites={len(integration_files)}, runtime result blocks={result_block_count}, total passed={total_passed}.",
     )
 
 
