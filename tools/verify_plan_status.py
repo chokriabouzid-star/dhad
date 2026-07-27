@@ -400,13 +400,34 @@ def check_03_vector_counts() -> CheckResult:
     )
 
 
+ANSI_RE = re.compile(r"\x1b\[[0-9;]*m")
+
+
 def check_04_test_suite_shape() -> CheckResult:
     cp = run(
-        ["cargo", "test", "--all", "--", "--test-threads=1"],
+        ["cargo", "test", "--all", "--color=never", "--", "--test-threads=1"],
         merge_streams=True,
         timeout=1800,
     )
-    output = cp.stdout or ""
+    raw_output = cp.stdout or ""
+    output = ANSI_RE.sub("", raw_output)
+
+    # Positive-evidence diagnostic (temporary): prove the fix addresses the
+    # actual cause (ANSI in Cargo output on CI), not just the symptom (regex
+    # miss). To be removed in a follow-up commit once verified on CI.
+    esc_bytes = raw_output.count("\x1b")
+    diag_head = "\n".join(
+        f"  RAW L{i:03d}: {line!r}"
+        for i, line in enumerate(raw_output.splitlines()[:3], start=1)
+    )
+    print(
+        "  [check_04 diagnostic] "
+        f"raw_len={len(raw_output)}, stripped_len={len(output)}, "
+        f"ESC bytes in raw={esc_bytes}, ANSI removed={len(raw_output) - len(output)} chars.\n"
+        f"  First 3 raw lines:\n{diag_head}",
+        flush=True,
+    )
+
     if cp.returncode != 0:
         return CheckResult(
             4,
