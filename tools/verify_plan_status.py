@@ -409,24 +409,13 @@ def check_04_test_suite_shape() -> CheckResult:
         merge_streams=True,
         timeout=1800,
     )
-    raw_output = cp.stdout or ""
-    output = ANSI_RE.sub("", raw_output)
-
-    # Positive-evidence diagnostic (temporary): prove the fix addresses the
-    # actual cause (ANSI in Cargo output on CI), not just the symptom (regex
-    # miss). To be removed in a follow-up commit once verified on CI.
-    esc_bytes = raw_output.count("\x1b")
-    diag_head = "\n".join(
-        f"  RAW L{i:03d}: {line!r}"
-        for i, line in enumerate(raw_output.splitlines()[:3], start=1)
-    )
-    print(
-        "  [check_04 diagnostic] "
-        f"raw_len={len(raw_output)}, stripped_len={len(output)}, "
-        f"ESC bytes in raw={esc_bytes}, ANSI removed={len(raw_output) - len(output)} chars.\n"
-        f"  First 3 raw lines:\n{diag_head}",
-        flush=True,
-    )
+    # Defense in depth against Cargo emitting ANSI in output on some CI
+    # runners (verified empirically on GitHub Actions on 2026-07-25):
+    #   1. --color=never asks Cargo not to emit color at the source.
+    #   2. ANSI_RE.sub then strips any color that slips through anyway,
+    #      protecting all downstream regexes in this check.
+    # See CHANGELOG.md and commit fe7336a for the verification trail.
+    output = ANSI_RE.sub("", cp.stdout or "")
 
     if cp.returncode != 0:
         return CheckResult(
