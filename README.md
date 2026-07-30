@@ -93,6 +93,13 @@ echo -n "بسم" | dhad-cli
 # core:     0fb2277838219bbb6fa949b0ddecb22bf25c69161168022a801b032b41f23ac3
 # phonetic: 12a5a9738a06de8b2abd74637ae4efa3c52b29e3aba8b702bb26715fe6df7cf4
 ```
+
+`dhad-cli` writes the raw `AtomStream` bytes to `stdout` and the human-readable summary (`atoms`, `core`, `phonetic`) to `stderr`, so capture them separately when scripting:
+
+```bash
+echo -n "بسم" | dhad-cli > atoms.bin 2> summary.txt
+cat summary.txt
+```
 ---
 
 ## What You Get
