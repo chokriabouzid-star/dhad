@@ -489,6 +489,8 @@ sha2      = "0.10"   # SHA-256
 crc32fast = "1.4"    # CRC-32 for Mode B frames
 thiserror = "1.0"    # Error derive macros
 hex       = "0.4"    # Hex encoding, used by dhad-cli; not re-exported
+
+Contributors: enable the formatting pre-commit hook once with `git config core.hooksPath .githooks`.
                        # — library consumers must add it separately
 ```
 

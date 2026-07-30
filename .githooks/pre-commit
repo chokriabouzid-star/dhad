@@ -1,0 +1,14 @@
+#!/bin/sh
+# Dhad pre-commit hook — runs `cargo fmt --check` before allowing a commit.
+# Enable once per clone with: git config core.hooksPath .githooks
+#
+# Motivation: a past session lost CI time to a hand-edited Rust file with
+# incorrect indentation that `cargo fmt --check` would have caught locally
+# in under a second. See CHANGELOG.md for the incident this prevents.
+
+if ! cargo fmt --check; then
+    echo ""
+    echo "pre-commit: 'cargo fmt --check' failed."
+    echo "Run 'cargo fmt' to fix formatting, then re-stage and commit again."
+    exit 1
+fi
