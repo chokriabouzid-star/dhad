@@ -61,6 +61,10 @@ Dhad solves this with a **formal specification** (23 invariants, 7 corrections),
 a **deterministic Rust implementation** (284 tests), and a **185-vector
 conformance suite** verified across two independent implementations.
 
+The public conformance corpus, dependency-free verifier, and independent
+Python reference implementation live in the companion repository:
+[`dhad-conformance-suite`](https://github.com/chokriabouzid-star/dhad-conformance-suite).
+
 ## Quick Start
 
 Add Dhad to your project:
@@ -323,7 +327,7 @@ Dhad v1.2.0 is verified across **two independent implementations**:
 | `tagged.json` | B | 30 | 9 success + 21 typed errors |
 | **Total** | | **185** | |
 
-Published in: [dhad-conformance-suite](https://github.com/chokriabouzid-star/dhad-conformance-suite)
+Published in the companion repository: [dhad-conformance-suite](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 
 ### Verifying Locally
 
