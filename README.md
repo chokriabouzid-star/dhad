@@ -471,6 +471,26 @@ please open an issue first — these affect the conformance contract.
 
 The protected files list is enforced via `.github/CODEOWNERS`.
 
+### MSRV lockfile policy
+
+`Cargo.msrv.lock` must always be generated **inside this repository's own
+working copy** — never copied in from a separate clone or working directory,
+even one with byte-identical `Cargo.toml` content. Dependency resolution can
+still diverge (transitive features, lockfile history, cache state), and CI's
+`--locked` check will correctly reject a mismatched file.
+
+Its validity is defined by one thing only: `cp Cargo.msrv.lock Cargo.lock`
+followed by `cargo +1.75.0 test --all --locked` must pass. Byte-for-byte
+reproducibility of a freshly regenerated lockfile is *not* the guarantee —
+see `CHANGELOG.md`'s 2026-07-23 correction and the CI `msrv` job for the
+documented validation path.
+
+If you intentionally need to refresh a pinned dependency version, regenerate
+`Cargo.msrv.lock` inside this repository, confirm `cargo +1.75.0 test --all
+--locked` still passes, and commit the updated file with an explicit reason
+in the commit message — never as an incidental side effect of an unrelated
+change.
+
 ---
 
 ## Project Status
