@@ -26,6 +26,15 @@ content. This closes the class of drift that produced this correction.
 
 ## Unreleased
 
+- Documented the companion repository more explicitly: `README.md` now points
+  directly to `dhad-conformance-suite` as the home of the public conformance
+  corpus, dependency-free verifier, and independent Python reference
+  implementation.
+- Companion-repository documentation was aligned with the current citation
+  policy: the retired `CR-01..CR-07` notation in
+  `dhad-conformance-suite/README.md` was replaced with a direct link to the
+  normative `specification.md`.
+
 - Corrected `specification.md` §5/§9.1: the 14 FAPS two-codepoint
   mappings are not all Lam-Alef ligatures; verified breakdown is 8
   Lam-Alef ligatures + 6 medial-form diacritics paired with a tatweel
