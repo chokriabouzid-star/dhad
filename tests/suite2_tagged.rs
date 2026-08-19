@@ -1,5 +1,5 @@
 //! Suite 2 — Mode B Tagged Binary Tests
-//! Source of truth: Dhad-Spec-v1.0 §5.2, GT-T01–GT-T04
+//! Source of truth: Dhad-Spec-v1.1 §5.2, GT-T01–GT-T04
 //! GT-092/093/094/095 from JSON (previously misclassified as Mode A)
 //! are re-integrated here as Mode B tests via build_frame().
 

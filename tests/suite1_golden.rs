@@ -1,5 +1,5 @@
 //! Suite 1 — Golden Tests (Mode A)
-//! Source of truth: Dhad-Spec-v1.0 JSON test vectors
+//! Source of truth: Dhad-Spec-v1.1 JSON test vectors
 //! GT-092/093/094/095 excluded: MADD bits impossible in Mode A → moved to suite2
 
 use dhad::modes::process_mode_a;

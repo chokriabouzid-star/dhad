@@ -132,7 +132,7 @@ version = cargo_package_version()
 
 report = f"""# Dhad Conformance Report
 **Generated:** {now}
-**Specification:** Dhad v1.0
+**Specification:** Dhad v1.1
 **Status:** {'✅ CONFORMANT' if overall else '❌ NON-CONFORMANT'}
 
 ---
@@ -143,7 +143,7 @@ report = f"""# Dhad Conformance Report
 |-----------|---------|
 | Library (`dhad`) | {version} |
 | Rust edition | 2021 |
-| Dhad spec | v1.0 |
+| Dhad spec | v1.1 |
 
 ---
 

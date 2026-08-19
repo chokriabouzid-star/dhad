@@ -1,5 +1,5 @@
 //! Suite 4 — Property Tests (P1–P10)
-//! Source of truth: Dhad-Spec-v1.0 §10
+//! Source of truth: Dhad-Spec-v1.1 §10
 //! Covers all 10 properties with correct NOISE_SET (32 codepoints)
 
 use dhad::mode_b::build_frame;

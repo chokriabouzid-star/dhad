@@ -355,7 +355,7 @@ Dhad never guesses. Every error is typed and tells you exactly what went wrong:
 |-------|-------|-----------|
 | `InputTooLarge` | Pre-1 | Input > 4 MiB |
 | `MalformedUtf8` | 1 | Invalid byte sequence |
-| `UnmappedCodepoint` | 3, 5 | Codepoint not in Dhad v1.0 registry |
+| `UnmappedCodepoint` | 3, 5 | Codepoint not in Dhad v1.1 registry |
 | `OrphanDiacritic` | 6 | Diacritic with no preceding base |
 | `InvalidMarkCombo` | 6, 10 | Incompatible diacritics |
 | `InvalidFlagCombo` | 7, 10 | Incompatible flag bits |
