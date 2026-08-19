@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/dhad.svg)](https://crates.io/crates/dhad)
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-284%20verified-blue.svg)](#التوافق)
+[![Tests](https://img.shields.io/badge/tests-285%20verified-blue.svg)](#التوافق)
 [![Conformance](https://img.shields.io/badge/conformance-185%2F185-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
@@ -62,7 +62,7 @@ assert_eq!(a.core_hash, b.core_hash);
 - **التحقق** — "هل هذه الآية مطابقة للنسخة الأم؟" تصبح بلا إجابة
 - **معالجة NLP** — نماذج اللغة ترى ضوضاء بدل بنية
 
-ضاد يحل هذا بـ **مواصفة رسمية** (24 ثابتاً، 7 تصحيحات)، **تنفيذ حتمي بـ Rust** (284 اختباراً)، و**مجموعة توافق من 185 ناقلاً** متحقق منها عبر تنفيذين مستقلين.
+ضاد يحل هذا بـ **مواصفة رسمية** (24 ثابتاً، 7 تصحيحات)، **تنفيذ حتمي بـ Rust** (285 اختباراً)، و**مجموعة توافق من 185 ناقلاً** متحقق منها عبر تنفيذين مستقلين.
 
 ---
 

@@ -45,7 +45,7 @@ Design axioms: A1, A2, A4, A5, A7, A8.
 
 - `cargo fmt --check` clean
 - `cargo clippy --all-targets` clean
-- `cargo test` — 284 tests, all green
+- `cargo test` — 285 tests, all green
 - `cargo run --example export_vectors` — 185 vectors generated into `../dhad-conformance-suite/vectors/`
 - `python3 ../dhad-conformance-suite/tools/verify_vectors.py` — ALL VECTOR FILES VERIFIED
 - `python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py` — 30/30

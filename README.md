@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/dhad.svg)](https://crates.io/crates/dhad)
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-284%20verified-blue.svg)](#conformance)
+[![Tests](https://img.shields.io/badge/tests-285%20verified-blue.svg)](#conformance)
 [![Conformance](https://img.shields.io/badge/conformance-185%2F185-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
@@ -58,7 +58,7 @@ This breaks:
 - **NLP preprocessing** — language models see noise instead of structure
 
 Dhad solves this with a **formal specification** (24 invariants, 7 corrections),
-a **deterministic Rust implementation** (284 tests), and a **185-vector
+a **deterministic Rust implementation** (285 tests), and a **185-vector
 conformance suite** verified across two independent implementations.
 
 The public conformance corpus, dependency-free verifier, and independent
@@ -313,7 +313,7 @@ Dhad v1.2.0 is verified across **two independent implementations**:
 
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
-| Rust (this repo) | 284 unit + integration tests | ✅ |
+| Rust (this repo) | 285 unit + integration tests | ✅ |
 | Python (independent reference) | 185/185 protocol vectors | ✅ |
 | Anchor constants (cross-impl) | 4/4 | ✅ |
 | Empirical behavioral proofs | 10/10 | ✅ |
