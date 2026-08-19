@@ -1,6 +1,6 @@
 # Dhad (ضاد) — Protocol Specification
 
-**Version:** 1.0
+**Version:** 1.1
 **Status:** Normative
 **Repository:** https://github.com/chokriabouzid-star/dhad
 **Conformance suite:** https://github.com/chokriabouzid-star/dhad-conformance-suite
