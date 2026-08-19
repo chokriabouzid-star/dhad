@@ -98,8 +98,8 @@ MADD_NORMAL and MADD_EXTENDED have no Unicode source and can only be set
 through Mode B (§6.2).
 
 Tanween is classified as prosody, not marks, because it is treated as a
-word-final nunation layered on top of a base vowel, not a substitute for
-one. As a direct consequence, tanween and its corresponding plain vowel
+word-final nunation substituting for a base vowel, not layered on top of
+it. As a direct consequence, tanween and its corresponding plain vowel
 mark cannot coexist on the same atom (I18–I20).
 
 ### 3.5 AtomStream
