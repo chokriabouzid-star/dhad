@@ -1,7 +1,7 @@
 use crate::model::{flags, marks, prosody, DhadAtom, ErrorKind};
 use crate::registry::base;
 
-/// Check all 24 invariants on a single atom.
+/// Check all 25 invariants on a single atom.
 /// Returns Ok(()) if all pass, Err(ErrorKind) on first violation.
 /// atom_index is the 0-based position in the stream (for error messages).
 pub fn validate_atom(atom: &DhadAtom, atom_index: usize) -> Result<(), ErrorKind> {
@@ -29,6 +29,7 @@ pub fn validate_atom(atom: &DhadAtom, atom_index: usize) -> Result<(), ErrorKind
     i22_reserved_zero(atom, atom_index)?;
     i23_marks_reserved_bits(atom, atom_index)?;
     i24_no_sukun_with_tanween(atom, atom_index)?;
+    i25_prosody_reserved_bits(atom, atom_index)?;
     Ok(())
 }
 
@@ -309,6 +310,18 @@ fn i24_no_sukun_with_tanween(a: &DhadAtom, idx: usize) -> Result<(), ErrorKind> 
             prosody: a.prosody,
             atom_index: idx,
             reason: "SUKUN and TANWEEN are mutually exclusive on the same atom",
+        })
+    } else {
+        Ok(())
+    }
+}
+
+fn i25_prosody_reserved_bits(a: &DhadAtom, idx: usize) -> Result<(), ErrorKind> {
+    if a.prosody & 0xC0 != 0 {
+        Err(ErrorKind::InvalidProsody {
+            prosody: a.prosody,
+            atom_index: idx,
+            reason: "prosody bits 6-7 (0xC0) are reserved and must be zero",
         })
     } else {
         Ok(())

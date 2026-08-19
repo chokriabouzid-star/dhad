@@ -349,6 +349,57 @@ fn frame_err_reserved_nonzero() {
 }
 
 // ═══════════════════════════════════════════════════════════════════
+// I25 (§8): prosody reserved bits 6–7 must be zero
+// ═══════════════════════════════════════════════════════════════════
+#[test]
+fn frame_err_prosody_reserved_bit_0x40() {
+    let atom = DhadAtom {
+        base: base::ALEF,
+        marks: 0,
+        flags: 0,
+        prosody: 0x40,
+        reserved: 0,
+    };
+    let frame = build_frame(&[atom]);
+    let result = process_mode_b(&frame);
+    assert!(
+        matches!(
+            result,
+            Err(ErrorKind::InvalidProsody {
+                prosody: 0x40,
+                atom_index: 0,
+                reason
+            }) if reason == "prosody bits 6-7 (0xC0) are reserved and must be zero"
+        ),
+        "prosody bit 0x40 must produce ERR_INVALID_PROSODY with I25 reason"
+    );
+}
+
+#[test]
+fn frame_err_prosody_reserved_bit_0x80() {
+    let atom = DhadAtom {
+        base: base::ALEF,
+        marks: 0,
+        flags: 0,
+        prosody: 0x80,
+        reserved: 0,
+    };
+    let frame = build_frame(&[atom]);
+    let result = process_mode_b(&frame);
+    assert!(
+        matches!(
+            result,
+            Err(ErrorKind::InvalidProsody {
+                prosody: 0x80,
+                atom_index: 0,
+                reason
+            }) if reason == "prosody bits 6-7 (0xC0) are reserved and must be zero"
+        ),
+        "prosody bit 0x80 must produce ERR_INVALID_PROSODY with I25 reason"
+    );
+}
+
+// ═══════════════════════════════════════════════════════════════════
 // I01/I02 (§8): Reserved Base IDs في Mode B
 // ═══════════════════════════════════════════════════════════════════
 #[test]
