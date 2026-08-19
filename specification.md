@@ -486,7 +486,7 @@ after being introduced at Stage 3, leaving only the bare diacritic to
 attach to the true preceding base atom — consistent with Axiom A5, the
 tatweel carrier contributes no information of its own. The total of 141
 is unaffected; only this note's breakdown of the 14 two-codepoint
-mappings has been corrected.
+mappings has been corrected. The complete table is given in Appendix B.
 
 
 ## 10. Compatibility Policy
@@ -605,6 +605,159 @@ they differ.
 | P8 | Error Determinism | The same invalid input always produces the same `ErrorKind`, with the same relevant fields, on every run. | A2 |
 | P9 | Atom Byte Size | `DhadAtom::to_bytes()` always returns exactly 8 bytes, for every valid atom. | §3.1 |
 | P10 | Crash Resistance | No input up to the maximum size (Pre-stage limit) — including adversarial and malformed input, in both Mode A and Mode B — causes a panic or undefined behavior. | §12.6 |
+
+---
+
+## Appendix B — Complete FAPS Decomposition Table
+
+Full enumeration referenced by §9.1 and the Stage 3 row of §5's pipeline
+table. Source: `dhad-conformance-suite/data/faps_table.json` (extracted
+programmatically from `src/faps.rs`; 127 single-codepoint + 14
+two-codepoint = 141).
+
+| Presentation | Canonical |
+|---|---|
+| U+FB50 | U+0671 |
+| U+FB51 | U+0671 |
+| U+FE70 | U+064B |
+| U+FE71 | U+0640 U+064B |
+| U+FE72 | U+064C |
+| U+FE74 | U+064D |
+| U+FE76 | U+064E |
+| U+FE77 | U+0640 U+064E |
+| U+FE78 | U+064F |
+| U+FE79 | U+0640 U+064F |
+| U+FE7A | U+0650 |
+| U+FE7B | U+0640 U+0650 |
+| U+FE7C | U+0651 |
+| U+FE7D | U+0640 U+0651 |
+| U+FE7E | U+0652 |
+| U+FE7F | U+0640 U+0652 |
+| U+FE80 | U+0621 |
+| U+FE81 | U+0622 |
+| U+FE82 | U+0622 |
+| U+FE83 | U+0623 |
+| U+FE84 | U+0623 |
+| U+FE85 | U+0624 |
+| U+FE86 | U+0624 |
+| U+FE87 | U+0625 |
+| U+FE88 | U+0625 |
+| U+FE89 | U+0626 |
+| U+FE8A | U+0626 |
+| U+FE8B | U+0626 |
+| U+FE8C | U+0626 |
+| U+FE8D | U+0627 |
+| U+FE8E | U+0627 |
+| U+FE8F | U+0628 |
+| U+FE90 | U+0628 |
+| U+FE91 | U+0628 |
+| U+FE92 | U+0628 |
+| U+FE93 | U+0629 |
+| U+FE94 | U+0629 |
+| U+FE95 | U+062A |
+| U+FE96 | U+062A |
+| U+FE97 | U+062A |
+| U+FE98 | U+062A |
+| U+FE99 | U+062B |
+| U+FE9A | U+062B |
+| U+FE9B | U+062B |
+| U+FE9C | U+062B |
+| U+FE9D | U+062C |
+| U+FE9E | U+062C |
+| U+FE9F | U+062C |
+| U+FEA0 | U+062C |
+| U+FEA1 | U+062D |
+| U+FEA2 | U+062D |
+| U+FEA3 | U+062D |
+| U+FEA4 | U+062D |
+| U+FEA5 | U+062E |
+| U+FEA6 | U+062E |
+| U+FEA7 | U+062E |
+| U+FEA8 | U+062E |
+| U+FEA9 | U+062F |
+| U+FEAA | U+062F |
+| U+FEAB | U+0630 |
+| U+FEAC | U+0630 |
+| U+FEAD | U+0631 |
+| U+FEAE | U+0631 |
+| U+FEAF | U+0632 |
+| U+FEB0 | U+0632 |
+| U+FEB1 | U+0633 |
+| U+FEB2 | U+0633 |
+| U+FEB3 | U+0633 |
+| U+FEB4 | U+0633 |
+| U+FEB5 | U+0634 |
+| U+FEB6 | U+0634 |
+| U+FEB7 | U+0634 |
+| U+FEB8 | U+0634 |
+| U+FEB9 | U+0635 |
+| U+FEBA | U+0635 |
+| U+FEBB | U+0635 |
+| U+FEBC | U+0635 |
+| U+FEBD | U+0636 |
+| U+FEBE | U+0636 |
+| U+FEBF | U+0636 |
+| U+FEC0 | U+0636 |
+| U+FEC1 | U+0637 |
+| U+FEC2 | U+0637 |
+| U+FEC3 | U+0637 |
+| U+FEC4 | U+0637 |
+| U+FEC5 | U+0638 |
+| U+FEC6 | U+0638 |
+| U+FEC7 | U+0638 |
+| U+FEC8 | U+0638 |
+| U+FEC9 | U+0639 |
+| U+FECA | U+0639 |
+| U+FECB | U+0639 |
+| U+FECC | U+0639 |
+| U+FECD | U+063A |
+| U+FECE | U+063A |
+| U+FECF | U+063A |
+| U+FED0 | U+063A |
+| U+FED1 | U+0641 |
+| U+FED2 | U+0641 |
+| U+FED3 | U+0641 |
+| U+FED4 | U+0641 |
+| U+FED5 | U+0642 |
+| U+FED6 | U+0642 |
+| U+FED7 | U+0642 |
+| U+FED8 | U+0642 |
+| U+FED9 | U+0643 |
+| U+FEDA | U+0643 |
+| U+FEDB | U+0643 |
+| U+FEDC | U+0643 |
+| U+FEDD | U+0644 |
+| U+FEDE | U+0644 |
+| U+FEDF | U+0644 |
+| U+FEE0 | U+0644 |
+| U+FEE1 | U+0645 |
+| U+FEE2 | U+0645 |
+| U+FEE3 | U+0645 |
+| U+FEE4 | U+0645 |
+| U+FEE5 | U+0646 |
+| U+FEE6 | U+0646 |
+| U+FEE7 | U+0646 |
+| U+FEE8 | U+0646 |
+| U+FEE9 | U+0647 |
+| U+FEEA | U+0647 |
+| U+FEEB | U+0647 |
+| U+FEEC | U+0647 |
+| U+FEED | U+0648 |
+| U+FEEE | U+0648 |
+| U+FEEF | U+0649 |
+| U+FEF0 | U+0649 |
+| U+FEF1 | U+064A |
+| U+FEF2 | U+064A |
+| U+FEF3 | U+064A |
+| U+FEF4 | U+064A |
+| U+FEF5 | U+0644 U+0622 |
+| U+FEF6 | U+0644 U+0622 |
+| U+FEF7 | U+0644 U+0623 |
+| U+FEF8 | U+0644 U+0623 |
+| U+FEF9 | U+0644 U+0625 |
+| U+FEFA | U+0644 U+0625 |
+| U+FEFB | U+0644 U+0627 |
+| U+FEFC | U+0644 U+0627 |
 
 ---
 
