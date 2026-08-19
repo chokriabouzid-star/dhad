@@ -73,7 +73,7 @@ pub fn process_mode_a(input: &[u8]) -> Result<DhadResult, ErrorKind> {
 /// mode    : 1 byte   = 0x42 ('B')
 /// n_atoms : 4 bytes  = u32 LE
 /// atoms   : n_atoms × 8 bytes
-/// checksum: 4 bytes  = CRC-32 of all preceding bytes
+/// checksum: 4 bytes  = CRC-32 of all preceding bytes (u32, little-endian)
 /// ```
 ///
 /// # Errors

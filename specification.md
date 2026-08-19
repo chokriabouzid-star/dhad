@@ -295,7 +295,7 @@ representation.
 | 5 | mode | `0x42` ('B') |
 | 6–9 | atom count | u32, little-endian |
 | 10..10+n×8 | atoms | n × 8 bytes |
-| last 4 | checksum | CRC-32 over all preceding bytes |
+| last 4 | checksum | CRC-32 over all preceding bytes (u32, little-endian) |
 
 Minimum frame size: 14 bytes. Every atom is validated against the full
 invariant set (§8), and a nonzero `reserved` field is rejected.
