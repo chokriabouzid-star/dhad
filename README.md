@@ -57,7 +57,7 @@ This breaks:
 - **Verification** — "is this Quranic verse identical to the master copy?" becomes unanswerable
 - **NLP preprocessing** — language models see noise instead of structure
 
-Dhad solves this with a **formal specification** (23 invariants, 7 corrections),
+Dhad solves this with a **formal specification** (24 invariants, 7 corrections),
 a **deterministic Rust implementation** (284 tests), and a **185-vector
 conformance suite** verified across two independent implementations.
 
