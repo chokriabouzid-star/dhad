@@ -37,7 +37,7 @@ Design axioms: A1, A2, A4, A5, A7, A8.
 | 1.1.0 | published | hardening + honesty docs |
 | 1.1.1 | published | packaging fix |
 | 1.1.2 | published | test-contract reinforcement |
-| 1.2.0 | in progress | conformance corpus + Python verifier |
+| 1.2.1 | in progress | conformance corpus + Python verifier |
 
 ---
 
@@ -139,7 +139,7 @@ Schema: `dhad-conformance-suite/schema/vector-schema-1.0.md`
 ## 7. What is NOT yet done
 
 ### v1.2.0 remaining
-- Release `v1.2.0` on crates.io
+- Release `v1.2.1` on crates.io
 - Tag the release in both repositories
 
 ### v1.3.0 — not started

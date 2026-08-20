@@ -9,7 +9,7 @@
 
 | Component | Version |
 |-----------|---------|
-| Library (`dhad`) | 1.2.0 |
+| Library (`dhad`) | 1.2.1 |
 | Rust edition | 2021 |
 | Dhad spec | v1.2 |
 

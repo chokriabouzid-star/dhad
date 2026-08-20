@@ -3,7 +3,7 @@
 This document records empirical tests of Dhad's documented behaviors.
 Each entry is a verified claim that may be referenced in README and HN posts.
 
-**Implementation tested:** `dhad v1.2.0` from crates.io
+**Implementation tested:** `dhad v1.2.1` from crates.io
 **Test environment:** `~/test_dhad/`
 
 ---
@@ -301,7 +301,7 @@ With Dhad, they correctly resolve to one identity.
 | 7 | Boundary documented — diacritics affect CoreHash | (spec) | ✅ |
 | 8 | Invisible filtering — BOM, ZWJ, Tatweel removed | (Stage 4) | ✅ |
 
-**All eight tests reproducible from `~/test_dhad/` using `dhad v1.2.0`.**
+**All eight tests reproducible from `~/test_dhad/` using `dhad v1.2.1`.**
 
 ---
 
@@ -459,6 +459,6 @@ Final Summary: 10 Verified Proofs
 8	BOM/ZWJ/Tatweel filtering	Stage 4 — Noise Filter	✅
 9	Mode B round-trip + I22	Mode B Integrity	✅
 10	Mode A ↔ Mode B equivalence	Wire Format	✅
-All proofs reproducible from ~/test_dhad/ using dhad v1.2.0.
+All proofs reproducible from ~/test_dhad/ using dhad v1.2.1.
 
 This document is the empirical foundation for all README claims.

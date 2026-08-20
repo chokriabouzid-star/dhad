@@ -309,7 +309,7 @@ This is a mandatory self-test.
 
 ## Conformance
 
-Dhad v1.2.0 is verified across **two independent implementations**:
+Dhad v1.2.1 is verified across **two independent implementations**:
 
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
@@ -444,6 +444,7 @@ In v1.x, malformed Mode B binary frames are reported as
 | Version | Status | Highlights |
 |---------|--------|------------|
 | **v1.2.0** | Released | Conformance suite + Python reference parity + PROOFS.md |
+| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 187 vectors |
 | v1.3.0 | Planned | `QuranicRelaxed` profile, RFC-001 decision |
 | v2.0.0 | Planned | `MalformedFrame` error, DhadIR (word-level representation) |
 | Future | Vision | Wethaq (text authentication), search engine integrations |
@@ -495,7 +496,7 @@ change.
 
 ## Project Status
 
-- **Version:** `1.2.0` (June 2025)
+- **Version:** `1.2.1` (June 2025)
 - **License:** MIT — free for all uses including commercial
 - **Stability:** Production-ready for the documented scope
 - **Maintenance:** Active, single maintainer
