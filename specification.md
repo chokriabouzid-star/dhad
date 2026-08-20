@@ -1,6 +1,6 @@
 # Dhad (ضاد) — Protocol Specification
 
-**Version:** 1.1
+**Version:** 1.2
 **Status:** Normative
 **Repository:** https://github.com/chokriabouzid-star/dhad
 **Conformance suite:** https://github.com/chokriabouzid-star/dhad-conformance-suite
@@ -443,6 +443,20 @@ identically for both Mode A and Mode B input, alongside I01–I23, in
 
 ---
 
+### 8.2 Invariant I25 — Prosody Reserved Bits
+
+Prosody bits 6–7 (mask `0xC0`) are reserved for future use and must
+be zero on all atoms. This prevents arbitrary annotation leakage
+under Mode B, ensuring that equivalent canonical streams produce
+identical PhoneticHashes.
+I25: prosody & 0xC0 == 0
+-> ERR_INVALID_PROSODY
+
+text
+
+
+---
+
 ## 9. Error Catalog
 
 | Error | Condition |
@@ -453,7 +467,7 @@ identically for both Mode A and Mode B input, alongside I01–I23, in
 | `OrphanDiacritic` | a diacritic has no preceding base atom |
 | `InvalidMarkCombo` | an incompatible diacritic combination |
 | `InvalidFlagCombo` | an incompatible flag combination |
-| `InvalidProsody` | a prosody rule violation (I10–I21, I24) |
+| `InvalidProsody` | a prosody rule violation (I10–I21, I24, I25) |
 | `ReservedFieldNonZero` | `reserved != 0` in a Mode B atom |
 
 Every error is deterministic: the same invalid input always produces the
@@ -566,8 +580,8 @@ scope.
 An implementation is conformant with this specification when it:
 
 1. Reproduces the four mandatory anchors in §7.4 exactly.
-2. Passes all vectors in the published conformance corpus (185 vectors:
-   116 golden, 39 adversarial, 30 tagged).
+2. Passes all vectors in the published conformance corpus (187 vectors:
+   116 golden, 39 adversarial, 32 tagged).
 3. Never produces MADD bits from Mode A input.
 4. Rejects U+0653, U+0654, and U+0655 with `UnmappedCodepoint`.
 5. Rejects U+0670 following an inert-class atom with `InvalidProsody`.
@@ -575,6 +589,8 @@ An implementation is conformant with this specification when it:
    maximum size, including malformed and adversarial input.
 7. Rejects an atom carrying both `SUKUN` and any `TANWEEN_*` bit with
    `InvalidProsody` (I24, §8.1).
+8. Rejects an atom carrying reserved prosody bits 6–7 with
+   `InvalidProsody` (I25, §8.2).
 
 ---
 

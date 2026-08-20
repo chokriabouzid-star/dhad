@@ -1,6 +1,6 @@
 # Dhad Conformance Report
 **Generated:** 2026-07-19T22:29:37Z
-**Specification:** Dhad v1.1
+**Specification:** Dhad v1.2
 **Status:** ✅ CONFORMANT
 
 ---
@@ -11,7 +11,7 @@
 |-----------|---------|
 | Library (`dhad`) | 1.2.0 |
 | Rust edition | 2021 |
-| Dhad spec | v1.1 |
+| Dhad spec | v1.2 |
 
 ---
 
@@ -74,9 +74,9 @@ reporting. Their historical record is preserved in `CHANGELOG.md`.
 
 ---
 
-## Formal Invariants (I01–I24)
+## Formal Invariants (I01–I25)
 
-Current implementation enforces 24 atom invariants in Stage 10
+Current implementation enforces 25 atom invariants in Stage 10
 (`src/invariants.rs`):
 
 | Invariant | Description |
@@ -105,6 +105,7 @@ Current implementation enforces 24 atom invariants in Stage 10
 | I22 | `reserved` must be `0x0000` |
 | I23 | reserved mark bits `[5..15]` must be zero |
 | I24 | `SUKUN` and any tanween bit are mutually exclusive |
+| I25 | prosody reserved bits 6–7 (0xC0) must be zero |
 
 ---
 
@@ -136,7 +137,7 @@ Verified independently by `tools/anchor_verify.py`.
   the published stream shows `LAM+SUKUN`, but the normative input bytes
   contain no `U+0652`; the implementation follows input bytes exactly.
 - I24 is now active: `SUKUN + TANWEEN` is rejected, `at_037` is restored,
-  and the current repository-wide expected total is 285 tests.
+  and the current repository-wide expected total is 287 tests.
 
 ---
 

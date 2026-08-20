@@ -3,7 +3,7 @@
 /// Each `DhadAtom` represents a single grapheme after full canonicalization.
 /// Size is exactly 8 bytes in wire format (see [`DhadAtom::to_bytes`]).
 ///
-/// All fields satisfy invariants I01–I24 after Stage 10 validation.
+/// All fields satisfy invariants I01–I25 after Stage 10 validation.
 ///
 /// # Field Layout (wire format, little-endian)
 ///

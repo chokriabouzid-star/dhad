@@ -645,12 +645,12 @@ def check_07_axioms_invariants() -> CheckResult:
             f"invariants found={invariants}, expected={expected_invariants}",
         )
 
-    if "I24:" not in spec:
+    if "I25:" not in spec:
         return CheckResult(
             7,
             "Axiom and invariant counts",
             "FAIL",
-            "لم يتم العثور على تعريف I24 كقاعدة فعّالة.",
+            "لم يتم العثور على تعريف I25 كقاعدة فعّالة.",
         )
 
     if "Check all 23 invariants (§8)" in spec:
@@ -665,7 +665,7 @@ def check_07_axioms_invariants() -> CheckResult:
         7,
         "Axiom and invariant counts",
         "PASS",
-        "specification.md tracked في git؛ axioms=11 (A1..A11)، invariants=24 (I01..I24)، وI24 فعّال.",
+        "specification.md tracked في git؛ axioms=11 (A1..A11)، invariants=25 (I01..I25)، وI25 فعّال.",
     )
 
 

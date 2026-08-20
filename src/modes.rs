@@ -16,7 +16,7 @@ use crate::{hash, invariants, mode_b};
 /// |-------|-------|
 /// | [`ErrorKind::InputTooLarge`] | input > 4 MiB |
 /// | [`ErrorKind::MalformedUtf8`] | invalid byte sequence |
-/// | [`ErrorKind::UnmappedCodepoint`] | codepoint not in Dhad v1.1 |
+/// | [`ErrorKind::UnmappedCodepoint`] | codepoint not in Dhad v1.2 |
 /// | [`ErrorKind::OrphanDiacritic`] | diacritic with no preceding base |
 /// | [`ErrorKind::InvalidMarkCombo`] | incompatible diacritics |
 /// | [`ErrorKind::InvalidFlagCombo`] | incompatible flags |

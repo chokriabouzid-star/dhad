@@ -4,7 +4,7 @@
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-285%20verified-blue.svg)](#conformance)
-[![Conformance](https://img.shields.io/badge/conformance-185%2F185-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
+[![Conformance](https://img.shields.io/badge/conformance-187%2F187-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
 **An identity layer for digital Arabic text.**
@@ -57,8 +57,8 @@ This breaks:
 - **Verification** — "is this Quranic verse identical to the master copy?" becomes unanswerable
 - **NLP preprocessing** — language models see noise instead of structure
 
-Dhad solves this with a **formal specification** (24 invariants, 7 corrections),
-a **deterministic Rust implementation** (285 tests), and a **185-vector
+Dhad solves this with a **formal specification** (25 invariants, 7 corrections),
+a **deterministic Rust implementation** (285 tests), and a **187-vector
 conformance suite** verified across two independent implementations.
 
 The public conformance corpus, dependency-free verifier, and independent
@@ -314,7 +314,7 @@ Dhad v1.2.0 is verified across **two independent implementations**:
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
 | Rust (this repo) | 285 unit + integration tests | ✅ |
-| Python (independent reference) | 185/185 protocol vectors | ✅ |
+| Python (independent reference) | 187/187 protocol vectors | ✅ |
 | Anchor constants (cross-impl) | 4/4 | ✅ |
 | Empirical behavioral proofs | 10/10 | ✅ |
 
@@ -355,7 +355,7 @@ Dhad never guesses. Every error is typed and tells you exactly what went wrong:
 |-------|-------|-----------|
 | `InputTooLarge` | Pre-1 | Input > 4 MiB |
 | `MalformedUtf8` | 1 | Invalid byte sequence |
-| `UnmappedCodepoint` | 3, 5 | Codepoint not in Dhad v1.1 registry |
+| `UnmappedCodepoint` | 3, 5 | Codepoint not in Dhad v1.2 registry |
 | `OrphanDiacritic` | 6 | Diacritic with no preceding base |
 | `InvalidMarkCombo` | 6, 10 | Incompatible diacritics |
 | `InvalidFlagCombo` | 7, 10 | Incompatible flag bits |

@@ -44,7 +44,7 @@
 //! ## Specification Status
 //!
 //! Dhad v1.x is the reference implementation of the Dhad Implementation
-//! Specification v1.1. Repository vectors are self-consistency regression
+//! Specification v1.2. Repository vectors are self-consistency regression
 //! data; independent cross-implementation conformance is planned.
 //!
 //! See **Known Limitations** in `README.md` for full details.

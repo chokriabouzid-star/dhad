@@ -1,5 +1,5 @@
 //! Suite 3 — Adversarial Tests
-//! Source of truth: Dhad-Spec-v1.1 adversarial test vectors
+//! Source of truth: Dhad-Spec-v1.2 adversarial test vectors
 //! AT-030..AT-034 و AT-035/038/039 تُختبر عبر invariants::validate_atom مباشرةً
 //! (Mode B parser غير موجود بعد — ينتقل المسار الكامل لـ v3.0)
 
