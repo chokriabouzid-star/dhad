@@ -28,8 +28,8 @@ EXPECTED_AUDIT_IGNORES = {"RUSTSEC-2026-0204", "RUSTSEC-2026-0190"}
 EXPECTED_VECTOR_COUNTS = {
     "golden": 116,
     "adversarial": 39,
-    "tagged": 30,
-    "total": 185,
+    "tagged": 32,
+    "total": 187,
 }
 EXPECTED_NOISE_SET = (
     {0x0640, 0x034F, 0xFEFF}
@@ -627,7 +627,7 @@ def check_07_axioms_invariants() -> CheckResult:
     expected_axioms = [f"A{i}" for i in range(1, 12)]
 
     invariants = sorted(set(re.findall(r"(?m)^\s*I(\d{2})(?:\b|:)", spec)))
-    expected_invariants = [f"{i:02d}" for i in range(1, 25)]
+    expected_invariants = [f"{i:02d}" for i in range(1, 26)]
 
     if axioms != expected_axioms:
         return CheckResult(

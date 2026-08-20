@@ -1,5 +1,5 @@
 # Dhad Conformance Report
-**Generated:** 2026-07-19T22:29:37Z
+**Generated:** 2026-08-20T21:02:00Z
 **Specification:** Dhad v1.2
 **Status:** ✅ CONFORMANT
 
@@ -20,7 +20,7 @@
 | Suite | Tests | Result |
 |-------|-------|--------|
 | suite1_golden (Mode A) | 121 | ✅ |
-| suite2_tagged (Mode B) | 25 | ✅ |
+| suite2_tagged (Mode B) | 27 | ✅ |
 | suite3_adversarial | 53 | ✅ |
 | suite4_properties | 17 | ✅ |
 | suite5_coverage (behavioral) | 49 | ✅ |
@@ -28,7 +28,7 @@
 | unit tests (lib) | 6 | ✅ |
 | unit tests (dhad-cli) | 0 | ✅ |
 | doc tests | 3 | ✅ |
-| **Total** | **285** | ✅ **285 passed, 0 failed** |
+| **Total** | **287** | ✅ **287 passed, 0 failed** |
 
 ---
 
