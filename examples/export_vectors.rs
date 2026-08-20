@@ -385,7 +385,7 @@ fn main() {
     );
     assert_eq!(
         tagged_cases::TAGGED_CASES.len(),
-        30,
+        32,
         "tagged manifest count changed"
     );
     assert_eq!(
@@ -428,6 +428,6 @@ fn main() {
 
     println!("wrote ../dhad-conformance-suite/vectors/golden.json       (116 vectors)");
     println!("wrote ../dhad-conformance-suite/vectors/adversarial.json  (39 vectors)");
-    println!("wrote ../dhad-conformance-suite/vectors/tagged.json       (30 vectors)");
-    println!("total vectors: 185");
+    println!("wrote ../dhad-conformance-suite/vectors/tagged.json       (32 vectors)");
+    println!("total vectors: 187");
 }

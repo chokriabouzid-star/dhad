@@ -418,4 +418,19 @@ pub const TAGGED_CASES: &[TaggedCase] = &[
             error_kind: "InvalidProsody",
         },
     },
+    // ── I25 (§8): prosody reserved bits 6-7 (0xC0) — Mode B ────────────────────
+    TaggedCase {
+        name: "at_i25_prosody_reserved_bit_0x40",
+        input: TaggedInput::Atoms(&[atom(base::ALEF, 0x0000, 0x00, 0x40)]),
+        expected: TaggedExpected::Err {
+            error_kind: "InvalidProsody",
+        },
+    },
+    TaggedCase {
+        name: "at_i25_prosody_reserved_bit_0x80",
+        input: TaggedInput::Atoms(&[atom(base::ALEF, 0x0000, 0x00, 0x80)]),
+        expected: TaggedExpected::Err {
+            error_kind: "InvalidProsody",
+        },
+    },
 ];
