@@ -4,7 +4,7 @@
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-287%20verified-blue.svg)](#التوافق)
-[![Conformance](https://img.shields.io/badge/conformance-187%2F187-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
+[![Conformance](https://img.shields.io/badge/conformance-188%2F188-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
 **طبقة الهوية الرقمية للنص العربي.**
@@ -62,7 +62,7 @@ assert_eq!(a.core_hash, b.core_hash);
 - **التحقق** — "هل هذه الآية مطابقة للنسخة الأم؟" تصبح بلا إجابة
 - **معالجة NLP** — نماذج اللغة ترى ضوضاء بدل بنية
 
-ضاد يحل هذا بـ **مواصفة رسمية** (25 ثابتاً، 7 تصحيحات)، **تنفيذ حتمي بـ Rust** (287 اختباراً)، و**مجموعة توافق من 187 ناقلاً** متحقق منها عبر تنفيذين مستقلين.
+ضاد يحل هذا بـ **مواصفة رسمية** (25 ثابتاً، 7 تصحيحات)، **تنفيذ حتمي بـ Rust** (287 اختباراً)، و**مجموعة توافق من 188 ناقلاً** متحقق منها عبر تنفيذين مستقلين.
 
 ---
 
@@ -205,7 +205,7 @@ let result = process_mode_a(normalized.as_bytes())?;
 | الإصدار | الحالة | المميزات |
 |---------|--------|----------|
 | **v1.2.0** | منشور | مجموعة التوافق + مرجع Python + PROOFS.md |
-| **v1.2.1** | منشور | إصدار فرعي تصحيحي: إضافة ثابت الحماية I25 ومزامنة المتجهات لـ 187 ناقلاً |
+| **v1.2.1** | منشور | إصدار فرعي تصحيحي: إضافة ثابت الحماية I25 ومزامنة المتجهات لـ 188 ناقلاً |
 | **v1.2.2** | منشور | إصدار حوكمة وتوثيق: تصحيح أرقام المراجع وتفعيل فحص الحوكمة الآلي بالـ CI |
 | v1.3.0 | مخطط | ملف `QuranicRelaxed`، قرار RFC-001 |
 | v2.0.0 | مخطط | خطأ `MalformedFrame`، DhadIR (تمثيل كلمة) |

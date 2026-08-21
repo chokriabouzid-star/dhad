@@ -415,4 +415,13 @@ pub const ADVERSARIAL_CASES: &[AdversarialCase] = &[
             phonetic_hash: "495c2f30739a11b02392c39ef60eb863a0a227604632312bac0c06d2e96c3094",
         },
     },
+    // ── AT-037: SUKUN + TANWEEN exclusion (I24) ──────────────────────────────
+        // ── AT-037: SUKUN + TANWEEN exclusion (I24) ──────────────────────────────
+    AdversarialCase {
+        name: "at_037_sukun_plus_tanween",
+        input: AdversarialInput::Bytes(b"\xd8\xa8\xd9\x8b\xd9\x92"), // بًْ (BEH + TANWEEN_FATH + SUKUN)
+        expected: AdversarialExpected::Err {
+            error_kind: "InvalidProsody",
+        },
+    },
 ];

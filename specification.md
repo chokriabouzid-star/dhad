@@ -452,7 +452,6 @@ identical PhoneticHashes.
 I25: prosody & 0xC0 == 0
 -> ERR_INVALID_PROSODY
 
-text
 
 
 ---

@@ -46,7 +46,7 @@ Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 - `cargo fmt --check` clean
 - `cargo clippy --all-targets` clean
 - `cargo test` — 287 tests, all green
-- `cargo run --example export_vectors` — 187 vectors generated into `../dhad-conformance-suite/vectors/`
+- `cargo run --example export_vectors` — 188 vectors generated into `../dhad-conformance-suite/vectors/`
 - `python3 ../dhad-conformance-suite/tools/verify_vectors.py` — ALL VECTOR FILES VERIFIED
 - `python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py` — 30/30
 - `python3 ../dhad-conformance-suite/python_ref/verify_golden_ref.py` — 155/155
@@ -95,7 +95,7 @@ Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 - Implemented in `dhad-conformance-suite/python_ref/`
 - Mode B: 30/30 exact parity
 - Mode A: 155/155 exact parity
-- Full corpus parity: **187/187**
+- Full corpus parity: **188/188**
 - Python 3.10+ stdlib only, no Rust dependency
 
 #### Documentation ✅
@@ -160,7 +160,7 @@ Schema: `dhad-conformance-suite/schema/vector-schema-1.0.md`
 1. Decomposed U+0653/U+0654/U+0655 — documented as known limitation
 2. Dedicated `MalformedFrame` error — planned v2.0
 3. Second non-Python implementation
-4. Future corpus expansion beyond the current 187 vectors
+4. Future corpus expansion beyond the current 188 vectors
 
 ---
 
@@ -192,7 +192,7 @@ Open a new chat and paste:
 > I am continuing work on **Dhad** (https://crates.io/crates/dhad).
 > Repository: https://github.com/chokriabouzid-star/dhad
 > Conformance suite: https://github.com/chokriabouzid-star/dhad-conformance-suite
-> Python reference implementation now matches **187/187** published vectors.
+> Python reference implementation now matches **188/188** published vectors.
 
 Then paste this document.
 

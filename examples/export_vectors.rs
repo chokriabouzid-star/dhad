@@ -390,7 +390,7 @@ fn main() {
     );
     assert_eq!(
         adversarial_cases::ADVERSARIAL_CASES.len(),
-        39,
+        40,
         "adversarial manifest count changed"
     );
 
@@ -427,7 +427,7 @@ fn main() {
     );
 
     println!("wrote ../dhad-conformance-suite/vectors/golden.json       (116 vectors)");
-    println!("wrote ../dhad-conformance-suite/vectors/adversarial.json  (39 vectors)");
+    println!("wrote ../dhad-conformance-suite/vectors/adversarial.json  (40 vectors)");
     println!("wrote ../dhad-conformance-suite/vectors/tagged.json       (32 vectors)");
-    println!("total vectors: 187");
+    println!("total vectors: 188");
 }

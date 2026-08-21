@@ -27,9 +27,9 @@ MSRV = "1.75.0"
 EXPECTED_AUDIT_IGNORES = {"RUSTSEC-2026-0204", "RUSTSEC-2026-0190"}
 EXPECTED_VECTOR_COUNTS = {
     "golden": 116,
-    "adversarial": 39,
+    "adversarial": 40,
     "tagged": 32,
-    "total": 187,
+    "total": 188,
 }
 EXPECTED_NOISE_SET = (
     {0x0640, 0x034F, 0xFEFF}
@@ -839,13 +839,13 @@ def check_11_doc_stats_parity() -> CheckResult:
     errs = []
     if "287%20verified" not in readme_en or "287 tests" not in readme_en:
         errs.append("README.md stats mismatch")
-    if "187-vector" not in readme_en or "187/187" not in readme_en:
+    if "188-vector" not in readme_en or "188/188" not in readme_en:
         errs.append("README.md vector stats mismatch")
     if "287%20verified" not in readme_ar or "287 اختباراً" not in readme_ar:
         errs.append("README.ar.md stats mismatch")
-    if "187 ناقلاً" not in readme_ar:
+    if "188 ناقلاً" not in readme_ar:
         errs.append("README.ar.md vector stats mismatch")
-    if "287 tests" not in handoff or "187 vectors" not in handoff:
+    if "287 tests" not in handoff or "188 vectors" not in handoff:
         errs.append("HANDOFF.md stats mismatch")
 
     if errs:
@@ -860,7 +860,7 @@ def check_11_doc_stats_parity() -> CheckResult:
         11,
         "Documentation stats parity with codebase",
         "PASS",
-        "README.md, README.ar.md, and HANDOFF.md strictly match 287 tests / 187 vectors.",
+        "README.md, README.ar.md, and HANDOFF.md strictly match 287 tests / 188 vectors.",
     )
 
 

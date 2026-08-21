@@ -4,7 +4,7 @@
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Tests](https://img.shields.io/badge/tests-287%20verified-blue.svg)](#conformance)
-[![Conformance](https://img.shields.io/badge/conformance-187%2F187-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
+[![Conformance](https://img.shields.io/badge/conformance-188%2F188-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
 **An identity layer for digital Arabic text.**
@@ -58,7 +58,7 @@ This breaks:
 - **NLP preprocessing** — language models see noise instead of structure
 
 Dhad solves this with a **formal specification** (25 invariants, 7 corrections),
-a **deterministic Rust implementation** (287 tests), and a **187-vector
+a **deterministic Rust implementation** (287 tests), and a **188-vector
 conformance suite** verified across two independent implementations.
 
 The public conformance corpus, dependency-free verifier, and independent
@@ -314,7 +314,7 @@ Dhad v1.2.2 is verified across **two independent implementations**:
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
 | Rust (this repo) | 287 unit + integration tests | ✅ |
-| Python (independent reference) | 187/187 protocol vectors | ✅ |
+| Python (independent reference) | 188/188 protocol vectors | ✅ |
 | Anchor constants (cross-impl) | 4/4 | ✅ |
 | Empirical behavioral proofs | 10/10 | ✅ |
 
@@ -444,7 +444,7 @@ In v1.x, malformed Mode B binary frames are reported as
 | Version | Status | Highlights |
 |---------|--------|------------|
 | **v1.2.0** | Released | Conformance suite + Python reference parity + PROOFS.md |
-| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 187 vectors |
+| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 188 vectors |
 | **v1.2.2** | Released | Governance release: fixes doc drift, adds automated CI doc-check & Git tags |
 | v1.3.0 | Planned | `QuranicRelaxed` profile, RFC-001 decision |
 | v2.0.0 | Planned | `MalformedFrame` error, DhadIR (word-level representation) |
