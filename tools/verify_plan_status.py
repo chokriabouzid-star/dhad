@@ -831,6 +831,39 @@ def check_10_generated_freshness() -> CheckResult:
         restore_bytes(GOLDEN_CASES_PATH, original_golden)
 
 
+def check_11_doc_stats_parity() -> CheckResult:
+    readme_en = read_text(ROOT / "README.md")
+    readme_ar = read_text(ROOT / "README.ar.md")
+    handoff = read_text(ROOT / "HANDOFF.md")
+
+    errs = []
+    if "287%20verified" not in readme_en or "287 tests" not in readme_en:
+        errs.append("README.md stats mismatch")
+    if "187-vector" not in readme_en or "187/187" not in readme_en:
+        errs.append("README.md vector stats mismatch")
+    if "287%20verified" not in readme_ar or "287 اختباراً" not in readme_ar:
+        errs.append("README.ar.md stats mismatch")
+    if "187 ناقلاً" not in readme_ar:
+        errs.append("README.ar.md vector stats mismatch")
+    if "287 tests" not in handoff or "187 vectors" not in handoff:
+        errs.append("HANDOFF.md stats mismatch")
+
+    if errs:
+        return CheckResult(
+            11,
+            "Documentation stats parity with codebase",
+            "FAIL",
+            "Doc stats mismatch: " + "; ".join(errs),
+        )
+
+    return CheckResult(
+        11,
+        "Documentation stats parity with codebase",
+        "PASS",
+        "README.md, README.ar.md, and HANDOFF.md strictly match 287 tests / 187 vectors.",
+    )
+
+
 CHECKS = [
     check_01_msrv_lock,
     check_02_hash_anchors,
@@ -842,6 +875,7 @@ CHECKS = [
     check_08_no_stale_cr_refs,
     check_09_cargo_audit,
     check_10_generated_freshness,
+    check_11_doc_stats_parity,
 ]
 
 

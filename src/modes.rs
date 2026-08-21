@@ -108,7 +108,7 @@ pub fn process_mode_b(frame: &[u8]) -> Result<DhadResult, ErrorKind> {
     // Parse frame → raw atoms (validates magic, version, CRC, reserved)
     let atoms = mode_b::parse_frame(frame)?;
 
-    // Validate each atom against all 23 invariants
+    // Validate each atom against all 25 invariants
     for (idx, atom) in atoms.iter().enumerate() {
         invariants::validate_atom(atom, idx)?;
     }

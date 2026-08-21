@@ -1,5 +1,5 @@
 # Dhad Conformance Report
-**Generated:** 2026-08-20T21:02:00Z
+**Generated:** 2026-08-20T23:34:41Z
 **Specification:** Dhad v1.2
 **Status:** ✅ CONFORMANT
 
@@ -9,7 +9,7 @@
 
 | Component | Version |
 |-----------|---------|
-| Library (`dhad`) | 1.2.1 |
+| Library (`dhad`) | 1.2.2 |
 | Rust edition | 2021 |
 | Dhad spec | v1.2 |
 

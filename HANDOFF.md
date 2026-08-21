@@ -4,8 +4,8 @@
 **Owner:** Chokri Abouzid  
 **Repository:** https://github.com/chokriabouzid-star/dhad  
 **Crate:** https://crates.io/crates/dhad  
-**Latest published version:** `v1.1.2`  
-**Active development version:** `v1.2.0` (pre-release)
+**Latest published version:** `v1.2.1`  
+**Active development version:** `v1.2.1` (published)
 
 ---
 
@@ -24,7 +24,7 @@ Two modes:
 - **Mode A** — UTF-8 Arabic text input
 - **Mode B** — tagged binary frame (for pre-annotated MADD-style content)
 
-Design axioms: A1, A2, A4, A5, A7, A8.
+Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 
 ---
 
@@ -37,7 +37,7 @@ Design axioms: A1, A2, A4, A5, A7, A8.
 | 1.1.0 | published | hardening + honesty docs |
 | 1.1.1 | published | packaging fix |
 | 1.1.2 | published | test-contract reinforcement |
-| 1.2.1 | in progress | conformance corpus + Python verifier |
+| 1.2.1 | Published | conformance corpus + Python verifier |
 
 ---
 
@@ -45,7 +45,7 @@ Design axioms: A1, A2, A4, A5, A7, A8.
 
 - `cargo fmt --check` clean
 - `cargo clippy --all-targets` clean
-- `cargo test` — 285 tests, all green
+- `cargo test` — 287 tests, all green
 - `cargo run --example export_vectors` — 187 vectors generated into `../dhad-conformance-suite/vectors/`
 - `python3 ../dhad-conformance-suite/tools/verify_vectors.py` — ALL VECTOR FILES VERIFIED
 - `python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py` — 30/30

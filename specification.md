@@ -205,7 +205,7 @@ codepoint to its atom independent of Arabic orthographic rules that
 govern *why* a writer chose that seat; it does not validate that the
 seat chosen matches standard Arabic spelling conventions. See §11.5.
 
-### 4.6 Out of Scope in v1.0
+### 4.6 Out of Scope in v1.x
 
 Not mapped; produce `ERR_UNMAPPED_CODEPOINT`:
 

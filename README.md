@@ -3,7 +3,7 @@
 [![Crates.io](https://img.shields.io/crates/v/dhad.svg)](https://crates.io/crates/dhad)
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-285%20verified-blue.svg)](#conformance)
+[![Tests](https://img.shields.io/badge/tests-287%20verified-blue.svg)](#conformance)
 [![Conformance](https://img.shields.io/badge/conformance-187%2F187-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
@@ -58,7 +58,7 @@ This breaks:
 - **NLP preprocessing** — language models see noise instead of structure
 
 Dhad solves this with a **formal specification** (25 invariants, 7 corrections),
-a **deterministic Rust implementation** (285 tests), and a **187-vector
+a **deterministic Rust implementation** (287 tests), and a **187-vector
 conformance suite** verified across two independent implementations.
 
 The public conformance corpus, dependency-free verifier, and independent
@@ -309,11 +309,11 @@ This is a mandatory self-test.
 
 ## Conformance
 
-Dhad v1.2.1 is verified across **two independent implementations**:
+Dhad v1.2.2 is verified across **two independent implementations**:
 
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
-| Rust (this repo) | 285 unit + integration tests | ✅ |
+| Rust (this repo) | 287 unit + integration tests | ✅ |
 | Python (independent reference) | 187/187 protocol vectors | ✅ |
 | Anchor constants (cross-impl) | 4/4 | ✅ |
 | Empirical behavioral proofs | 10/10 | ✅ |
@@ -325,7 +325,7 @@ Dhad v1.2.1 is verified across **two independent implementations**:
 | `golden.json` | A | 116 | All success cases |
 | `adversarial.json` | A | 39 | 3 success + 36 typed errors |
 | `tagged.json` | B | 30 | 9 success + 21 typed errors |
-| **Total** | | **185** | |
+| **Total** | | **187** | |
 
 Published in the companion repository: [dhad-conformance-suite](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 
@@ -445,6 +445,7 @@ In v1.x, malformed Mode B binary frames are reported as
 |---------|--------|------------|
 | **v1.2.0** | Released | Conformance suite + Python reference parity + PROOFS.md |
 | **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 187 vectors |
+| **v1.2.2** | Released | Governance release: fixes doc drift, adds automated CI doc-check & Git tags |
 | v1.3.0 | Planned | `QuranicRelaxed` profile, RFC-001 decision |
 | v2.0.0 | Planned | `MalformedFrame` error, DhadIR (word-level representation) |
 | Future | Vision | Wethaq (text authentication), search engine integrations |
@@ -496,7 +497,7 @@ change.
 
 ## Project Status
 
-- **Version:** `1.2.1` (June 2025)
+- **Version:** `1.2.2` (August 2026)
 - **License:** MIT — free for all uses including commercial
 - **Stability:** Production-ready for the documented scope
 - **Maintenance:** Active, single maintainer
