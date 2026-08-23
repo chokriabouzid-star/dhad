@@ -1,5 +1,5 @@
 # Dhad Conformance Report
-**Generated:** 2026-08-21T20:03:39Z
+**Generated:** 2026-08-23T21:00:35Z
 **Specification:** Dhad v1.2
 **Status:** ✅ CONFORMANT
 
@@ -137,7 +137,7 @@ Verified independently by `tools/anchor_verify.py`.
   the published stream shows `LAM+SUKUN`, but the normative input bytes
   contain no `U+0652`; the implementation follows input bytes exactly.
 - I24 is now active: `SUKUN + TANWEEN` is rejected, `at_037` is restored,
-  and the current repository-wide expected total is 287 tests.
+  and the current repository-wide expected total is 287 tests with 188 conformance vectors.
 
 ---
 

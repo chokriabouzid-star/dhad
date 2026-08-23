@@ -6,6 +6,7 @@ Do not edit CONFORMANCE.md manually — re-run this script.
 """
 from pathlib import Path
 import datetime
+import json
 import re
 import subprocess
 import sys
@@ -129,6 +130,15 @@ suite_rows_md = "\n".join(suite_rows)
 
 now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 version = cargo_package_version()
+
+# Compute vector counts from live JSON files
+conf_suite = ROOT.parent / "dhad-conformance-suite" / "vectors"
+vec_total = 0
+for _name in ("golden", "adversarial", "tagged"):
+    _p = conf_suite / f"{_name}.json"
+    if _p.is_file():
+        with open(_p, encoding="utf-8") as _f:
+            vec_total += len(json.load(_f).get("vectors", []))
 
 report = f"""# Dhad Conformance Report
 **Generated:** {now}
@@ -261,7 +271,7 @@ Verified independently by `tools/anchor_verify.py`.
   the published stream shows `LAM+SUKUN`, but the normative input bytes
   contain no `U+0652`; the implementation follows input bytes exactly.
 - I24 is now active: `SUKUN + TANWEEN` is rejected, `at_037` is restored,
-  and the current repository-wide expected total is 287 tests.
+  and the current repository-wide expected total is {total_pass} tests with {vec_total} conformance vectors.
 
 ---
 
