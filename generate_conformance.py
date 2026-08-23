@@ -132,7 +132,9 @@ now = datetime.datetime.now(datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"
 version = cargo_package_version()
 
 # Compute vector counts from live JSON files
-conf_suite = ROOT.parent / "dhad-conformance-suite" / "vectors"
+conf_suite = (ROOT.parent / "dhad-conformance-suite" / "vectors")
+if not conf_suite.is_dir():
+    conf_suite = (ROOT / "dhad-conformance-suite" / "vectors")
 vec_total = 0
 for _name in ("golden", "adversarial", "tagged"):
     _p = conf_suite / f"{_name}.json"

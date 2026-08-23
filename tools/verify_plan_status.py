@@ -861,6 +861,8 @@ def check_11_doc_stats_parity() -> CheckResult:
 
     # 1b. Vector counts from JSON files
     conf_suite = ROOT.parent / "dhad-conformance-suite"
+    if not (conf_suite / "vectors").is_dir():
+        conf_suite = ROOT / "dhad-conformance-suite"
     vectors_dir = conf_suite / "vectors"
 
     if not vectors_dir.is_dir():

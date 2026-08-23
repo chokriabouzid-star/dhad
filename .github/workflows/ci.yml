@@ -88,7 +88,14 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout main repository
+        uses: actions/checkout@v4
+
+      - name: Checkout companion conformance suite repository
+        uses: actions/checkout@v4
+        with:
+          repository: chokriabouzid-star/dhad-conformance-suite
+          path: dhad-conformance-suite
 
       - uses: dtolnay/rust-toolchain@stable
         with:
