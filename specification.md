@@ -582,8 +582,8 @@ scope.
 An implementation is conformant with this specification when it:
 
 1. Reproduces the four mandatory anchors in §7.4 exactly.
-2. Passes all vectors in the published conformance corpus (187 vectors:
-   116 golden, 39 adversarial, 32 tagged).
+2. Passes all vectors in the published conformance corpus (188 vectors:
+   116 golden, 40 adversarial, 32 tagged).
 3. Never produces MADD bits from Mode A input.
 4. Rejects U+0653, U+0654, and U+0655 with `UnmappedCodepoint`.
 5. Rejects U+0670 following an inert-class atom with `InvalidProsody`.

@@ -498,7 +498,7 @@ change.
 
 ## Project Status
 
-- **Version:** `1.2.2` (August 2026)
+- **Version:** `1.2.3` (August 2026)
 - **License:** MIT — free for all uses including commercial
 - **Stability:** Production-ready for the documented scope
 - **Maintenance:** Active, single maintainer
