@@ -5,6 +5,7 @@ import difflib
 import re
 import subprocess
 import sys
+import json
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -831,36 +832,191 @@ def check_10_generated_freshness() -> CheckResult:
         restore_bytes(GOLDEN_CASES_PATH, original_golden)
 
 
+
 def check_11_doc_stats_parity() -> CheckResult:
+    """
+    Computed documentation parity check — replaces old string-matching version.
+
+    Sources of truth (computed live, not hardcoded):
+      - Test count: `cargo test --all -- --list`
+      - Vector counts: len(json["vectors"]) from actual JSON files
+      - ok/err split: count of expected_result == "ok"/"err" per JSON file
+    """
+    errs: list[str] = []
+
+    # 1a. Test count via --list
+    cp_list = run(
+        ["cargo", "test", "--all", "--color=never", "--", "--list"],
+        merge_streams=True,
+        timeout=120,
+    )
+    if cp_list.returncode != 0:
+        return CheckResult(
+            11,
+            "Doc stats parity (computed)",
+            "FAIL",
+            "cargo test --list failed:\n" + first_lines(cp_list.stdout or "", 20),
+        )
+    actual_tests = len(re.findall(r"(?m): test$", cp_list.stdout or ""))
+
+    # 1b. Vector counts from JSON files
+    conf_suite = ROOT.parent / "dhad-conformance-suite"
+    vectors_dir = conf_suite / "vectors"
+
+    if not vectors_dir.is_dir():
+        return CheckResult(
+            11,
+            "Doc stats parity (computed)",
+            "FAIL",
+            f"Vectors directory not found: {vectors_dir}",
+        )
+
+    v: dict[str, int] = {}
+    for name in ("golden", "adversarial", "tagged"):
+        pth = vectors_dir / f"{name}.json"
+        if not pth.is_file():
+            errs.append(f"Missing vector file: {pth}")
+            continue
+        with open(pth, encoding="utf-8") as f:
+            data = json.load(f)
+        vecs = data.get("vectors", [])
+        v[name] = len(vecs)
+        v[f"{name}_ok"] = sum(1 for x in vecs if x.get("expected_result") == "ok")
+        v[f"{name}_err"] = sum(1 for x in vecs if x.get("expected_result") == "err")
+
+    v["total"] = v.get("golden", 0) + v.get("adversarial", 0) + v.get("tagged", 0)
+    v["total_ok"] = v.get("golden_ok", 0) + v.get("adversarial_ok", 0) + v.get("tagged_ok", 0)
+    v["total_err"] = v.get("golden_err", 0) + v.get("adversarial_err", 0) + v.get("tagged_err", 0)
+
+    # 2. dhad/README.md
     readme_en = read_text(ROOT / "README.md")
+
+    for fname in ("golden", "adversarial", "tagged"):
+        m = re.search(rf"`{fname}\.json`.*?\|\s*(\d+)\s*\|", readme_en)
+        if m and int(m.group(1)) != v.get(fname, -1):
+            errs.append(f"README.md table: {fname}={m.group(1)} (actual {v[fname]})")
+
+    m_total = re.search(r"\*\*Total\*\*.*?\*\*(\d+)\*\*", readme_en)
+    if m_total and int(m_total.group(1)) != v["total"]:
+        errs.append(f"README.md table: Total={m_total.group(1)} (actual {v['total']})")
+
+    m_verified = re.search(r"Dhad (v1\.\d+\.\d+) is verified", readme_en)
+    if m_verified and m_verified.group(1) != "v1.2.3":
+        errs.append(f"README.md: '{m_verified.group(1)} is verified' (expected v1.2.3)")
+
+    m_v121 = re.search(r"\|\s*\*\*v1\.2\.1\*\*\s*\|[^|]*\|([^|]*)\|", readme_en)
+    if m_v121 and "188" in m_v121.group(1):
+        errs.append("README.md: v1.2.1 row claims 188 vectors (shipped with 187)")
+
+    if not re.search(r"\|\s*\*\*v1\.2\.3\*\*\s*\|", readme_en):
+        errs.append("README.md: v1.2.3 row missing from version table")
+
+    # 3. dhad/README.ar.md
     readme_ar = read_text(ROOT / "README.ar.md")
+    if str(v["total"]) not in readme_ar:
+        errs.append(f"README.ar.md: does not mention {v['total']} vectors")
+    if str(actual_tests) not in readme_ar:
+        errs.append(f"README.ar.md: does not mention {actual_tests} tests")
+
+    m_ar_v121 = re.search(r"\|\s*\*\*v1\.2\.1\*\*\s*\|[^|]*\|([^|]*)\|", readme_ar)
+    if m_ar_v121 and "188" in m_ar_v121.group(1):
+        errs.append("README.ar.md: v1.2.1 row claims 188 vectors (shipped with 187)")
+
+    # 4. dhad/HANDOFF.md
     handoff = read_text(ROOT / "HANDOFF.md")
 
-    errs = []
-    if "287%20verified" not in readme_en or "287 tests" not in readme_en:
-        errs.append("README.md stats mismatch")
-    if "188-vector" not in readme_en or "188/188" not in readme_en:
-        errs.append("README.md vector stats mismatch")
-    if "287%20verified" not in readme_ar or "287 اختباراً" not in readme_ar:
-        errs.append("README.ar.md stats mismatch")
-    if "188 ناقلاً" not in readme_ar:
-        errs.append("README.ar.md vector stats mismatch")
-    if "287 tests" not in handoff or "188 vectors" not in handoff:
-        errs.append("HANDOFF.md stats mismatch")
+    m_pub = re.search(r"Latest published version.*?`(v[\d.]+)`", handoff)
+    if m_pub and m_pub.group(1) != "v1.2.3":
+        errs.append(f"HANDOFF.md: Latest published = {m_pub.group(1)} (expected v1.2.3)")
+
+    m_tag = re.search(r"verify_tagged_ref\.py.*?(\d+)/(\d+)", handoff)
+    if m_tag and int(m_tag.group(1)) != v.get("tagged", -1):
+        errs.append(
+            f"HANDOFF.md: verify_tagged_ref = {m_tag.group(1)}/{m_tag.group(2)} "
+            f"(expected {v['tagged']}/{v['tagged']})"
+        )
+
+    m_gold = re.search(r"verify_golden_ref\.py.*?(\d+)/(\d+)", handoff)
+    ga = v.get("golden", 0) + v.get("adversarial", 0)
+    if m_gold and int(m_gold.group(1)) != ga:
+        errs.append(
+            f"HANDOFF.md: verify_golden_ref = {m_gold.group(1)}/{m_gold.group(2)} "
+            f"(expected {ga}/{ga})"
+        )
+
+    if "30/30" in handoff and v.get("tagged", 0) != 30:
+        errs.append(f"HANDOFF.md: stale '30/30' (tagged actual = {v.get('tagged')})")
+    if "155/155" in handoff and ga != 155:
+        errs.append(f"HANDOFF.md: stale '155/155' (golden+adv actual = {ga})")
+
+    # 5. suite/README.md
+    suite_readme_path = conf_suite / "README.md"
+    if suite_readme_path.is_file():
+        sr = read_text(suite_readme_path)
+        rows = re.findall(
+            r"\|\s*`vectors/(\w+)\.json`\s*\|[^|]*\|[^|]*\|"
+            r"\s*(\d+)\s*\|\s*(\d+)\s*\|\s*(\d+)\s*\|",
+            sr,
+        )
+        for fname, vecs_s, ok_s, err_s in rows:
+            vn, on, en = int(vecs_s), int(ok_s), int(err_s)
+            if on + en != vn:
+                errs.append(f"suite/README.md: {fname} ok({on})+err({en})={on + en} ≠ Vectors({vn})")
+            if fname in v and vn != v[fname]:
+                errs.append(f"suite/README.md: {fname} Vectors={vn} (actual {v[fname]})")
+            if fname in v and on != v.get(f"{fname}_ok", -1):
+                errs.append(f"suite/README.md: {fname} ok={on} (actual {v[f'{fname}_ok']})")
+            if fname in v and en != v.get(f"{fname}_err", -1):
+                errs.append(f"suite/README.md: {fname} err={en} (actual {v[f'{fname}_err']})")
+
+        m_st = re.search(
+            r"\|\s*\*\*Total\*\*.*?\|"
+            r"\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|\s*\*\*(\d+)\*\*\s*\|",
+            sr,
+        )
+        if m_st:
+            tv, to_, te = int(m_st.group(1)), int(m_st.group(2)), int(m_st.group(3))
+            if to_ + te != tv:
+                errs.append(f"suite/README.md: Total ok({to_})+err({te})={to_ + te} ≠ Vectors({tv})")
+            if tv != v["total"]:
+                errs.append(f"suite/README.md: Total Vectors={tv} (actual {v['total']})")
+
+    # 6. python_ref/README.md
+    pyref_path = conf_suite / "python_ref" / "README.md"
+    if pyref_path.is_file():
+        pr = read_text(pyref_path)
+        stale_map = {"185": v["total"], "39": v.get("adversarial", 0), "30": v.get("tagged", 0)}
+        for stale_str, actual_val in stale_map.items():
+            if stale_str != str(actual_val) and re.search(rf"\b{stale_str}\b", pr):
+                errs.append(f"python_ref/README.md: stale '{stale_str}' (actual {actual_val})")
+
+    # 7. schema §13
+    schema_path = conf_suite / "schema" / "vector-schema-1.0.md"
+    if schema_path.is_file():
+        sc = read_text(schema_path)
+        for fname in ("golden", "adversarial", "tagged"):
+            m = re.search(rf"`{fname}\.json`\s*=\s*(\d+)", sc)
+            if m and int(m.group(1)) != v.get(fname, -1):
+                errs.append(f"schema §13: {fname}={m.group(1)} (actual {v[fname]})")
+        m_t = re.search(r"total\s*=\s*(\d+)", sc)
+        if m_t and int(m_t.group(1)) != v["total"]:
+            errs.append(f"schema §13: total={m_t.group(1)} (actual {v['total']})")
 
     if errs:
         return CheckResult(
             11,
-            "Documentation stats parity with codebase",
+            "Documentation stats parity (computed from live sources)",
             "FAIL",
-            "Doc stats mismatch: " + "; ".join(errs),
+            f"{len(errs)} drift(s) detected:\n" + "\n".join(f"  • {e}" for e in errs),
         )
 
     return CheckResult(
         11,
-        "Documentation stats parity with codebase",
+        "Documentation stats parity (computed from live sources)",
         "PASS",
-        "README.md, README.ar.md, and HANDOFF.md strictly match 287 tests / 188 vectors.",
+        f"tests={actual_tests}, vectors={v['total']} "
+        f"(g={v.get('golden')}, a={v.get('adversarial')}, t={v.get('tagged')}). "
+        f"All documentation matches computed ground truth.",
     )
 
 

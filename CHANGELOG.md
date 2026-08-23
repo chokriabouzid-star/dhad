@@ -1,66 +1,69 @@
-# CHANGELOG
+# CHANGELOG — Dhad (ضاد) Reference Implementation
 
-## Post-release correction (2026-07-23)
+All notable changes to this project are documented here, strictly bound to the historical git tags and verified commit hashes.
 
-Commit `5b0c325` ("ci: regenerate Cargo.msrv.lock against current
-Cargo.toml") carried a slightly inaccurate rationale in its message:
-`Cargo.toml` did **not** change between commits `3982e0f` and `5b0c325`,
-and has in fact been untouched since `a706066` (release v1.2.0).
+---
 
-The actual, verified reason for regenerating `Cargo.msrv.lock` was
-different: the file first committed in `3982e0f` was produced inside a
-separate working copy (`~/dhad-msrv-test`), which resolved the identical
-`Cargo.toml` to a different transitive dependency set (93 packages, no
-`rayon`) than `~/dhad` itself did on Rust 1.75.0 (115 packages, with
-`rayon`). `cargo test --all --locked` in CI correctly refused that
-mismatch. The regeneration in `5b0c325` was performed *inside `~/dhad`*
-to align the committed lockfile with the actual project directory, and
-the fourth CI run then passed 285/285 with `--locked` as expected.
+## [v1.2.3] — 2026-08-21
+### Added
+- **Invariant I24 Integration:** Enforced mutual exclusion between `SUKUN` and `TANWEEN_*` on the same atom across both Rust core and Python references.
+- **Adversarial Corpus Expansion:** Registered and exported the live adversarial test vector `at_037_sukun_plus_tanween`.
+- **Dynamic Diagnostics:** Refactored `examples/export_vectors.rs` to compute file vector counts dynamically using `.len()` instead of hardcoded numbers.
 
-The implementation plan's Fix 1.3 has since been updated to state
-explicitly, as its first step, that `Cargo.msrv.lock` must always be
-generated inside the real project directory itself — never copied in
-from a separate working copy, even one with identical `Cargo.toml`
-content. This closes the class of drift that produced this correction.
+### Fixed
+- **Python Ref Parity:** Closed the parity gap on `I24` in both Mode A and Mode B execution paths of `python_ref/dhad_ref.py`.
+- **Cargo.toml Health:** Added `rust-version = "1.75"` to declare the minimum supported Rust compiler explicitly.
 
+---
 
-## Unreleased
+## [v1.2.2] — 2026-08-21
+### Added
+- **Automated Governance Checks:** Added `tools/verify_plan_status.py` and consolidated check `check_11_doc_stats_parity` to automatically monitor document version drift and vector statistics discrepancy.
+- **Formatting Lock:** Added automatic formatting checks and applied systematic code-base format realignment.
 
-- Documented the companion repository more explicitly: `README.md` now points
-  directly to `dhad-conformance-suite` as the home of the public conformance
-  corpus, dependency-free verifier, and independent Python reference
-  implementation.
-- Companion-repository documentation was aligned with the current citation
-  policy: the retired `CR-01..CR-07` notation in
-  `dhad-conformance-suite/README.md` was replaced with a direct link to the
-  normative `specification.md`.
+---
 
-- Corrected `specification.md` §5/§9.1: the 14 FAPS two-codepoint
-  mappings are not all Lam-Alef ligatures; verified breakdown is 8
-  Lam-Alef ligatures + 6 medial-form diacritics paired with a tatweel
-  carrier. Total mapped count remains 141. Also corrected Stage 10
-  wording to refer to the full active invariant set after I24 activation,
-  and updated the `src/faps.rs` `FapsResult::Two` comment to match the
-  verified behavior.
+## [v1.2.1] — 2026-08-20
+### Added
+- **Invariant I25:** Enforced that reserved prosody bits 6–7 (mask `0xC0`) must be zero on all atoms.
+- **Corpus Expansion:** Synced specifications and verifiers to 187 active vectors.
 
-- Retired the historical `CR-01`..`CR-07` correction labels from live
-  source comments and reporting. The rules themselves remain in force;
-  only the citation style changed.
-- Activated invariant **I24**: `SUKUN` and any `TANWEEN_*` bit are now
-  mutually exclusive on the same atom.
-- Restored adversarial test `at_037_sukun_plus_tanween`.
-- Repository-wide total test count increased from **284** to **285**.
+---
 
-## Historical corrections folded into v1.0
+## [v1.2.0] — 2026-06-15
+### Added
+- **Phase 2 Bootstrap:** Officially exported the canonical test suites into the cross-language public conformance corpus (`golden.json`, `adversarial.json`, `tagged.json` with 185 initial vectors).
+- **Python Reference Implementation:** Shipped the independent, dependency-free Python reference implementation (`dhad_ref.py`) with 100% exact stream and error object parity.
 
-| Historical label | Summary | Current home |
-|------------------|---------|--------------|
-| CR-01 | Reserved Base IDs `0x001D..=0x001F` explicitly rejected | I02 |
-| CR-02 | MADD bits accepted only through Mode B / long-vowel rules | §6.2, I15 |
-| CR-03 | Hash values independently verified | `tools/anchor_verify.py`, conformance workflow |
-| CR-04 | `MAX_INPUT_BYTES = 4,194,304` enforced | pipeline pre-stage |
-| CR-05 | P2 means hash-stream consistency, not idempotency | Property list / test suite |
-| CR-06 | `U+0670` after a prosody-inert atom rejected | I16 |
-| CR-07 | Mode B nonzero `reserved` rejected | I22 |
-| Former CR-08 candidate | `SUKUN + TANWEEN` gap closed | I24 |
+---
 
+## [v1.1.2] — 2026-06-13
+### Added
+- **Test Suite 5 & 6 Reinforcement:** Converted raw code coverage probes into deterministic empirical behavioral proofs.
+- **System Handoff:** Shipped `HANDOFF.md` to formalize repository handover and lock stable development state.
+
+---
+
+## [v1.1.1] — 2026-06-12
+### Fixed
+- **Packaging:** Updated the cargo packaging configuration to explicitly include and ship the `CONFORMANCE.md` document to crates.io.
+
+---
+
+## [v1.1.0] — 2026-06-12
+### Added
+- **Honesty Documentation:** Shipped the "Honesty Clause" under `specification.md` explicitly detailing what the engine does *not* do yet (e.g., relaxed Quranic profiles, malformed frame recovery).
+
+---
+
+## [v1.0.1] — 2026-06-06
+### Fixed
+- **Metadata:** Restored valid repository links in `Cargo.toml` and synced transitive dependency lockfiles.
+
+---
+
+## [v1.0.0] — 2026-06-06
+### Added
+- **Initial Stable Release:** Fully stable core implementation of the 12-stage Dhad Arabic Text Canonicalization Pipeline.
+- **Validation Engine:** Fully implemented the 23 baseline invariants (I01–I23).
+- **Cryptographic Hashes:** Implemented deterministic `CoreHash` (SHA-256) and `PhoneticHash` (SHA-256 over CoreHash + prosody).

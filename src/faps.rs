@@ -80,7 +80,7 @@ pub fn faps_decompose(cp: u32) -> FapsResult {
 
         // FE range remainders
         0xFEFD | 0xFEFE => FapsResult::Unmapped,
-        // 0xFEFF handled upstream (BOM/noise) — never reaches here
+        // 0xFEFF passes Stage 3 as PassThrough; filtered in Stage 4 (Noise)
 
         // ── Presentation Forms-A (FB50–FDFF) ────────────────────
         0xFB50 | 0xFB51 => FapsResult::One(0x0671),

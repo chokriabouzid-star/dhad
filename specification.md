@@ -449,8 +449,11 @@ Prosody bits 6–7 (mask `0xC0`) are reserved for future use and must
 be zero on all atoms. This prevents arbitrary annotation leakage
 under Mode B, ensuring that equivalent canonical streams produce
 identical PhoneticHashes.
+
+```
 I25: prosody & 0xC0 == 0
--> ERR_INVALID_PROSODY
+     -> ERR_INVALID_PROSODY
+```
 
 
 

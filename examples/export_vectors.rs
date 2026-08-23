@@ -401,6 +401,10 @@ fn main() {
     let adversarial = export_adversarial();
     let tagged = export_tagged();
 
+    let n_golden = golden.len();
+    let n_adversarial = adversarial.len();
+    let n_tagged = tagged.len();
+
     write_suite(
         out_dir,
         "golden.json",
@@ -426,8 +430,17 @@ fn main() {
         tagged,
     );
 
-    println!("wrote ../dhad-conformance-suite/vectors/golden.json       (116 vectors)");
-    println!("wrote ../dhad-conformance-suite/vectors/adversarial.json  (40 vectors)");
-    println!("wrote ../dhad-conformance-suite/vectors/tagged.json       (32 vectors)");
-    println!("total vectors: 188");
+    println!(
+        "wrote ../dhad-conformance-suite/vectors/golden.json       ({} vectors)",
+        n_golden
+    );
+    println!(
+        "wrote ../dhad-conformance-suite/vectors/adversarial.json  ({} vectors)",
+        n_adversarial
+    );
+    println!(
+        "wrote ../dhad-conformance-suite/vectors/tagged.json       ({} vectors)",
+        n_tagged
+    );
+    println!("total vectors: {}", n_golden + n_adversarial + n_tagged);
 }

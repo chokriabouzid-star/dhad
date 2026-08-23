@@ -59,7 +59,7 @@ This breaks:
 
 Dhad solves this with a **formal specification** (25 invariants, 7 corrections),
 a **deterministic Rust implementation** (287 tests), and a **188-vector
-conformance suite** verified across two independent implementations.
+conformance suite** verified across a production Rust crate and an independent Python reference implementation.
 
 The public conformance corpus, dependency-free verifier, and independent
 Python reference implementation live in the companion repository:
@@ -309,7 +309,7 @@ This is a mandatory self-test.
 
 ## Conformance
 
-Dhad v1.2.2 is verified across **two independent implementations**:
+Dhad v1.2.3 is verified against the canonical specification via dual implementations:
 
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
@@ -323,9 +323,9 @@ Dhad v1.2.2 is verified across **two independent implementations**:
 | File | Mode | Vectors | Composition |
 |------|------|---------|-------------|
 | `golden.json` | A | 116 | All success cases |
-| `adversarial.json` | A | 39 | 3 success + 36 typed errors |
-| `tagged.json` | B | 30 | 9 success + 21 typed errors |
-| **Total** | | **187** | |
+| `adversarial.json` | A | 40 | 3 success + 37 typed errors |
+| `tagged.json` | B | 32 | 9 success + 23 typed errors |
+| **Total** | | **188** | |
 
 Published in the companion repository: [dhad-conformance-suite](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 
@@ -444,8 +444,9 @@ In v1.x, malformed Mode B binary frames are reported as
 | Version | Status | Highlights |
 |---------|--------|------------|
 | **v1.2.0** | Released | Conformance suite + Python reference parity + PROOFS.md |
-| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 188 vectors |
+| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 187 vectors |
 | **v1.2.2** | Released | Governance release: fixes doc drift, adds automated CI doc-check & Git tags |
+| **v1.2.3** | Released | Conformance parity: I24 in Python ref, at_037 export, 188 vectors |
 | v1.3.0 | Planned | `QuranicRelaxed` profile, RFC-001 decision |
 | v2.0.0 | Planned | `MalformedFrame` error, DhadIR (word-level representation) |
 | Future | Vision | Wethaq (text authentication), search engine integrations |

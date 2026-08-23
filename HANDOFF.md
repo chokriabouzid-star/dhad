@@ -4,8 +4,8 @@
 **Owner:** Chokri Abouzid  
 **Repository:** https://github.com/chokriabouzid-star/dhad  
 **Crate:** https://crates.io/crates/dhad  
-**Latest published version:** `v1.2.1`  
-**Active development version:** `v1.2.1` (published)
+**Latest published version:** `v1.2.3`  
+**Active development version:** `v1.2.3` (published)
 
 ---
 
@@ -48,8 +48,8 @@ Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 - `cargo test` — 287 tests, all green
 - `cargo run --example export_vectors` — 188 vectors generated into `../dhad-conformance-suite/vectors/`
 - `python3 ../dhad-conformance-suite/tools/verify_vectors.py` — ALL VECTOR FILES VERIFIED
-- `python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py` — 30/30
-- `python3 ../dhad-conformance-suite/python_ref/verify_golden_ref.py` — 155/155
+- `python3 ../dhad-conformance-suite/python_ref/verify_tagged_ref.py` — 32/32
+- `python3 ../dhad-conformance-suite/python_ref/verify_golden_ref.py` — 156/156
 - No `unsafe`
 - Stable Rust; nightly only for `cargo-fuzz`
 
@@ -93,8 +93,8 @@ Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 
 #### Step 4B: Python reference implementation ✅
 - Implemented in `dhad-conformance-suite/python_ref/`
-- Mode B: 30/30 exact parity
-- Mode A: 155/155 exact parity
+- Mode B: 32/32 exact parity
+- Mode A: 156/156 exact parity
 - Full corpus parity: **188/188**
 - Python 3.10+ stdlib only, no Rust dependency
 
