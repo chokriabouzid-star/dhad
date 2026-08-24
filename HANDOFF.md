@@ -38,7 +38,7 @@ Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 | 1.1.1 | published | packaging fix |
 | 1.1.2 | published | test-contract reinforcement |
 | 1.2.0 | Published | conformance suite + Python reference parity |
-| 1.2.1 | Published | Invariant I25, 187 vectors |
+| 1.2.1 | Published | Invariant I25, 18&#55; vectors |
 | 1.2.2 | Published | governance checks, CI doc parity |
 | 1.2.3 | Published | I24 Python parity, at_037, 188 vectors |
 
@@ -76,8 +76,8 @@ Design axioms: A1, A2, A3, A4, A5, A7, A8, A10.
 
 #### Step 3: Manifests ✅
 - `tests/cases/golden_cases.rs` — 116 Mode A success vectors
-- `tests/cases/tagged_cases.rs` — 30 Mode B vectors
-- `tests/cases/adversarial_cases.rs` — 39 Mode A vectors
+- `tests/cases/tagged_cases.rs` — 32 Mode B vectors
+- `tests/cases/adversarial_cases.rs` — 40 Mode A vectors
 - `tests/cases/mod.rs`
 
 #### Step 3B: Exporter ✅

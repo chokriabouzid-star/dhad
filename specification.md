@@ -1,6 +1,6 @@
 # Dhad (ضاد) — Protocol Specification
 
-**Version:** 1.2
+**Version:** 1.3
 **Status:** Normative
 **Repository:** https://github.com/chokriabouzid-star/dhad
 **Conformance suite:** https://github.com/chokriabouzid-star/dhad-conformance-suite
@@ -574,6 +574,25 @@ different spellings of what a human reader would consider "the same
 word," if they place the hamza differently, produce different
 CoreHashes by design; validating spelling correctness is outside Dhad's
 scope.
+
+### 11.6 CoreHash and PhoneticHash Are Not a MAC
+
+`CoreHash` and `PhoneticHash` (§7) are unkeyed SHA-256 outputs. They
+give a strong guarantee against *accidental* collision — two different
+inputs are exceptionally unlikely to canonicalize to the same hash — but
+**no guarantee against a deliberate adversary**. Anyone who can supply
+arbitrary input can compute the "correct" hash for any text of their own
+choosing, including a maliciously altered one. A matching `CoreHash`
+proves two inputs canonicalize identically; it does not prove who
+produced either input, or that neither was altered by someone who also
+has access to Dhad.
+
+Any downstream use case described as "authentication" or "verification"
+in the sense of proving text has not been altered by a party who should
+not have been able to alter it needs a *keyed* construction — an HMAC,
+or a digital signature, computed over `CoreHash` — built on top of
+Dhad's output. Dhad itself provides neither, and none of its use cases
+described in §1 depend on it doing so.
 
 ---
 

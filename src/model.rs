@@ -128,6 +128,19 @@ pub struct AtomStream {
 }
 
 impl AtomStream {
+    /// Builds a stream from atoms exactly as given — **no invariant
+    /// (I01–I25, §8) is checked here.** `process_mode_a` and
+    /// `process_mode_b` are the only paths that guarantee every atom
+    /// they hand back has passed the full check; construct one of those
+    /// instead of calling this directly unless you have already
+    /// validated `atoms` yourself, e.g. via `invariants::validate_atom`
+    /// on each one. This stays `pub` (rather than becoming
+    /// crate-private or gaining an internal validation pass) because
+    /// some legitimate callers — property tests, benchmarks, tooling —
+    /// need to construct streams from atoms that are deliberately
+    /// invalid or that have already been validated elsewhere, and a
+    /// second validation pass here would cost every hot-path caller for
+    /// their benefit.
     pub fn new(atoms: Vec<DhadAtom>) -> Self {
         Self { atoms }
     }

@@ -4,12 +4,12 @@ import json
 import struct
 from pathlib import Path
 
-ROOT = Path("target/dhad-conformance-vectors")
+ROOT = Path("../dhad-conformance-suite/vectors")
 
 EXPECTED_FILES = {
     "golden.json": {"suite": "golden", "mode": "A", "count": 116},
-    "adversarial.json": {"suite": "adversarial", "mode": "A", "count": 39},
-    "tagged.json": {"suite": "tagged", "mode": "B", "count": 30},
+    "adversarial.json": {"suite": "adversarial", "mode": "A", "count": 40},
+    "tagged.json": {"suite": "tagged", "mode": "B", "count": 32},
 }
 
 EXPECTED_ERROR_FIELDS = {
@@ -136,7 +136,7 @@ def verify_file(path: Path, expected_meta, found_anchors):
     data = json.loads(path.read_text(encoding="utf-8"))
 
     assert data["schema_version"] == "1.0", f"{path.name}: schema_version mismatch"
-    assert data["dhad_spec"] == "v1.2", f"{path.name}: dhad_spec mismatch"
+    assert data["dhad_spec"] == "v1.3", f"{path.name}: dhad_spec mismatch"
     assert isinstance(data["generated_by"], str) and data["generated_by"].startswith("dhad-rust-"), \
         f"{path.name}: generated_by invalid"
     assert data["suite"] == expected_meta["suite"], f"{path.name}: suite mismatch"

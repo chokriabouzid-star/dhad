@@ -57,7 +57,7 @@ This breaks:
 - **Verification** — "is this Quranic verse identical to the master copy?" becomes unanswerable
 - **NLP preprocessing** — language models see noise instead of structure
 
-Dhad solves this with a **formal specification** (25 invariants, 7 corrections),
+Dhad solves this with a **formal specification** (25 invariants, fully normative),
 a **deterministic Rust implementation** (287 tests), and a **188-vector
 conformance suite** verified across a production Rust crate and an independent Python reference implementation.
 
@@ -444,7 +444,7 @@ In v1.x, malformed Mode B binary frames are reported as
 | Version | Status | Highlights |
 |---------|--------|------------|
 | **v1.2.0** | Released | Conformance suite + Python reference parity + PROOFS.md |
-| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 187 vectors |
+| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 18&#55; vectors |
 | **v1.2.2** | Released | Governance release: fixes doc drift, adds automated CI doc-check & Git tags |
 | **v1.2.3** | Released | Conformance parity: I24 in Python ref, at_037 export, 188 vectors |
 | v1.3.0 | Planned | `QuranicRelaxed` profile, RFC-001 decision |

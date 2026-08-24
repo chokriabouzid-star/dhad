@@ -4,6 +4,26 @@ All notable changes to this project are documented here, strictly bound to the h
 
 ---
 
+## Unreleased
+
+### Added
+- **Specification §11.6:** Documented that CoreHash and PhoneticHash are
+  unkeyed SHA-256 outputs, not a MAC. Bumped spec to v1.3; updated
+  `dhad_spec` in `export_vectors.rs` and conformance-suite verifier.
+  Vectors regenerated (counts unchanged: 116/40/32, 188 total).
+- **Stale-token denylist in Check 11:** `verify_plan_status.py` now rejects
+  prior-generation counts to prevent drift that survived two releases.
+
+### Fixed
+- **Dead tagline removal:** Retired "7 corrections" / "7 تصحيحات" from
+  `README.md` and `README.ar.md`.
+- **`tools/verify_vectors.py` path:** Corrected to
+  `../dhad-conformance-suite/vectors/`; synced counts to 116/40/32.
+- **Inline documentation:** Added doc comments to `AtomStream::new`,
+  `i02_reserved_base`; replaced `.unwrap()` with `.expect()` in `mode_b.rs`.
+
+---
+
 ## [v1.2.3] — 2026-08-21
 ### Added
 - **Invariant I24 Integration:** Enforced mutual exclusion between `SUKUN` and `TANWEEN_*` on the same atom across both Rust core and Python references.

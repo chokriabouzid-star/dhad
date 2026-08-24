@@ -55,7 +55,13 @@ pub fn parse_frame(frame: &[u8]) -> Result<Vec<DhadAtom>, ErrorKind> {
     }
 
     // n_atoms
-    let n_atoms = u32::from_le_bytes(frame[6..10].try_into().unwrap()) as usize;
+    // frame[6..10] is always a valid 4-byte slice here: the length guard
+    // above guarantees frame.len() is at least HEADER_SIZE + CHECKSUM_SIZE.
+    let n_atoms = u32::from_le_bytes(
+        frame[6..10]
+            .try_into()
+            .expect("frame[6..10] is exactly 4 bytes: length pre-checked above"),
+    ) as usize;
 
     // Total expected size: header(10) + n_atoms*8 + checksum(4)
     let atoms_size = n_atoms
@@ -72,7 +78,13 @@ pub fn parse_frame(frame: &[u8]) -> Result<Vec<DhadAtom>, ErrorKind> {
 
     // CRC-32: computed over all bytes except the last 4
     let payload = &frame[..frame.len() - CHECKSUM_SIZE];
-    let expected_crc = u32::from_le_bytes(frame[frame.len() - 4..].try_into().unwrap());
+    // frame[frame.len()-4..] is always a valid 4-byte slice for the same
+    // reason as n_atoms above (frame.len() is pre-checked to be >= 14).
+    let expected_crc = u32::from_le_bytes(
+        frame[frame.len() - 4..]
+            .try_into()
+            .expect("frame[frame.len()-4..] is exactly 4 bytes: length pre-checked above"),
+    );
     let computed_crc = crc32fast::hash(payload);
     if computed_crc != expected_crc {
         return Err(make_frame_error(

@@ -842,6 +842,15 @@ def check_11_doc_stats_parity() -> CheckResult:
       - Vector counts: len(json["vectors"]) from actual JSON files
       - ok/err split: count of expected_result == "ok"/"err" per JSON file
     """
+    STALE_TOKENS = [
+        "284", "285", "286",  # superseded test-count totals
+        "185", "186", "187",  # superseded vector-corpus totals
+        "39 adversarial", "39 typed", "| 39 |",  # superseded adversarial
+        "30 tagged", "30 Mode B", "| 30 |",  # superseded tagged
+        "23 invariant", "24 invariant",  # superseded invariant counts
+        "7 corrections", "7 تصحيحات",  # retired CR-01..CR-07 tagline
+    ]
+
     errs: list[str] = []
 
     # 1a. Test count via --list
@@ -1003,6 +1012,11 @@ def check_11_doc_stats_parity() -> CheckResult:
         m_t = re.search(r"total\s*=\s*(\d+)", sc)
         if m_t and int(m_t.group(1)) != v["total"]:
             errs.append(f"schema §13: total={m_t.group(1)} (actual {v['total']})")
+
+    for label, text in (("README.md", readme_en), ("README.ar.md", readme_ar), ("HANDOFF.md", handoff)):
+        for token in STALE_TOKENS:
+            if token in text:
+                errs.append(f"{label} still contains stale token {token!r}")
 
     if errs:
         return CheckResult(

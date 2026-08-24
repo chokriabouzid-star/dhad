@@ -47,6 +47,15 @@ fn i01_valid_base(a: &DhadAtom, idx: usize) -> Result<(), ErrorKind> {
     }
 }
 
+/// Currently unreachable in this check order: `i01_valid_base` (above)
+/// already rejects every value in 0x001D..=0x001F, so no atom can reach
+/// this function with `a.base` in that range. Kept numbered and called
+/// anyway, rather than removed or folded into I01, because
+/// specification.md §8 documents I01–I25 as a fixed, independently
+/// numbered set (mirroring how I08/I09 are similarly subsumed by I04
+/// there) — an implementation is conformant only if it enforces the
+/// rule this function names, regardless of whether I01 already makes
+/// that enforcement redundant in the current code path.
 fn i02_reserved_base(a: &DhadAtom, idx: usize) -> Result<(), ErrorKind> {
     if matches!(a.base, 0x001D..=0x001F) {
         Err(ErrorKind::UnmappedCodepoint {
