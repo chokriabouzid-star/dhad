@@ -459,6 +459,14 @@ I25: prosody & 0xC0 == 0
 
 ---
 
+
+### 8.3 Position and Atom Index Semantics in Error Reporting
+
+- **`position` (Codepoint-level errors):** Refers to the 0-based index of the codepoint within the **filtered input codepoint stream** (after §5 noise filtering, before multi-codepoint FAPS expansion).
+- **`atom_index` (Atom-level errors):** Refers to the 0-based index of the atom within the **canonical atom stream** (after Stage 3 FAPS decomposition and atom construction).
+
+---
+
 ## 9. Error Catalog
 
 | Error | Condition |
