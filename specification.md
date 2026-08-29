@@ -462,7 +462,9 @@ I25: prosody & 0xC0 == 0
 
 ### 8.3 Position and Atom Index Semantics in Error Reporting
 
-- **`position` (Codepoint-level errors):** Refers to the 0-based index of the codepoint within the **filtered input codepoint stream** (after §5 noise filtering, before multi-codepoint FAPS expansion).
+- **`position` (Codepoint-level errors):** Refers to the 0-based index of the codepoint within the input stream:
+  - For errors discovered during Stage 3 FAPS decomposition: the index within the raw input stream (before expansion or noise filtering).
+  - For errors discovered during Stage 5 token classification: the index within the filtered and expanded stream (after FAPS decomposition and noise filtering).
 - **`atom_index` (Atom-level errors):** Refers to the 0-based index of the atom within the **canonical atom stream** (after Stage 3 FAPS decomposition and atom construction).
 
 ---

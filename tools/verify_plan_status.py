@@ -29,8 +29,8 @@ EXPECTED_AUDIT_IGNORES = {"RUSTSEC-2026-0204", "RUSTSEC-2026-0190"}
 EXPECTED_VECTOR_COUNTS = {
     "golden": 116,
     "adversarial": 40,
-    "tagged": 32,
-    "total": 188,
+    "tagged": 36,
+    "total": 192,
 }
 EXPECTED_NOISE_SET = (
     {0x0640, 0x034F, 0xFEFF}
@@ -844,7 +844,7 @@ def check_11_doc_stats_parity() -> CheckResult:
     """
     STALE_TOKENS = [
         "284", "285", "286",  # superseded test-count totals
-        "185", "186", "187",  # superseded vector-corpus totals
+        "185", "186",  # superseded vector-corpus totals (187 is valid for v1.2.1 history)
         "39 adversarial", "39 typed", "| 39 |",  # superseded adversarial
         "30 tagged", "30 Mode B", "| 30 |",  # superseded tagged
         "23 invariant", "24 invariant",  # superseded invariant counts
@@ -916,8 +916,8 @@ def check_11_doc_stats_parity() -> CheckResult:
         errs.append(f"README.md: '{m_verified.group(1)} is verified' (expected v1.2.3)")
 
     m_v121 = re.search(r"\|\s*\*\*v1\.2\.1\*\*\s*\|[^|]*\|([^|]*)\|", readme_en)
-    if m_v121 and "188" in m_v121.group(1):
-        errs.append("README.md: v1.2.1 row claims 188 vectors (shipped with 187)")
+    if m_v121 and "192" in m_v121.group(1):
+        errs.append("README.md: v1.2.1 row claims 192 vectors (shipped with 187)")
 
     if not re.search(r"\|\s*\*\*v1\.2\.3\*\*\s*\|", readme_en):
         errs.append("README.md: v1.2.3 row missing from version table")
@@ -930,8 +930,8 @@ def check_11_doc_stats_parity() -> CheckResult:
         errs.append(f"README.ar.md: does not mention {actual_tests} tests")
 
     m_ar_v121 = re.search(r"\|\s*\*\*v1\.2\.1\*\*\s*\|[^|]*\|([^|]*)\|", readme_ar)
-    if m_ar_v121 and "188" in m_ar_v121.group(1):
-        errs.append("README.ar.md: v1.2.1 row claims 188 vectors (shipped with 187)")
+    if m_ar_v121 and "192" in m_ar_v121.group(1):
+        errs.append("README.ar.md: v1.2.1 row claims 192 vectors (shipped with 187)")
 
     # 4. dhad/HANDOFF.md
     handoff = read_text(ROOT / "HANDOFF.md")

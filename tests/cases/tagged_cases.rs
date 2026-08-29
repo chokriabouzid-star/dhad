@@ -433,4 +433,33 @@ pub const TAGGED_CASES: &[TaggedCase] = &[
             error_kind: "InvalidProsody",
         },
     },
+    // ── Layer 0: I01/I03/I17/I23 Mode B Coverage ──────────────────────────────
+    TaggedCase {
+        name: "at_i01_base_out_of_range",
+        input: TaggedInput::Atoms(&[atom(0x0200, 0x0000, 0x00, 0x00)]),
+        expected: TaggedExpected::Err {
+            error_kind: "UnmappedCodepoint",
+        },
+    },
+    TaggedCase {
+        name: "at_i03_invalid_mark_combo",
+        input: TaggedInput::Atoms(&[atom(base::ALEF, 0x0003, 0x00, 0x00)]),
+        expected: TaggedExpected::Err {
+            error_kind: "InvalidMarkCombo",
+        },
+    },
+    TaggedCase {
+        name: "at_i17_inert_marks_zero",
+        input: TaggedInput::Atoms(&[atom(64, 0x0008, 0x00, 0x00)]), // 64 = SPACE
+        expected: TaggedExpected::Err {
+            error_kind: "InvalidMarkCombo",
+        },
+    },
+    TaggedCase {
+        name: "at_i23_marks_reserved_bits",
+        input: TaggedInput::Atoms(&[atom(base::ALEF, 0x0020, 0x00, 0x00)]), // bit 5
+        expected: TaggedExpected::Err {
+            error_kind: "InvalidMarkCombo",
+        },
+    },
 ];

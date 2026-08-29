@@ -1,5 +1,5 @@
 # Dhad Conformance Report
-**Generated:** 2026-08-23T22:32:06Z
+**Generated:** 2026-08-29T21:27:52Z
 **Specification:** Dhad v1.2
 **Status:** ✅ CONFORMANT
 
@@ -20,7 +20,7 @@
 | Suite | Tests | Result |
 |-------|-------|--------|
 | suite1_golden (Mode A) | 121 | ✅ |
-| suite2_tagged (Mode B) | 27 | ✅ |
+| suite2_tagged (Mode B) | 31 | ✅ |
 | suite3_adversarial | 53 | ✅ |
 | suite4_properties | 17 | ✅ |
 | suite5_coverage (behavioral) | 49 | ✅ |
@@ -28,7 +28,7 @@
 | unit tests (lib) | 6 | ✅ |
 | unit tests (dhad-cli) | 0 | ✅ |
 | doc tests | 3 | ✅ |
-| **Total** | **287** | ✅ **287 passed, 0 failed** |
+| **Total** | **291** | ✅ **291 passed, 0 failed** |
 
 ---
 
@@ -137,7 +137,7 @@ Verified independently by `tools/anchor_verify.py`.
   the published stream shows `LAM+SUKUN`, but the normative input bytes
   contain no `U+0652`; the implementation follows input bytes exactly.
 - I24 is now active: `SUKUN + TANWEEN` is rejected, `at_037` is restored,
-  and the current repository-wide expected total is 287 tests with 188 conformance vectors.
+  and the current repository-wide expected total is 291 tests with 192 conformance vectors.
 
 ---
 

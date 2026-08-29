@@ -3,8 +3,8 @@
 [![Crates.io](https://img.shields.io/crates/v/dhad.svg)](https://crates.io/crates/dhad)
 [![Docs.rs](https://docs.rs/dhad/badge.svg)](https://docs.rs/dhad)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Tests](https://img.shields.io/badge/tests-287%20verified-blue.svg)](#conformance)
-[![Conformance](https://img.shields.io/badge/conformance-188%2F188-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
+[![Tests](https://img.shields.io/badge/tests-291%20verified-blue.svg)](#conformance)
+[![Conformance](https://img.shields.io/badge/conformance-192%2F192-brightgreen.svg)](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 [![Proofs](https://img.shields.io/badge/proofs-10%20verified-blue.svg)](./PROOFS.md)
 
 **An identity layer for digital Arabic text.**
@@ -58,7 +58,7 @@ This breaks:
 - **NLP preprocessing** — language models see noise instead of structure
 
 Dhad solves this with a **formal specification** (25 invariants, fully normative),
-a **deterministic Rust implementation** (287 tests), and a **188-vector
+a **deterministic Rust implementation** (291 tests), and a **192-vector
 conformance suite** verified across a production Rust crate and an independent Python reference implementation.
 
 The public conformance corpus, dependency-free verifier, and independent
@@ -313,8 +313,8 @@ Dhad v1.2.3 is verified against the canonical specification via dual implementat
 
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
-| Rust (this repo) | 287 unit + integration tests | ✅ |
-| Python (independent reference) | 188/188 protocol vectors | ✅ |
+| Rust (this repo) | 291 unit + integration tests | ✅ |
+| Python (independent reference) | 192/192 protocol vectors | ✅ |
 | Anchor constants (cross-impl) | 4/4 | ✅ |
 | Empirical behavioral proofs | 10/10 | ✅ |
 
@@ -324,8 +324,8 @@ Dhad v1.2.3 is verified against the canonical specification via dual implementat
 |------|------|---------|-------------|
 | `golden.json` | A | 116 | All success cases |
 | `adversarial.json` | A | 40 | 3 success + 37 typed errors |
-| `tagged.json` | B | 32 | 9 success + 23 typed errors |
-| **Total** | | **188** | |
+| `tagged.json` | B | 36 | 9 success + 27 typed errors |
+| **Total** | | **192** | |
 
 Published in the companion repository: [dhad-conformance-suite](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 
@@ -444,9 +444,9 @@ In v1.x, malformed Mode B binary frames are reported as
 | Version | Status | Highlights |
 |---------|--------|------------|
 | **v1.2.0** | Released | Conformance suite + Python reference parity + PROOFS.md |
-| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 18&#55; vectors |
+| **v1.2.1** | Released | Patch release: adds Invariant I25, syncs specs and verifiers to 187 vectors |
 | **v1.2.2** | Released | Governance release: fixes doc drift, adds automated CI doc-check & Git tags |
-| **v1.2.3** | Released | Conformance parity: I24 in Python ref, at_037 export, 188 vectors |
+| **v1.2.3** | Released | Conformance parity: I24 in Python ref, at_037 export, 192 vectors |
 | v1.3.0 | Planned | `QuranicRelaxed` profile, RFC-001 decision |
 | v2.0.0 | Planned | `MalformedFrame` error, DhadIR (word-level representation) |
 | Future | Vision | Wethaq (text authentication), search engine integrations |

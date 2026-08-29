@@ -564,3 +564,82 @@ fn round_trip_mode_a_to_mode_b() {
         "round-trip PhoneticHash mismatch"
     );
 }
+
+// ═══════════════════════════════════════════════════════════════════
+// Layer 0: New integration tests for I01, I03, I17, I23 in Mode B
+// ═══════════════════════════════════════════════════════════════════
+#[test]
+fn frame_err_i01_base_out_of_range() {
+    let atom = DhadAtom {
+        base: 0x0200,
+        marks: 0,
+        flags: 0,
+        prosody: 0,
+        reserved: 0,
+    };
+    let frame = build_frame(&[atom]);
+    assert!(
+        matches!(
+            process_mode_b(&frame),
+            Err(ErrorKind::UnmappedCodepoint { codepoint: 0x0200, position: 0 })
+        ),
+        "base 0x0200 must be rejected (I01)"
+    );
+}
+
+#[test]
+fn frame_err_i03_invalid_mark_combo() {
+    let atom = DhadAtom {
+        base: base::ALEF,
+        marks: 0x0003, // Fatha + Damma
+        flags: 0,
+        prosody: 0,
+        reserved: 0,
+    };
+    let frame = build_frame(&[atom]);
+    assert!(
+        matches!(
+            process_mode_b(&frame),
+            Err(ErrorKind::InvalidMarkCombo { marks: 0x0003, atom_index: 0 })
+        ),
+        "invalid mark combo 0x0003 must be rejected (I03)"
+    );
+}
+
+#[test]
+fn frame_err_i17_inert_marks_zero() {
+    let atom = DhadAtom {
+        base: 64, // SPACE
+        marks: 0x0008, // SUKUN
+        flags: 0,
+        prosody: 0,
+        reserved: 0,
+    };
+    let frame = build_frame(&[atom]);
+    assert!(
+        matches!(
+            process_mode_b(&frame),
+            Err(ErrorKind::InvalidMarkCombo { marks: 0x0008, atom_index: 0 })
+        ),
+        "marks on inert base SPACE must be rejected (I17)"
+    );
+}
+
+#[test]
+fn frame_err_i23_marks_reserved_bits() {
+    let atom = DhadAtom {
+        base: base::ALEF,
+        marks: 0x0020, // bit 5
+        flags: 0,
+        prosody: 0,
+        reserved: 0,
+    };
+    let frame = build_frame(&[atom]);
+    assert!(
+        matches!(
+            process_mode_b(&frame),
+            Err(ErrorKind::InvalidMarkCombo { marks: 0x0020, atom_index: 0 })
+        ),
+        "reserved marks bit 5 must be rejected (I23)"
+    );
+}

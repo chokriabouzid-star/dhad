@@ -385,7 +385,7 @@ fn main() {
     );
     assert_eq!(
         tagged_cases::TAGGED_CASES.len(),
-        32,
+        36,
         "tagged manifest count changed"
     );
     assert_eq!(
