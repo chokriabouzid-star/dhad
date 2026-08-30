@@ -58,7 +58,7 @@ This breaks:
 - **NLP preprocessing** — language models see noise instead of structure
 
 Dhad solves this with a **formal specification** (25 invariants, fully normative),
-a **deterministic Rust implementation** (291 tests), and a **192-vector
+a **deterministic Rust implementation** (291 tests), and a **195-vector
 conformance suite** verified across a production Rust crate and an independent Python reference implementation.
 
 The public conformance corpus, dependency-free verifier, and independent
@@ -314,7 +314,7 @@ Dhad v1.2.3 is verified against the canonical specification via dual implementat
 | Implementation | Coverage | Status |
 |----------------|----------|--------|
 | Rust (this repo) | 291 unit + integration tests | ✅ |
-| Python (independent reference) | 192/192 protocol vectors | ✅ |
+| Python (independent reference) | 195/195 protocol vectors | ✅ |
 | Anchor constants (cross-impl) | 4/4 | ✅ |
 | Empirical behavioral proofs | 10/10 | ✅ |
 
@@ -323,9 +323,9 @@ Dhad v1.2.3 is verified against the canonical specification via dual implementat
 | File | Mode | Vectors | Composition |
 |------|------|---------|-------------|
 | `golden.json` | A | 116 | All success cases |
-| `adversarial.json` | A | 40 | 3 success + 37 typed errors |
+| `adversarial.json` | A | 43 | 3 success + 40 typed errors |
 | `tagged.json` | B | 36 | 9 success + 27 typed errors |
-| **Total** | | **192** | |
+| **Total** | | **195** | |
 
 Published in the companion repository: [dhad-conformance-suite](https://github.com/chokriabouzid-star/dhad-conformance-suite)
 

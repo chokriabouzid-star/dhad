@@ -8,7 +8,7 @@ ROOT = Path("../dhad-conformance-suite/vectors")
 
 EXPECTED_FILES = {
     "golden.json": {"suite": "golden", "mode": "A", "count": 116},
-    "adversarial.json": {"suite": "adversarial", "mode": "A", "count": 40},
+    "adversarial.json": {"suite": "adversarial", "mode": "A", "count": 43},
     "tagged.json": {"suite": "tagged", "mode": "B", "count": 36},
 }
 

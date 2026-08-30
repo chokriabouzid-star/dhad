@@ -22,9 +22,9 @@ pub enum Token {
     },
 }
 
-pub fn classify(cps: &[u32]) -> Result<Vec<Token>, ErrorKind> {
+pub fn classify(cps: &[(u32, usize)]) -> Result<Vec<Token>, ErrorKind> {
     let mut tokens = Vec::with_capacity(cps.len());
-    for (position, &cp) in cps.iter().enumerate() {
+    for &(cp, position) in cps.iter() {
         match cp {
             0x064E => tokens.push(Token::Diacritic {
                 cp,

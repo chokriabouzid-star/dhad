@@ -390,7 +390,7 @@ fn main() {
     );
     assert_eq!(
         adversarial_cases::ADVERSARIAL_CASES.len(),
-        40,
+        43,
         "adversarial manifest count changed"
     );
 

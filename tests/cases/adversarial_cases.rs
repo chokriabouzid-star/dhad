@@ -424,4 +424,26 @@ pub const ADVERSARIAL_CASES: &[AdversarialCase] = &[
             error_kind: "InvalidProsody",
         },
     },
+    // ── Layer 1: Span Position Parity Verification Cases ─────────────────────
+    AdversarialCase {
+        name: "at_047_zwnj_plus_unmapped_faps",
+        input: AdversarialInput::Bytes(b"\xe2\x80\x8c\xef\xb9\xb3"),
+        expected: AdversarialExpected::Err {
+            error_kind: "UnmappedCodepoint",
+        },
+    },
+    AdversarialCase {
+        name: "at_048_lam_alef_plus_unmapped",
+        input: AdversarialInput::Bytes(b"\xef\xbb\xbbz"),
+        expected: AdversarialExpected::Err {
+            error_kind: "UnmappedCodepoint",
+        },
+    },
+    AdversarialCase {
+        name: "at_049_zwnj_plus_orphan_diacritic",
+        input: AdversarialInput::Bytes(b"\xe2\x80\x8c\xd9\x8e"),
+        expected: AdversarialExpected::Err {
+            error_kind: "OrphanDiacritic",
+        },
+    },
 ];

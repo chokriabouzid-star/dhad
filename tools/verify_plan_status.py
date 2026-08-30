@@ -25,12 +25,12 @@ CARGO_LOCK_PATH = ROOT / "Cargo.lock"
 CARGO_MSRV_LOCK_PATH = ROOT / "Cargo.msrv.lock"
 
 MSRV = "1.75.0"
-EXPECTED_AUDIT_IGNORES = {"RUSTSEC-2026-0204", "RUSTSEC-2026-0190"}
+EXPECTED_AUDIT_IGNORES = set()
 EXPECTED_VECTOR_COUNTS = {
     "golden": 116,
-    "adversarial": 40,
+    "adversarial": 43,
     "tagged": 36,
-    "total": 192,
+    "total": 195,
 }
 EXPECTED_NOISE_SET = (
     {0x0640, 0x034F, 0xFEFF}
@@ -711,7 +711,7 @@ def check_09_cargo_audit() -> CheckResult:
     ci_text = read_text(CI_PATH)
     ignore_ids = re.findall(r"--ignore\s+(RUSTSEC-\d{4}-\d{4})", ci_text)
 
-    if set(ignore_ids) != EXPECTED_AUDIT_IGNORES or len(ignore_ids) != 2:
+    if set(ignore_ids) != EXPECTED_AUDIT_IGNORES or len(ignore_ids) != 0:
         return CheckResult(
             9,
             "cargo audit ignore list",
@@ -759,7 +759,7 @@ def check_09_cargo_audit() -> CheckResult:
         9,
         "cargo audit ignore list",
         "PASS",
-        "قائمة ignores في CI = advisoryين بالضبط، والفحص الطازج بدون ignores لم يُظهر IDs جديدة.",
+        "قائمة ignores في CI نظيفة (0 ignores)، والفحص الطازج بدون ignores لم يُظهر IDs جديدة.",
     )
 
 
